@@ -1,6 +1,17 @@
 version: '3'
 
 services:
+  db-service:
+    build: ./db
+    # environment:
+      # - MONGO_INITDB_DATABASE=omdb
+      # - MONGO_INITDB_ROOT_USERNAME=omdb
+      # - MONGO_INITDB_ROOT_PASSWORD=abcdefg
+    volumes:
+      # - ./db/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+      - ./mongo-volume:/data/db
+    ports:
+      - '27017-27019:27017-27019'
   backend-service:
     build: ./server
     expose: 
