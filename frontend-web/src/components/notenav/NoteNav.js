@@ -6,6 +6,8 @@ import Timer from '../timer/Timer.js';
 import DeleteConfirmation from '../modals/DeleteConfirmation.js';
 import EditNote from '../modals/EditNote';
 
+const URL_PREFIX = "";
+
 // Navigations for note items
 class NoteNav extends Component
 {
@@ -32,12 +34,25 @@ class NoteNav extends Component
 
    deleteNote = () =>
    {
+      let deleteNoteURL = URL_PREFIX;
 
+      deleteNoteURL += "/deleteNote";
+   }
+
+   editNote = () =>
+   {
+      let editNoteURL = URL_PREFIX;
+
+      editNoteURL += "/setNote"
    }
 
    // toggles between display and hide states
-   toggleShowNotes()
+   getNotes()
    {
+      let getNotesURL = URL_PREFIX;
+
+      getNotesURL += "/getNotes";
+
       this.setState({ showNotes: !this.state.showNotes });
    }
 
@@ -59,14 +74,14 @@ class NoteNav extends Component
                   ?
                      <button
                         className = "btn btn-secondary rounded border align-self-start mt-5"
-                        onClick = {() => this.toggleShowNotes()}
+                        onClick = {() => this.getNotes()}
                      >
                      Display All
                      </button>
                   :
                      <button
                         className = "btn btn-outline-secondary rounded border align-self-start mt-5"
-                        onClick = {() => this.toggleShowNotes()}
+                        onClick = {() => this.getNotes()}
                      >
                      Hide All
                      </button>
@@ -93,7 +108,7 @@ class NoteNav extends Component
             </div>
 
             {/*<ConfirmLife />*/}
-            <NewNote addNote = {this.addNote}/>
+            <NewNote addNote = {this.addNote} editNote = {this.editNote}/>
             <DeleteConfirmation />
             <EditNote />
 

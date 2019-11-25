@@ -25,6 +25,8 @@ class NewNote extends Component
       });
    }
 
+   // TODO: Clear form after submit
+
    handleSaveNote = (event) =>
    {
       let newNoteURL = URL_PREFIX;
