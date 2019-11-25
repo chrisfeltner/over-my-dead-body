@@ -14,14 +14,7 @@ class NoteNav extends Component
       super(props);
       this.state =
       {
-         notes:
-         [
-            { subject: "money", recipient: "Kyle" },
-            { subject: "ransom", recipient: "Chris" },
-            { subject: "will", recipient: "Kevin" },
-            { subject: "knowledge", recipient: "Lloyd" },
-            { subject: "more money", recipient: "Stefan" }
-         ],
+         notes: [],
          showNotes: false
       }
    }
@@ -39,7 +32,7 @@ class NoteNav extends Component
 
    deleteNote = () =>
    {
-      
+
    }
 
    // toggles between display and hide states
