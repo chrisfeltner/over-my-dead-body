@@ -3,6 +3,8 @@ import NoteObject from '../noteobject/NoteObject.js';
 import NewNote from '../modals/NewNote.js';
 //import ConfirmLife from '../modals/ConfirmLife.js'
 import Timer from '../timer/Timer.js';
+import DeleteConfirmation from '../modals/DeleteConfirmation.js';
+import EditNote from '../modals/EditNote';
 
 // Navigations for note items
 class NoteNav extends Component
@@ -81,7 +83,7 @@ class NoteNav extends Component
                </div>
             </div>
 
-
+            <div className = "d-flex flex-row justify-content-start flex-wrap">
                {
                   // Checks if it should display all note objects
                   (this.state.showNotes)
@@ -94,10 +96,12 @@ class NoteNav extends Component
                   :
                      null
                }
-
+            </div>
 
             {/*<ConfirmLife />*/}
             <NewNote addNote = {this.addNote}/>
+            <DeleteConfirmation />
+            <EditNote />
 
          </div>
       );

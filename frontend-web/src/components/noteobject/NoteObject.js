@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import Tilt from 'react-tilt';
-import DeleteConfirmation from '../modals/DeleteConfirmation.js';
-import EditNote from '../modals/EditNote';
 
 // This class will be embedded in a categories component
 
@@ -51,9 +49,6 @@ class NoteObject extends Component
                Edit
                </button>
             </div>
-
-            <DeleteConfirmation />
-            <EditNote />
          </Tilt>
       );
    }
