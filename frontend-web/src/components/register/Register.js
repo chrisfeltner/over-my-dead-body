@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+const requestURL = null;
+
 // Separate component for register
 class Register extends Component
 {
@@ -13,7 +15,8 @@ class Register extends Component
          password: null,
          firstName: null,
          lastName: null,
-         deadline: null
+         deadline: null,
+         result: null
       }
    }
 
@@ -31,7 +34,7 @@ class Register extends Component
    handleRegister = (newMount) =>
    {
       // Ensures that form is working properly
-      const registerObject =
+      let newUser =
       {
          "username": this.state.username,
          "password": this.state.password,
@@ -41,7 +44,26 @@ class Register extends Component
       }
 
       // Should log all inputs
-      console.log(registerObject);
+      console.log(newUser);
+
+      // POST Request
+      requestURL += "/register";
+
+      fetch(requestURL,
+      {
+         method: "POST",
+         headers: JSON.stringify(newUser)
+      })
+      .then((response) => response.json())
+      .then((responseData) =>
+      {
+         this.setState({ result: responseData.success })
+      })
+      .catch((error) =>
+      {
+         // If POST request fails
+         console.error(error);
+      })
 
       // When user successfully registers, load up home page
       this.toggleMount(newMount);
