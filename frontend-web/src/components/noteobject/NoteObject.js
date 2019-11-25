@@ -17,16 +17,22 @@ class NoteObject extends Component
       }
    }
 
+   componentDidMount()
+   {
+      console.log("NoteObject.js - componentDidMount");
+      console.log("=================================");
+   }
+
    // Basic parts to note components
    render()
    {
       return(
          <div className = "d-flex justify-content-start flex-wrap">
             {
-               this.state.notes.map(note =>
+               this.state.notes.map((note, i) =>
                {
                   return(
-                     <Tilt id = "note" className = "card mt-3 ml-4 border border-secondary" options = {{ max: 25, scale: 1 }} style = {{width: "18rem"}}>
+                     <Tilt key = {i} id = "note" className = "card mt-3 ml-4 border border-secondary" options = {{ max: 25, scale: 1 }} style = {{width: "18rem"}}>
                         <div className = "card-body">
                            <h5 className = "card-title">{note.subject}</h5>
                            <h6 className = "card-subtitle mb-2 text-muted">To: {note.recipient}</h6>

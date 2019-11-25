@@ -40,6 +40,8 @@ class NoteNav extends Component
       this.setState({ showNotes: !this.state.showNotes });
    }
 
+   componen
+
    render()
    {
       return(
@@ -78,12 +80,14 @@ class NoteNav extends Component
 
             {
                // Checks if it should display all note objects
-               (this.state.showNotes)
-               ?
-                  <NoteObject notes = {this.state.notes}/>
-               :
-                  null
+               // (this.state.showNotes)
+               // ?
+               //    <NoteObject notes = {this.state.notes}/>
+               // :
+               //    null
             }
+
+            <NoteObject notes = {this.state.notes}/>
 
             {/*<ConfirmLife />*/}
             <NewNote addNote = {this.addNote}/>
