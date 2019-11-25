@@ -26,19 +26,15 @@ class NoteNav extends Component
       }
    }
 
+   // Creates new note
    addNote = (note) =>
    {
       let newnotes = [...this.state.notes, note];
-
-      console.log(newnotes);
-      console.log(this.state.notes);
 
       this.setState(
       {
          notes: newnotes
       });
-
-      console.log(this.state.notes);
    }
 
    // toggles between display and hide states
