@@ -1,9 +1,10 @@
 var mongoose = require('mongoose');
 
 var NoteSchema = mongoose.Schema({
-	userID: String,
+	userId: String,
 	subject: String,
-	body: String
+	noteBody: String,
+	recipients: [String]
 });
 
 module.exports = mongoose.model('Note', NoteSchema);
