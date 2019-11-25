@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 //import Profile from "../profile/Profile.js";
 import './Signin.css';
 
-const requestURL = null;
+const URL_PREFIX = "";
 
 // Signin page that contains a login form.
 class Signin extends Component
@@ -29,6 +29,8 @@ class Signin extends Component
    // When user logs in
    handleLogin = (newMount) =>
    {
+      let loginURL = URL_PREFIX;
+
       // Ensures that form is working properly
       const loginObject =
       {
@@ -38,6 +40,28 @@ class Signin extends Component
 
       // Should log all inputs
       console.log(loginObject);
+
+      loginURL += "/login";
+
+      fetch(loginURL,
+      {
+         method: "POST",
+         headers:
+         {
+            "username": this.state.username,
+            "password": this.state.password
+         }
+      })
+      .then((response) => response.json())
+      .then((responseData) =>
+      {
+         console.log("POST request response data", responseData);
+      })
+      .catch((error) =>
+      {
+         // If POST request fails
+         console.error(error);
+      });
 
       this.toggleMount(newMount);
    }

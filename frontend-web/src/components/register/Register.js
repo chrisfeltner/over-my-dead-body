@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 // Base route
-const SERVER_URL = "http://localhost:3000";
+const URL_PREFIX = "";
 
 // Separate component for register
 class Register extends Component
@@ -33,7 +33,7 @@ class Register extends Component
    // When user registers
    handleRegister = (newMount) =>
    {
-      let registerURL = SERVER_URL;
+      let registerURL = URL_PREFIX;
 
       // Ensures that form is working properly
       let newUser =
@@ -54,7 +54,14 @@ class Register extends Component
       fetch(registerURL,
       {
          method: "POST",
-         headers: JSON.stringify(newUser)
+         headers:
+         {
+            "username": this.state.username,
+            "password": this.state.password,
+            "firstName": this.state.firstName,
+            "lastName": this.state.lastName,
+            "deadline": this.state.deadline
+         }
       })
       .then((response) => response.json())
       .then((responseData) =>
