@@ -26,12 +26,17 @@ class NoteNav extends Component
 
    addNote = (note) =>
    {
-      let notes = [...this.state.notes, note];
+      let newnotes = [...this.state.notes, note];
+
+      console.log(newnotes);
+      console.log(this.state.notes);
 
       this.setState(
       {
-         notes: notes
+         notes: newnotes
       });
+
+      console.log(this.state.notes);
    }
 
    // toggles between display and hide states
@@ -39,8 +44,6 @@ class NoteNav extends Component
    {
       this.setState({ showNotes: !this.state.showNotes });
    }
-
-   componen
 
    render()
    {
@@ -78,16 +81,20 @@ class NoteNav extends Component
                </div>
             </div>
 
-            {
-               // Checks if it should display all note objects
-               // (this.state.showNotes)
-               // ?
-               //    <NoteObject notes = {this.state.notes}/>
-               // :
-               //    null
-            }
 
-            <NoteObject notes = {this.state.notes}/>
+               {
+                  // Checks if it should display all note objects
+                  (this.state.showNotes)
+                  ?
+                     // Displays all current notes
+                     this.state.notes.map((note, i) =>
+                     (
+                        <NoteObject key = {i} note = {note}/>
+                     ))
+                  :
+                     null
+               }
+
 
             {/*<ConfirmLife />*/}
             <NewNote addNote = {this.addNote}/>

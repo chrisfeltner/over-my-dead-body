@@ -13,7 +13,7 @@ class NoteObject extends Component
       super(props);
       this.state =
       {
-         notes: props.notes
+         note: props.note
       }
    }
 
@@ -27,43 +27,34 @@ class NoteObject extends Component
    render()
    {
       return(
-         <div className = "d-flex justify-content-start flex-wrap">
-            {
-               this.state.notes.map((note, i) =>
-               {
-                  return(
-                     <Tilt key = {i} id = "note" className = "card mt-3 ml-4 border border-secondary" options = {{ max: 25, scale: 1 }} style = {{width: "18rem"}}>
-                        <div className = "card-body">
-                           <h5 className = "card-title">{note.subject}</h5>
-                           <h6 className = "card-subtitle mb-2 text-muted">To: {note.recipient}</h6>
-                        </div>
+         <Tilt id = "note" className = "d-flex card mt-3 ml-4 border border-secondary" options = {{ max: 25, scale: 1 }} style = {{width: "18rem"}}>
+            <div className = "card-body">
+               <h5 className = "card-title">{this.state.note.subject}</h5>
+               <h6 className = "card-subtitle mb-2 text-muted">To: {this.state.note.recipient}</h6>
+            </div>
 
-                        <div className = "d-flex flex-row-reverse p-1">
-                           <button
-                              type = "button"
-                              className = "btn btn-outline-danger btn-sm"
-                              data-toggle = "modal"
-                              data-target = "#deleteModal"
-                           >
-                           Delete
-                           </button>
+            <div className = "d-flex flex-row-reverse p-1">
+               <button
+                  type = "button"
+                  className = "btn btn-outline-danger btn-sm"
+                  data-toggle = "modal"
+                  data-target = "#deleteModal"
+               >
+               Delete
+               </button>
 
-                           <button
-                              className = "btn btn-outline-secondary btn-sm"
-                              data-toggle = "modal"
-                              data-target = "#editNoteModal"
-                           >
-                           Edit
-                           </button>
-                        </div>
-                     </Tilt>
-                  )
-               })
-            }
+               <button
+                  className = "btn btn-outline-secondary btn-sm"
+                  data-toggle = "modal"
+                  data-target = "#editNoteModal"
+               >
+               Edit
+               </button>
+            </div>
 
             <DeleteConfirmation />
             <EditNote />
-         </div>
+         </Tilt>
       );
    }
 }
