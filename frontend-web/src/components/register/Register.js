@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
-const requestURL = null;
+// Base route
+const SERVER_URL = "http://localhost:3000";
 
 // Separate component for register
 class Register extends Component
@@ -15,8 +16,7 @@ class Register extends Component
          password: null,
          firstName: null,
          lastName: null,
-         deadline: null,
-         result: null
+         deadline: null
       }
    }
 
@@ -33,6 +33,8 @@ class Register extends Component
    // When user registers
    handleRegister = (newMount) =>
    {
+      let registerURL = SERVER_URL;
+
       // Ensures that form is working properly
       let newUser =
       {
@@ -47,9 +49,9 @@ class Register extends Component
       console.log(newUser);
 
       // POST Request
-      requestURL += "/register";
+      registerURL += "/register";
 
-      fetch(requestURL,
+      fetch(registerURL,
       {
          method: "POST",
          headers: JSON.stringify(newUser)
@@ -57,13 +59,13 @@ class Register extends Component
       .then((response) => response.json())
       .then((responseData) =>
       {
-         this.setState({ result: responseData.success })
+         console.log("POST request response data", responseData);
       })
       .catch((error) =>
       {
          // If POST request fails
          console.error(error);
-      })
+      });
 
       // When user successfully registers, load up home page
       this.toggleMount(newMount);
