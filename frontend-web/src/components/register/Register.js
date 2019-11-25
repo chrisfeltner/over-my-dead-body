@@ -9,11 +9,11 @@ class Register extends Component
       super(props);
       this.state =
       {
-         username: '',
-         password: '',
-         firstName: '',
-         lastName: '',
-         email: ''
+         username: null,
+         password: null,
+         firstName: null,
+         lastName: null,
+         deadline: null
       }
    }
 
@@ -37,7 +37,7 @@ class Register extends Component
          "password": this.state.password,
          "firstName": this.state.firstName,
          "lastName": this.state.lastName,
-         "email": this.state.email
+         "deadline": this.state.deadline
       }
 
       // Should log all inputs
@@ -84,19 +84,19 @@ class Register extends Component
                      onChange = {this.handleChange}
                   />
 
-                  <h6 className = "text-center">Email</h6>
-                  <input
-                     id = "email"
-                     className = "form-control"
-                     type = "text"
-                     onChange = {this.handleChange}
-                  />
-
                   <h6 className = "text-center">Password</h6>
                   <input
                      id = "password"
                      className = "form-control"
                      type = "password"
+                     onChange = {this.handleChange}
+                  />
+
+                  <h6 className = "text-center">Deadline</h6>
+                  <input
+                     id = "deadline"
+                     className = "form-control"
+                     type = "date"
                      onChange = {this.handleChange}
                   />
 

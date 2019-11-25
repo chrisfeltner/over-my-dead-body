@@ -37,6 +37,11 @@ class NoteNav extends Component
       });
    }
 
+   deleteNote = () =>
+   {
+      
+   }
+
    // toggles between display and hide states
    toggleShowNotes()
    {

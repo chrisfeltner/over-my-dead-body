@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 //import Profile from "../profile/Profile.js";
 import './Signin.css';
 
+const requestURL = null;
+
 // Signin page that contains a login form.
 class Signin extends Component
 {
@@ -11,8 +13,8 @@ class Signin extends Component
       super(props);
       this.state =
       {
-         username: '',
-         password: ''
+         username: null,
+         password: null
       }
    }
 
