@@ -4,7 +4,7 @@ const userRoute = require('./routes/users');
 const noteRoute = require('./routes/notes');
 
 const listeningPort = process.env.PORT || 5000;
-const databasePort = process.env.MONGODB_URI || 'mongodb://localhost:27017/test';
+const databasePort = process.env.MONGODB_URI || 'mongodb://db-service:27017/test';
 mongoose.connect(databasePort);
 
 if (databasePort == undefined || databasePort == null) {
