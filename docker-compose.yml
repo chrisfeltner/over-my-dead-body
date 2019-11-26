@@ -14,15 +14,19 @@ services:
       - '27017-27019:27017-27019'
   backend-service:
     build: ./server
+    depends_on:
+      - db-service
     expose: 
-      - 8080
+      - 5000
     volumes:
       - ./server:/srv/app/server
     ports:
-      - 8080:8080
+      - 5000:5000
     command: npm run dev
   frontend-service:
     build: ./frontend-web
+    depends_on:
+      - backend-service
     volumes:
       - ./frontend-web/src:/srv/app/client/src
       - ./frontend-web/public:/srv/app/client/public
