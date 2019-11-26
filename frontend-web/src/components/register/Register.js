@@ -83,6 +83,8 @@ class Register extends Component
       this.props.mount(newMount);
    }
 
+   // NOTE: Time for deadline will be in military time.
+
    render()
    {
       return(
@@ -127,7 +129,7 @@ class Register extends Component
                   <input
                      id = "deadline"
                      className = "form-control"
-                     type = "date"
+                     type = "datetime-local"
                      onChange = {this.handleChange}
                   />
 
@@ -143,7 +145,13 @@ class Register extends Component
                   </button>
 
                   <br></br>
-                  <button className = "btn col align-self-center rounded border" onClick = {() => this.toggleMount("login")}>Switch to Login</button>
+
+                  <button 
+                     className = "btn col align-self-center rounded border"
+                     onClick = {() => this.toggleMount("login")}
+                  >
+                  Switch to Login
+                  </button>
                </form>
             </div>
          </div>
