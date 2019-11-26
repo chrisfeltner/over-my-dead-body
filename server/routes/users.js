@@ -7,3 +7,5 @@ router.post('/login', userController.loginUser);
 
 // POST request for register user
 router.post('/register', userController.registerUser);
+
+module.exports = router;
