@@ -34,6 +34,14 @@ app.use(cookieParser());
 app.use('/users', userRoute);
 app.use('/notes', noteRoute);
 
+app.post('/refreshToken', function (req, res) {
+	const token = jwt.sign({userId: user._id}, key, {
+		algorithm: 'HS256',
+		expiresIn: '300 seconds'
+	});	
+	return res.status(201).json(token);
+});
+
 app.listen(listeningPort, () => {
 	console.log(`Listening on port ${listeningPort}`);
 	console.log(`Database is set to port ${databasePort}`);
