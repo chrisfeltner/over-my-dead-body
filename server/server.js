@@ -1,10 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
 const userRoute = require('./routes/users');
 const noteRoute = require('./routes/notes');
 
 const listeningPort = process.env.PORT || 5000;
-const databasePort = process.env.MONGODB_URI || 'mongodb://db-service:27017/test';
+const databasePort = process.env.MONGODB_URI || 'mongodb://localhost:27017/test';
 mongoose.connect(databasePort);
 
 if (databasePort == undefined || databasePort == null) {
@@ -15,6 +16,7 @@ if (databasePort == undefined || databasePort == null) {
 const app = express();
 
 app.use(express.json());
+app.use(cookieParser());
 app.use('/users', userRoute);
 app.use('/notes', noteRoute);
 
