@@ -15,21 +15,23 @@ services:
   backend-service:
     build: ./server
     depends_on:
-      - db-service
+      - "db-service"
     expose: 
       - 5000
     volumes:
       - ./server:/srv/app/server
+      - /srv/app/server/node_modules
     ports:
       - 5000:5000
     command: npm run dev
   frontend-service:
     build: ./frontend-web
     depends_on:
-      - backend-service
+      - "backend-service"
     volumes:
       - ./frontend-web/src:/srv/app/client/src
       - ./frontend-web/public:/srv/app/client/public
+      - /srv/app/client/node_modules
     expose:
       - 3000
     ports:
