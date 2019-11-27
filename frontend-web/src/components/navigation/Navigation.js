@@ -21,12 +21,6 @@ class Navigation extends Component
       this.props.mount(newMount);
    }
 
-   componentDidMount()
-   {
-      console.log("Navigation Mounted");
-      console.log("------------------");
-   }
-
    render()
    {
       return(
