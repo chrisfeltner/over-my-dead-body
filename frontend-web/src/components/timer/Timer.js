@@ -10,13 +10,10 @@ class Timer extends Component
       super();
       this.state =
       {
-         count: 1,
       }
    }
    render()
    {
-      const { count } = this.state;
-
       return(
          <div className = "card" style = {{ width: "19rem" }}>
             <div className = "card-header bg-secondary border border-secondary">
@@ -24,36 +21,10 @@ class Timer extends Component
             </div>
 
             <div className = "m-auto">
-               <p>{ count }s</p>
+               <p></p>
             </div>
          </div>
       );
-   }
-
-   // This will run timer
-   componentDidMount()
-   {
-      const { startCount } = this.props;
-
-      this.setState(
-      {
-         count: startCount
-      })
-
-      // setInterval
-      this.myInterval = setInterval(() =>
-      {
-         this.setState(
-         {
-            count: this.state.count - 1
-         })
-      }, 1000);
-   }
-
-   // clearInterval, this will prevent any memory leaks
-   componentWillUnmount()
-   {
-      clearInterval(this.myInterval)
    }
 }
 

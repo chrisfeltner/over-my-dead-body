@@ -10,7 +10,8 @@ class NewNote extends Component
       this.state =
       {
          subject: null,
-         recipient: null
+         recipient: null,
+         body: null
       }
    }
 
@@ -28,6 +29,7 @@ class NewNote extends Component
 
       console.log("subject", this.state.subject);
       console.log("recipient", this.state.recipient);
+      console.log("body", this.state.body);
 
       this.props.addNote(this.state);
    }
@@ -58,7 +60,7 @@ class NewNote extends Component
                      </div>
 
                      <div className = "form-group">
-                        <textarea className = "form-control" rows = "8"/>
+                        <textarea id = "body" className = "form-control" rows = "8" onChange = {this.handleChange}/>
                      </div>
                   </div>
 

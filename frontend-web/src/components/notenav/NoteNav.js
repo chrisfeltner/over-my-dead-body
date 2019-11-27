@@ -3,6 +3,10 @@ import NoteObject from '../noteobject/NoteObject.js';
 import NewNote from '../modals/NewNote.js';
 //import ConfirmLife from '../modals/ConfirmLife.js'
 import Timer from '../timer/Timer.js';
+import DeleteConfirmation from '../modals/DeleteConfirmation.js';
+import EditNote from '../modals/EditNote';
+
+const URL_PREFIX = "";
 
 // Navigations for note items
 class NoteNav extends Component
@@ -12,30 +16,47 @@ class NoteNav extends Component
       super(props);
       this.state =
       {
-         notes:
-         [
-            { subject: "money", recipient: "Kyle" },
-            { subject: "ransom", recipient: "Chris" },
-            { subject: "will", recipient: "Kevin" },
-            { subject: "knowledge", recipient: "Lloyd" },
-            { subject: "more money", recipient: "Stefan" }
-         ],
+         notes: [],
          showNotes: false
       }
    }
 
-   addNote = (note) =>
+   deleteNote = () =>
    {
-      let notes = [...this.state.notes, note];
+      let deleteNoteURL = URL_PREFIX;
 
-      this.setState(
+      deleteNoteURL += "/deleteNote";
+   }
+
+   editNote = () =>
+   {
+      let editNoteURL = URL_PREFIX;
+
+      editNoteURL += "/setNote";
+   }
+
+   addNote = (newnote) =>
+   {
+      let addNoteURL = URL_PREFIX;
+
+      addNoteURL += "/createNote";
+
+      fetch(addNoteURL,
       {
-         notes: notes
-      });
+         method: "POST",
+         header:
+         {
+            "Content-Type": "application/json"
+         },
+         body:
+         {
+            
+         }
+      })
    }
 
    // toggles between display and hide states
-   toggleShowNotes()
+   getNotes()
    {
       this.setState({ showNotes: !this.state.showNotes });
    }
@@ -58,14 +79,14 @@ class NoteNav extends Component
                   ?
                      <button
                         className = "btn btn-secondary rounded border align-self-start mt-5"
-                        onClick = {() => this.toggleShowNotes()}
+                        onClick = {() => this.getNotes()}
                      >
                      Display All
                      </button>
                   :
                      <button
                         className = "btn btn-outline-secondary rounded border align-self-start mt-5"
-                        onClick = {() => this.toggleShowNotes()}
+                        onClick = {() => this.getNotes()}
                      >
                      Hide All
                      </button>
@@ -76,17 +97,24 @@ class NoteNav extends Component
                </div>
             </div>
 
-            {
-               // Checks if it should display all note objects
-               (this.state.showNotes)
-               ?
-                  <NoteObject notes = {this.state.notes}/>
-               :
-                  null
-            }
+            <div className = "d-flex justify-content-start flex-wrap">
+               {
+                  // Checks if it should display all note objects
+                  (this.state.showNotes)
+                  ?
+                     this.state.notes.map((note, i) =>
+                     (
+                        <NoteObject key = {i} note = {note}/>
+                     ))
+                  :
+                     null
+               }
+            </div>
 
             {/*<ConfirmLife />*/}
             <NewNote addNote = {this.addNote}/>
+            <DeleteConfirmation />
+            <EditNote />
 
          </div>
       );

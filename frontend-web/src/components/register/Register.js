@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+const URL_PREFIX = "";
+
 // Separate component for register
 class Register extends Component
 {
@@ -13,7 +15,7 @@ class Register extends Component
          password: '',
          firstName: '',
          lastName: '',
-         email: ''
+         deadline: ''
       }
    }
 
@@ -30,6 +32,8 @@ class Register extends Component
    // When user registers
    handleRegister = (newMount) =>
    {
+      let registerURL = URL_PREFIX;
+
       // Ensures that form is working properly
       const registerObject =
       {
@@ -37,11 +41,33 @@ class Register extends Component
          "password": this.state.password,
          "firstName": this.state.firstName,
          "lastName": this.state.lastName,
-         "email": this.state.email
+         "deadline": this.state.deadline
       }
 
       // Should log all inputs
       console.log(registerObject);
+
+      registerURL += "/register";
+
+      fetch(registerURL,
+      {
+         method: "POST",
+         headers:
+         {
+            "Content-Type": "application/json"
+         },
+         body:
+         {
+            "username": this.state.username,
+            "password": this.state.password,
+            "firstName": this.state.firstName,
+            "lastName": this.state.lastName,
+            "deadline": this.state.deadline
+         }
+      })
+      .then(response => response.text())
+      .then(responseData => console.log(responseData))
+      .catch(error => console.error("Error:", error));
 
       // When user successfully registers, load up home page
       this.toggleMount(newMount);
@@ -84,19 +110,19 @@ class Register extends Component
                      onChange = {this.handleChange}
                   />
 
-                  <h6 className = "text-center">Email</h6>
-                  <input
-                     id = "email"
-                     className = "form-control"
-                     type = "text"
-                     onChange = {this.handleChange}
-                  />
-
                   <h6 className = "text-center">Password</h6>
                   <input
                      id = "password"
                      className = "form-control"
                      type = "password"
+                     onChange = {this.handleChange}
+                  />
+
+                  <h6 className = "text-center">Deadline</h6>
+                  <input
+                     id = "email"
+                     className = "form-control"
+                     type = "datetime-local"
                      onChange = {this.handleChange}
                   />
 
