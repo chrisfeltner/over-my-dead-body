@@ -3,6 +3,14 @@ import React, { Component } from 'react';
 // Form to edit an existing new note.
 class EditNote extends Component
 {
+   constructor(props)
+   {
+      super(props);
+      this.state =
+      {
+         
+      }
+   }
    render()
    {
       return(

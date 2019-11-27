@@ -118,8 +118,8 @@ class NoteNav extends Component
 
             {/*<ConfirmLife />*/}
             <NewNote addNote = {this.addNote}/>
-            <DeleteConfirmation />
-            <EditNote />
+            <DeleteConfirmation deleteNote = {this.deleteNote}/>
+            <EditNote editNote = {this.editNote}/>
 
          </div>
       );

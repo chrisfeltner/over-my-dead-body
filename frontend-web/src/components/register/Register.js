@@ -11,11 +11,11 @@ class Register extends Component
       super(props);
       this.state =
       {
-         username: '',
-         password: '',
-         firstName: '',
-         lastName: '',
-         deadline: ''
+         username: null,
+         password: null,
+         firstName: null,
+         lastName: null,
+         deadline: null
       }
    }
 
@@ -120,7 +120,7 @@ class Register extends Component
 
                   <h6 className = "text-center">Deadline</h6>
                   <input
-                     id = "email"
+                     id = "deadline"
                      className = "form-control"
                      type = "datetime-local"
                      onChange = {this.handleChange}
