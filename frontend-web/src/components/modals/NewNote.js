@@ -10,7 +10,7 @@ class NewNote extends Component
       this.state =
       {
          subject: null,
-         recipient: null,
+         recipients: null,
          body: null
       }
    }

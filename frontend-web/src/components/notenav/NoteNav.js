@@ -50,9 +50,14 @@ class NoteNav extends Component
          },
          body:
          {
-            
+            "subject": newnote.subject,
+            "recipient": newnote.recipient,
+            "body": newnote.body
          }
       })
+      .then(response => response.text())
+      .then(responseData => console.log(responseData))
+      .catch(error => console.error("Error:", error));
    }
 
    // toggles between display and hide states
