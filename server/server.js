@@ -4,6 +4,8 @@ const cookieParser = require('cookie-parser');
 const userRoute = require('./routes/users');
 const noteRoute = require('./routes/notes');
 const cors = require('cors');
+const jwt = require('jsonwebtoken');
+const uuidv4 = require('uuid/v4');
 
 const listeningPort = process.env.PORT || 5000;
 const databasePort = process.env.MONGODB_URI || 'mongodb://db-service:27017';
