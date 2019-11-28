@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 //import Profile from "../profile/Profile.js";
 import './Signin.css';
+import setAuthToken from '../../utils/auth';
 
 const URL_PREFIX = "";
 
@@ -30,7 +31,7 @@ class Signin extends Component
    }
 
    handleLogin = (newMount) => {
-      const loginURL = "http://localhost:5000/users/login"
+      const loginURL = "/users/login"
 
       // Ensures that form is working properly
       const loginObject =
@@ -46,7 +47,8 @@ class Signin extends Component
          config: { headers: { 'Content-Type': 'application/json'}}
       })
       .then((response) => {
-         console.log(response)
+         console.log(response.data)
+         setAuthToken(response.data)
       })
       .catch((response) => {
          console.log(response)
@@ -54,45 +56,6 @@ class Signin extends Component
 
       this.toggleMount(newMount)
    }
-   // // When user logs in
-   // handleLogin = (newMount) =>
-   // {
-   //    let loginURL = URL_PREFIX;
-
-   //    // Ensures that form is working properly
-   //    const loginObject =
-   //    {
-   //       'username': this.state.username,
-   //       'password': this.state.password
-   //    }
-
-   //    // Should log all inputs
-   //    console.log(loginObject);
-
-   //    loginURL += "/login";
-
-   //    fetch(loginURL,
-   //    {
-   //       method: "POST",
-   //       headers:
-   //       {
-   //          "username": this.state.username,
-   //          "password": this.state.password
-   //       }
-   //    })
-   //    .then((response) => response.json())
-   //    .then((responseData) =>
-   //    {
-   //       console.log("POST request response data", responseData);
-   //    })
-   //    .catch((error) =>
-   //    {
-   //       // If POST request fails
-   //       console.error(error);
-   //    });
-
-   //    this.toggleMount(newMount);
-   // }
 
    // Toggles between Home, Login, and Register components
    toggleMount = (newMount) =>
