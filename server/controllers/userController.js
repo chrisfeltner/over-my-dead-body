@@ -4,7 +4,13 @@ const uuidv4 = require('uuid/v4');
 
 const key = 'over_my_dead_body_key_secret_key';
 
+exports.test = (req, res) => {
+	console.log("Connected!")
+	return res.status(200).json({});
+}
+
 exports.loginUser = function(req, res) {
+	console.log("login user")
 	User.findOne({username : req.body.username}, function(err, user) {
 		if (user === null) {
 			return res.status(400).send({message : "User not found."});

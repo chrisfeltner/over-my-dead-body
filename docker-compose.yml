@@ -12,6 +12,8 @@ services:
       - ./mongo-volume:/data/db
     ports:
       - '27017-27019:27017-27019'
+    networks:
+      - mongo-backend
   backend-service:
     build: ./server
     depends_on:
@@ -23,6 +25,9 @@ services:
       - /srv/app/server/node_modules
     ports:
       - 5000:5000
+    networks:
+      - frontend-backend
+      - mongo-backend
     command: npm run dev
   frontend-service:
     build: ./frontend-web
@@ -36,6 +41,10 @@ services:
       - 3000
     ports:
       - 3000:3000
-    links:
-      - backend-service
+    networks:
+      - frontend-backend
     command: npm run start
+
+networks:
+  frontend-backend:
+  mongo-backend:
