@@ -1,10 +1,35 @@
+const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 const Note = require('../models/note');
+
+const key = 'over_my_dead_body_key_secret_key';
+
+exports.authenticate = function(req, res, next) {
+	var payload;
+	var token = req.headers['authorization'];
+	
+	if (token.startsWith('Bearer ')) {
+		token = token.slice(7, token.length);
+	}
+
+	try {
+		payload = jwt.verify(token, key);
+		req.userId = payload.userId;
+	} catch (e) {
+		if (e instanceof jwt.JsonWebTokenError) {
+			return res.status(401).send({message : "Unauthorized user."});
+		}
+
+		return res.status(400).end();
+	}
+
+	next();
+}
 
 exports.createNote = function(req, res) {
 	let newNote = new Note();
 
-	newNote.userId = req.body.userId;
+	newNote.userId = req.userId;
 	newNote.subject = req.body.subject;
 	newNote.noteBody = req.body.noteBody;
 	newNote.recipients = req.body.recipients;
@@ -21,7 +46,7 @@ exports.createNote = function(req, res) {
 };
 
 exports.getNotes = function(req, res) {
-	Note.find({'userId': req.body.userId}, function (err, doc) {
+	Note.find({'userId': req.userId}, function (err, doc) {
 		if (err) {
 			return res.status(400).send({message : "Failed to get notes."});
 		}
@@ -35,7 +60,7 @@ exports.getNotes = function(req, res) {
 exports.editNote = function(req, res) {
 	Note.findByIdAndUpdate(mongoose.Types.ObjectId(req.body._id),
 		{
-			$set:{'userId': req.body.userId,
+			$set:{'userId': req.userId,
 				'subject': req.body.subject,
 				'noteBody':req.body.noteBody,
 				'recipients':req.body.recipients

@@ -15,5 +15,7 @@ RUN npm install -g nodemon
 
 COPY . /srv/app/server
 
+EXPOSE 5000
+
 # Run the server
 CMD ["npm", "run", "dev"]

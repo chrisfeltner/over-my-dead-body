@@ -12,4 +12,6 @@ RUN npm install
 
 COPY . /srv/app/client
 
+EXPOSE 3000
+
 CMD ["npm", "start"]
