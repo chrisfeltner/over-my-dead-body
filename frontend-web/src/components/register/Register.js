@@ -31,7 +31,7 @@ class Register extends Component
    }
 
    handleRegister = (newMount) => {
-      const registerURL = "users/register"
+      const registerURL = "/register"
 
       let newUser =
       {

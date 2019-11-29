@@ -80,10 +80,31 @@ class NoteNav extends Component
    // toggles between display and hide states
    getNotes()
    {
-      let getNotesURL = URL_PREFIX;
+      let getNotesURL = "/getNotes";
+      let notes = null;
 
-      getNotesURL += "/getNotes";
+      axios(
+      {
+         method: 'GET',
+         url: getNotesURL,
+         data: notes,
+         config: { headers: { 'Content-Type': 'application/json'}}
+      })
+      .then((response) =>
+      {
+         console.log("GetNotes: Success");
+         console.log(response.data);
+         setAuthToken(response.data);
 
+         this.setState({ showNotes: !this.state.showNotes });
+      })
+      .catch((response) =>
+      {
+         console.log("GetNotes: Unsuccessful");
+         console.log(response);
+      });
+
+      // Uncomment if testing the GET request
       this.setState({ showNotes: !this.state.showNotes });
    }
 

@@ -29,7 +29,7 @@ class Signin extends Component
    }
 
    handleLogin = (newMount) => {
-      const loginURL = "/users/login";
+      const loginURL = "/login";
 
       // Ensures that form is working properly
       const loginObject =
@@ -39,7 +39,7 @@ class Signin extends Component
       }
 
       axios(
-         {
+      {
          method: 'POST',
          url: loginURL,
          data: loginObject,
