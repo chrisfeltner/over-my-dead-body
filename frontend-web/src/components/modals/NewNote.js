@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-const URL_PREFIX = "";
-
 // Form to create a new note.
 class NewNote extends Component
 {
@@ -25,37 +23,20 @@ class NewNote extends Component
       });
    }
 
+   handleRecipients = (event) =>
+   {
+      console.log(event.target.value);
+
+
+   }
+
    // TODO: Clear form after submit
 
    handleSaveNote = (event) =>
    {
-      let newNoteURL = URL_PREFIX;
-
       console.log("subject", this.state.subject);
       console.log("recipient", this.state.recipient);
       console.log("body", this.state.body);
-
-      newNoteURL += "/createNote";
-
-      fetch(newNoteURL,
-      {
-         method: "POST",
-         headers:
-         {
-            "subject": this.state.subject,
-            "body": this.state.body
-         }
-      })
-      .then((response) => response.json())
-      .then((responseData) =>
-      {
-         console.log("POST request response data", responseData);
-      })
-      .catch((error) =>
-      {
-         // If POST request fails
-         console.error(error);
-      });
 
       this.props.addNote(this.state);
    }
@@ -77,7 +58,7 @@ class NewNote extends Component
                   <div className = "modal-body">
                      <div className = "form-group">
                         <label>To</label>
-                        <input id = "recipient" type = "email" className = "form-control" onChange = {this.handleChange}/>
+                        <input id = "recipient" type = "email" className = "form-control" onChange = {this.handleRecipients}/>
                      </div>
 
                      <div className = "form-group">

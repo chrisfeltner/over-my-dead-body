@@ -4,8 +4,6 @@ import axios from 'axios';
 import './Signin.css';
 import setAuthToken from '../../utils/auth';
 
-const URL_PREFIX = "";
-
 axios.defaults.withCredentials = true;
 
 // Signin page that contains a login form.

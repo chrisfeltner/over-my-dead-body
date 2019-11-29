@@ -10,13 +10,11 @@ class Timer extends Component
       super();
       this.state =
       {
-         
+
       }
    }
    render()
    {
-      const { count } = this.state;
-
       return(
          <div className = "card" style = {{ width: "19rem" }}>
             <div className = "card-header bg-secondary border border-secondary">
@@ -24,7 +22,7 @@ class Timer extends Component
             </div>
 
             <div className = "m-auto">
-               <p>{  }</p>
+               <p></p>
             </div>
          </div>
       );
