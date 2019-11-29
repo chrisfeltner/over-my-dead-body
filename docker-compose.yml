@@ -16,6 +16,8 @@ services:
       - mongo-backend
   backend-service:
     build: ./server
+    env_file:
+      - .env
     depends_on:
       - "db-service"
     expose: 
