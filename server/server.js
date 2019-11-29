@@ -6,6 +6,7 @@ const noteRoute = require('./routes/notes');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const uuidv4 = require('uuid/v4');
+const path = require('path');
 
 const listeningPort = process.env.PORT || 5000;
 const databasePort = process.env.MONGODB_URI || 'mongodb://db-service:27017';
@@ -35,8 +36,17 @@ const app = express();
 app.use(cors({origin: ['http://localhost:3000', 'http://frontend-service:3000'], credentials: true}))
 app.use(express.json());
 app.use(cookieParser());
+app.use(express.static(path.join(__dirname, "../frontend-web/build")))
 app.use('/users', userRoute);
 app.use('/notes', noteRoute);
+
+app.get('/ping', function (req, res) {
+    return res.status(200).send("pong");
+  });
+
+app.get('/', (req, res) => { 
+    return res.sendFile(path.join(__dirname, "../frontend-web/build", "index.html"))
+})
 
 app.post('/refreshToken', function (req, res) {
 	const token = jwt.sign({userId: user._id}, key, {
