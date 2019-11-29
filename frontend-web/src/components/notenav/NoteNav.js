@@ -5,8 +5,11 @@ import NewNote from '../modals/NewNote.js';
 import Timer from '../timer/Timer.js';
 import DeleteConfirmation from '../modals/DeleteConfirmation.js';
 import EditNote from '../modals/EditNote';
+import axios from 'axios';
+import setAuthToken from '../../utils/auth';
 
 const URL_PREFIX = "";
+axios.defaults.withCredentials = true;
 
 // Navigations for note items
 class NoteNav extends Component
@@ -26,9 +29,37 @@ class NoteNav extends Component
    {
       let newnotes = [...this.state.notes, note];
 
+      let addNoteURL = "/createNote";
+
       this.setState(
       {
          notes: newnotes
+      });
+
+      let newNote =
+      {
+         "subject": note.subject,
+         "recipients": note.recipients,
+         "noteBody": note.body
+      }
+
+      axios(
+      {
+         method: 'POST',
+         url: addNoteURL,
+         data: newNote,
+         config: { headers: { 'Content-Type': 'application/json'}}
+      })
+      .then((response) =>
+      {
+         console.log("CreateNote: Success");
+         console.log(response.data);
+         setAuthToken(response.data);
+      })
+      .catch((response) =>
+      {
+         console.log("CreateNote: Unsuccessful");
+         console.log(response);
       });
    }
 

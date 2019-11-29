@@ -38,10 +38,6 @@ class NewNote extends Component
    {
       this.state.recipients.push(this.state.newRecipient);
 
-      console.log("subject", this.state.subject);
-      console.log("recipients", this.state.recipients);
-      console.log("body", this.state.body);
-
       this.props.addNote(this.state);
    }
 
