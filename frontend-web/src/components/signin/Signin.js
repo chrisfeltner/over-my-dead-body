@@ -47,14 +47,19 @@ class Signin extends Component
          config: { headers: { 'Content-Type': 'application/json'}}
       })
       .then((response) => {
-         console.log(response.data)
-         setAuthToken(response.data)
+         console.log("Success");
+         console.log(response.data);
+         setAuthToken(response.data);
+
+         this.toggleMount(newMount);
       })
       .catch((response) => {
-         console.log(response)
-      })
+         console.log("Unsuccessful");
+         console.log(response);
+      });
 
-      this.toggleMount(newMount)
+      // Uncomment if you want to test request
+      this.toggleMount(newMount);
    }
 
    // Toggles between Home, Login, and Register components

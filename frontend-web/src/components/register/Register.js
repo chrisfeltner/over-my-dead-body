@@ -49,15 +49,18 @@ class Register extends Component
          config: { headers: { 'Content-Type': 'application/json'}}
       })
       .then((response) => {
-         console.log(response.data)
-         setAuthToken(response.data)
+         console.log(response.data);
+         setAuthToken(response.data);
+
+
+         this.toggleMount(newMount);
       })
       .catch((response) => {
-         console.log(response)
-      })
+         console.log(response);
+      });
 
-      this.toggleMount(newMount)
-
+      // Uncomment if you want to test request
+      this.toggleMount(newMount);
    }
 
    toggleMount = (newMount) =>
@@ -128,7 +131,7 @@ class Register extends Component
 
                   <br></br>
 
-                  <button 
+                  <button
                      className = "btn col align-self-center rounded border"
                      onClick = {() => this.toggleMount("login")}
                   >
