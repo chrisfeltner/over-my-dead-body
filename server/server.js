@@ -17,16 +17,30 @@ if (databasePort == undefined || databasePort == null) {
 } 
 
 const connectWithRetry = () => {
-    return mongoose.connect(databasePort, (error) => {
-        if(error)
-        {
-            console.log("Error on initial MongoDB connection. Retrying in 5 sec.");
-            setTimeout(connectWithRetry, 5000);
-        }
-        else {
-            console.log("Initial MongoDB connection successful!")
-        }
-    });
+    if(process.env.COSMOSDB_HOST) {
+            console.log(process.env.COSMOSDB_HOST)
+            return mongoose.connect("mongodb://"+process.env.COSMOSDB_HOST+":"+process.env.COSMOSDB_PORT+"/"+process.env.COSMOSDB_DBNAME+"?ssl=true&replicaSet=globaldb", {
+                useNewUrlParser: true,
+                auth: {
+                  user: process.env.COSMODDB_USER,
+                  password: process.env.COSMOSDB_PASSWORD
+                }
+              })
+            .then(() => console.log('Connection to CosmosDB successful'))
+            .catch((err) => console.error(err));
+    }
+    else {
+        return mongoose.connect(databasePort, (error) => {
+            if(error)
+            {
+                console.log("Error on initial MongoDB connection. Retrying in 5 sec.");
+                setTimeout(connectWithRetry, 5000);
+            }
+            else {
+                console.log("Initial MongoDB connection successful!")
+            }
+        });
+    }
 };
 
 connectWithRetry();

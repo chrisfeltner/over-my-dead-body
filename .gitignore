@@ -4,3 +4,4 @@ mongo-volume
 .vscode
 .deployment
 build
+.env
