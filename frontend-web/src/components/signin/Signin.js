@@ -29,7 +29,7 @@ class Signin extends Component
    }
 
    handleLogin = (newMount) => {
-      const loginURL = "/users/login"
+      const loginURL = "/users/login";
 
       // Ensures that form is working properly
       const loginObject =
@@ -38,21 +38,24 @@ class Signin extends Component
          'password': this.state.password
       }
 
-      axios({
+      axios(
+         {
          method: 'POST',
          url: loginURL,
          data: loginObject,
          config: { headers: { 'Content-Type': 'application/json'}}
       })
-      .then((response) => {
-         console.log("Success");
+      .then((response) =>
+      {
+         console.log("Login: Success");
          console.log(response.data);
          setAuthToken(response.data);
 
          this.toggleMount(newMount);
       })
-      .catch((response) => {
-         console.log("Unsuccessful");
+      .catch((response) =>
+      {
+         console.log("Login: Unsuccessful");
          console.log(response);
       });
 

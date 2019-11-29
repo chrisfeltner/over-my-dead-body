@@ -42,20 +42,25 @@ class Register extends Component
          "deadline": this.state.deadline
       }
 
-      axios({
+      axios(
+         {
          method: 'POST',
          url: registerURL,
          data: newUser,
          config: { headers: { 'Content-Type': 'application/json'}}
       })
-      .then((response) => {
+      .then((response) =>
+      {
+         console.log("Registration: Successful");
          console.log(response.data);
          setAuthToken(response.data);
 
 
          this.toggleMount(newMount);
       })
-      .catch((response) => {
+      .catch((response) =>
+      {
+         console.log("Registration: Unsuccessful");
          console.log(response);
       });
 
