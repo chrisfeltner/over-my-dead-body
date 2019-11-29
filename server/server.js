@@ -83,8 +83,6 @@ app.post('/refreshToken', function (req, res) {
 });
 
 setInterval(scheduler.checkForDeceasedUsers, 3600000);
-
-=======
 	return res.status(201).json(token);
 });
 
