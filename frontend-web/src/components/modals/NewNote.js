@@ -10,7 +10,8 @@ class NewNote extends Component
       this.state =
       {
          subject: null,
-         recipient: null,
+         recipients: [],
+         newRecipient: null,
          body: null
       }
    }
@@ -23,19 +24,22 @@ class NewNote extends Component
       });
    }
 
-   handleRecipients = (event) =>
+   handleRecipient = (event) =>
    {
-      console.log(event.target.value);
-
-
+      this.setState(
+      {
+         [event.target.id]: event.target.value
+      });
    }
 
    // TODO: Clear form after submit
 
    handleSaveNote = (event) =>
    {
+      this.state.recipients.push(this.state.newRecipient);
+
       console.log("subject", this.state.subject);
-      console.log("recipient", this.state.recipient);
+      console.log("recipients", this.state.recipients);
       console.log("body", this.state.body);
 
       this.props.addNote(this.state);
@@ -58,7 +62,7 @@ class NewNote extends Component
                   <div className = "modal-body">
                      <div className = "form-group">
                         <label>To</label>
-                        <input id = "recipient" type = "email" className = "form-control" onChange = {this.handleRecipients}/>
+                        <input id = "newRecipient" type = "email" className = "form-control" onChange = {this.handleRecipient}/>
                      </div>
 
                      <div className = "form-group">
