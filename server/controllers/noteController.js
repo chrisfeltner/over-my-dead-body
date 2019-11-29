@@ -6,7 +6,7 @@ const key = 'over_my_dead_body_key_secret_key';
 
 exports.authenticate = function(req, res, next) {
 	var payload;
-	var token = req.headers['authorization'];
+	var token = req.headers['Authorization'];
 	
 	if (token.startsWith('Bearer ')) {
 		token = token.slice(7, token.length);
