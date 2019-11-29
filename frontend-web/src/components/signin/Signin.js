@@ -29,7 +29,7 @@ class Signin extends Component
    }
 
    handleLogin = (newMount) => {
-      const loginURL = "/login";
+      const loginURL = "users/login";
 
       // Ensures that form is working properly
       const loginObject =

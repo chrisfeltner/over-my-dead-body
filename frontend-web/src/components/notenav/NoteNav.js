@@ -77,17 +77,22 @@ class NoteNav extends Component
       editNoteURL += "/setNote"
    }
 
+   hideNotes()
+   {
+      this.setState({ showNotes: !this.state.showNotes });
+   }
+
    // toggles between display and hide states
    getNotes()
    {
       let getNotesURL = "/getNotes";
-      let notes = null;
+      let noteData = null;
 
       axios(
       {
          method: 'GET',
          url: getNotesURL,
-         data: notes,
+         data: noteData,
          config: { headers: { 'Content-Type': 'application/json'}}
       })
       .then((response) =>
@@ -96,7 +101,11 @@ class NoteNav extends Component
          console.log(response.data);
          setAuthToken(response.data);
 
-         this.setState({ showNotes: !this.state.showNotes });
+         this.setState(
+         {
+
+            showNotes: !this.state.showNotes
+         });
       })
       .catch((response) =>
       {
@@ -133,7 +142,7 @@ class NoteNav extends Component
                   :
                      <button
                         className = "btn btn-outline-secondary rounded border align-self-start mt-5"
-                        onClick = {() => this.getNotes()}
+                        onClick = {() => this.hideNotes()}
                      >
                      Hide All
                      </button>
