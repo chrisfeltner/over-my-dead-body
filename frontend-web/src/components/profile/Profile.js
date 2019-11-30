@@ -24,8 +24,6 @@ class Profile extends Component
 
    componentDidMount()
    {
-      console.log("Profile Mount");
-
       let getUserURL = "users/getUser";
       let userData = null;
 

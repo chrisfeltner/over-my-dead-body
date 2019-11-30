@@ -100,6 +100,7 @@ class Signin extends Component
                   <br></br>
 
                   <button
+                     type = "button"
                      className = "mb-1 btn btn-secondary col align-self-center rounded border"
                      onClick = {() => this.handleLogin("home")}
                      data-toggle = "modal"
@@ -109,6 +110,7 @@ class Signin extends Component
                   </button>
                   <br></br>
                   <button
+                     type = "button"
                      className = "btn col align-self-center rounded border"
                      onClick = {() => this.toggleMount("register")}
                   >

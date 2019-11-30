@@ -128,6 +128,7 @@ class Register extends Component
                   <br></br>
 
                   <button
+                     type = "button"
                      className = "mb-1 btn btn-secondary col align-self-center rounded border"
                      onClick = {() => this.handleRegister("home")}
                      data-toggle = "modal"
@@ -139,6 +140,7 @@ class Register extends Component
                   <br></br>
 
                   <button
+                     type = "button"
                      className = "btn col align-self-center rounded border"
                      onClick = {() => this.toggleMount("login")}
                   >
