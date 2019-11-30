@@ -25,7 +25,8 @@ class Signin extends Component
       });
    }
 
-   handleLogin = (newMount) => {
+   handleLogin = (newMount) =>
+   {
       const loginURL = "users/login";
 
       // Ensures that form is working properly
