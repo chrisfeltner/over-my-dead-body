@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import EditProfile from '../modals/EditProfile.js';
 import './Profile.css';
 import axios from 'axios';
-import authTransport from '../../utils/auth';
 
 // Dropdown display for the user's credentials and deadlines
 class Profile extends Component
@@ -24,16 +23,18 @@ class Profile extends Component
    {
       let getUserURL = "users/getUser";
       let userData = null;
+
       console.log(localStorage.getItem('token'))
 
+      //                                                          \/ props.token
       axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`
 
       axios(
       {
          method: 'GET',
          url: getUserURL,
-         config: { headers: { 'Content-Type': 'application/json'}
-            }
+         data: userData,
+         config: { headers: { 'Content-Type': 'application/json'}}
       })
       .then((response) =>
       {
@@ -43,18 +44,17 @@ class Profile extends Component
          if(response.data != null)
          {
             this.setState(
-               {
-                  username: userData.username,
-                  firstName: userData.firstName,
-                  lastName: userData.lastName,
-                  password: userData.password,
-                  deadline: userData.deadline
-               });
+            {
+               username: userData.username,
+               firstName: userData.firstName,
+               lastName: userData.lastName,
+               password: userData.password,
+               deadline: userData.deadline
+            });
          }
       })
       .catch((response) =>
       {
-
          console.log("GetUser: Unsuccessful");
          console.log(response);
       });

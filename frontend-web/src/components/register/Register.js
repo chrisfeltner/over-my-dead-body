@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import setAuthToken from '../../utils/auth';
 
 axios.defaults.withCredentials = true;
 
@@ -43,7 +42,7 @@ class Register extends Component
       }
 
       axios(
-         {
+      {
          method: 'POST',
          url: registerURL,
          data: newUser,
@@ -53,7 +52,7 @@ class Register extends Component
       {
          console.log("Registration: Successful");
          console.log(response.data);
-         
+
          localStorage.setItem('token', response.data);
 
          this.toggleMount(newMount);
@@ -65,7 +64,7 @@ class Register extends Component
       });
 
       // Uncomment if you want to test request
-      //this.toggleMount(newMount);
+      // this.toggleMount(newMount);
    }
 
    toggleMount = (newMount) =>

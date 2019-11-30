@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 //import Profile from "../profile/Profile.js";
 import './Signin.css';
-import authTransport from '../../utils/auth';
 
 // Signin page that contains a login form.
 class Signin extends Component

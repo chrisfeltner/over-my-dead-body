@@ -15,22 +15,23 @@ class App extends Component
       super();
       this.state =
       {
-         username: "",
-         password: "",
-         firstName: "",
-         lastName: "",
-         email: "",
+         userID:"",
+         token: "",
          mount: "login",
          displayMessages: false
       }
+   }
+
+   // Callback function to hold global values
+   receiver = () =>
+   {
+      
    }
 
    mount = (newMount) =>
    {
       this.setState({ mount: newMount });
    }
-
-
 
    render()
    {

@@ -10,7 +10,7 @@ class Timer extends Component
       super();
       this.state =
       {
-         deadline: "2019-12-11T11:11"
+         deadline: ""
       }
    }
    render()

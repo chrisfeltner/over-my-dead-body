@@ -108,10 +108,8 @@ class NoteNav extends Component
          console.log(response);
       });
 
-      console.log(this.state.notes);
-
       // Uncomment if testing the GET request
-      this.setState({ showNotes: !this.state.showNotes });
+      //this.setState({ showNotes: !this.state.showNotes });
    }
 
    render()
@@ -146,7 +144,7 @@ class NoteNav extends Component
                }
 
                <div className = "ml-auto mr-5 mt-3">
-                  <Timer startCount = "100"/>
+                  <Timer />
                </div>
             </div>
 
