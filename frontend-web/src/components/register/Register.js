@@ -29,8 +29,9 @@ class Register extends Component
       })
    }
 
-   handleRegister = (newMount) => {
-      const registerURL = "users/register"
+   handleRegister = (newMount) =>
+   {
+      const registerURL = "users/register";
 
       let newUser =
       {
@@ -53,8 +54,7 @@ class Register extends Component
          console.log("Registration: Successful");
          console.log(response.data);
 
-         localStorage.setItem('token', response.data);
-
+         this.props.receiver(response.data);
          this.toggleMount(newMount);
       })
       .catch((response) =>

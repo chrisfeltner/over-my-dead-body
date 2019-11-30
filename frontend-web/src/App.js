@@ -23,9 +23,9 @@ class App extends Component
    }
 
    // Callback function to hold global values
-   receiver = () =>
+   receiver = (responseData) =>
    {
-      
+      this.setState({ token: responseData });
    }
 
    mount = (newMount) =>
@@ -43,16 +43,16 @@ class App extends Component
                (this.state.mount === "home")
                ?
                      <div>
-                        <Navigation mount = {this.mount}/>
-                        <NoteNav />
+                        <Navigation token = {this.state.token} mount = {this.mount} />
+                        <NoteNav token = {this.state.token} />
                      </div>
                :
                   (
                      this.state.mount === "login"
                      ?
-                        <Signin mount = {this.mount}/>
+                        <Signin mount = {this.mount} token = {this.state.token} />
                      :
-                        <Register mount = {this.mount}/>
+                        <Register receiver = {this.receiver} mount = {this.mount} token = {this.state.token} />
                   )
             }
          </div>
