@@ -46,8 +46,8 @@ class Signin extends Component
       {
          console.log("Login: Success");
          console.log(response.data);
-         localStorage.setItem('token', response.data);
 
+         this.props.receiver(response.data);
          this.toggleMount(newMount);
       })
       .catch((response) =>
