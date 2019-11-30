@@ -55,7 +55,6 @@ class Register extends Component
          console.log(response.data);
          setAuthToken(response.data);
 
-
          this.toggleMount(newMount);
       })
       .catch((response) =>

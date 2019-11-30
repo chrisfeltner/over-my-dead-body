@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 //import Profile from "../profile/Profile.js";
 import './Signin.css';
-import setAuthToken from '../../utils/auth';
-
-axios.defaults.withCredentials = true;
+import authTransport from '../../utils/auth';
 
 // Signin page that contains a login form.
 class Signin extends Component
@@ -49,7 +47,7 @@ class Signin extends Component
       {
          console.log("Login: Success");
          console.log(response.data);
-         setAuthToken(response.data);
+         localStorage.setItem('token', response.data);
 
          this.toggleMount(newMount);
       })
