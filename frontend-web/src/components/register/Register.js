@@ -53,8 +53,8 @@ class Register extends Component
       {
          console.log("Registration: Successful");
          console.log(response.data);
-         setAuthToken(response.data);
-
+         
+         localStorage.setItem('token', response.data);
 
          this.toggleMount(newMount);
       })
