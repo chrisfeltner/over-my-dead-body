@@ -62,7 +62,6 @@ class Profile extends Component
 
       let currentDeadlineDate = deadlineObject.toDateString();
 
-
       let currentDeadlineTime = deadlineObject.toLocaleTimeString("en-US");
 
       return(

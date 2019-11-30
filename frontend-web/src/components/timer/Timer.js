@@ -10,11 +10,17 @@ class Timer extends Component
       super();
       this.state =
       {
-
+         deadline: "2019-12-11T11:11"
       }
    }
    render()
    {
+      let deadlineObject = new Date(this.state.deadline);
+
+      let currentDeadlineDate = deadlineObject.toDateString();
+
+      let currentDeadlineTime = deadlineObject.toLocaleTimeString("en-US");
+
       return(
          <div className = "card" style = {{ width: "19rem" }}>
             <div className = "card-header bg-secondary border border-secondary">
@@ -22,7 +28,7 @@ class Timer extends Component
             </div>
 
             <div className = "m-auto">
-               <p></p>
+               <p>{currentDeadlineDate} {currentDeadlineTime}</p>
             </div>
          </div>
       );
