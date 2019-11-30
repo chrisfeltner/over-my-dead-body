@@ -65,7 +65,7 @@ class Register extends Component
       });
 
       // Uncomment if you want to test request
-      this.toggleMount(newMount);
+      //this.toggleMount(newMount);
    }
 
    toggleMount = (newMount) =>

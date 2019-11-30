@@ -60,7 +60,7 @@ class Signin extends Component
       });
 
       // Uncomment if you want to test request
-      this.toggleMount(newMount);
+      //this.toggleMount(newMount);
    }
 
    // Toggles between Home, Login, and Register components
