@@ -3,6 +3,29 @@ import React, { Component } from 'react';
 // Form to edit profile
 class EditProfile extends Component
 {
+   constructor(props)
+   {
+      super(props);
+      this.state =
+      {
+         username: props.user.username,
+         firstName: props.user.firstName,
+         lastName: props.user.lastName,
+         password: props.user.password,
+         deadline: props.user.deadline
+      }
+   }
+
+   handleChange = (event) =>
+   {
+      this.setState(
+      {
+         [event.target.id]: event.target.value
+      });
+
+      console.log(this.state);
+   }
+
    render()
    {
       return(
@@ -21,45 +44,55 @@ class EditProfile extends Component
                      <div className = "form-group">
                         <h6 className = "text-center">Username</h6>
                         <input
+                           id = "username"
                            className = "form-control"
                            type = "text"
-                           onChange = {event => this.setState({username: event.target.value})}
+                           onChange = {this.handleChange}
+                           value = {this.state.username}
                         />
                      </div>
 
                      <div className = "form-group">
                         <h6 className = "text-center">First Name</h6>
                         <input
+                           id = "firstName"
                            className = "form-control"
                            type = "text"
-                           onChange = {event => this.setState({firstName: event.target.value})}
+                           onChange = {this.handleChange}
+                           value = {this.state.firstName}
                         />
                      </div>
 
                      <div className = "form-group">
                         <h6 className = "text-center">Last Name</h6>
                         <input
+                           id = "lastName"
                            className = "form-control"
                            type = "text"
-                           onChange = {event => this.setState({lastName: event.target.value})}
-                        />
-                     </div>
-
-                     <div className = "form-group">
-                        <h6 className = "text-center">Email</h6>
-                        <input
-                           className = "form-control"
-                           type = "text"
-                           onChange = {event => this.setState({email: event.target.value})}
+                           onChange = {this.handleChange}
+                           value = {this.state.lastName}
                         />
                      </div>
 
                      <div className = "form-group">
                         <h6 className = "text-center">Password</h6>
                         <input
+                           id = "password"
                            className = "form-control"
                            type = "password"
-                           onChange = {event => this.setState({password: event.target.value})}
+                           onChange = {this.handleChange}
+                           value = {this.state.password}
+                        />
+                     </div>
+
+                     <div className = "form-group">
+                        <h6 className = "text-center">Deadline</h6>
+                        <input
+                           id = "deadline"
+                           className = "form-control"
+                           type = "datetime-local"
+                           onChange = {this.handleChange}
+                           value = {this.state.deadline}
                         />
                      </div>
                   </div>

@@ -3,6 +3,20 @@ import React, { Component } from 'react';
 // Form to edit an existing new note.
 class EditNote extends Component
 {
+   constructor(props)
+   {
+      super(props);
+      this.state =
+      {
+         id: props.id
+      }
+   }
+
+   handleChange = (event) =>
+   {
+      console.log(this.state.id);
+   }
+
    render()
    {
       return(
@@ -20,16 +34,16 @@ class EditNote extends Component
                   <div className = "modal-body">
                      <div className = "form-group">
                         <label>To</label>
-                        <input type = "email" className = "form-control"/>
+                        <input type = "email" className = "form-control" onChange = {this.handleChange}/>
                      </div>
 
                      <div className = "form-group">
                         <label>Subject</label>
-                        <input type = "text" className = "form-control"/>
+                        <input type = "text" className = "form-control" onChange = {this.handleChange}/>
                      </div>
 
                      <div className = "form-group">
-                        <textarea className = "form-control" rows = "8"/>
+                        <textarea className = "form-control" rows = "8" onChange = {this.handleChange}/>
                      </div>
                   </div>
 

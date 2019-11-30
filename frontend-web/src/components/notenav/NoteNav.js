@@ -19,7 +19,15 @@ class NoteNav extends Component
       super(props);
       this.state =
       {
-         notes: [],
+         notes:
+         [
+            {
+               id: 1111,
+               subject: null,
+               recipients: [],
+               body: null
+            }
+         ],
          showNotes: false
       }
    }
@@ -29,7 +37,7 @@ class NoteNav extends Component
    {
       let newnotes = [...this.state.notes, note];
 
-      let addNoteURL = "/createNote";
+      let addNoteURL = "notes/createNote";
 
       this.setState(
       {
@@ -70,7 +78,7 @@ class NoteNav extends Component
       deleteNoteURL += "/deleteNote";
    }
 
-   editNote = () =>
+   editNote = (modifiedNote) =>
    {
       let editNoteURL = URL_PREFIX;
 
@@ -85,7 +93,7 @@ class NoteNav extends Component
    // toggles between display and hide states
    getNotes()
    {
-      let getNotesURL = "/getNotes";
+      let getNotesURL = "notes/getNotes";
       let noteData = null;
 
       axios(
@@ -103,7 +111,7 @@ class NoteNav extends Component
 
          this.setState(
          {
-
+            notes: noteData,
             showNotes: !this.state.showNotes
          });
       })
@@ -112,6 +120,8 @@ class NoteNav extends Component
          console.log("GetNotes: Unsuccessful");
          console.log(response);
       });
+
+      console.log(this.state.notes);
 
       // Uncomment if testing the GET request
       this.setState({ showNotes: !this.state.showNotes });
@@ -169,9 +179,9 @@ class NoteNav extends Component
             </div>
 
             {/*<ConfirmLife />*/}
-            <NewNote addNote = {this.addNote} editNote = {this.editNote}/>
+            <NewNote addNote = {this.addNote} />
             <DeleteConfirmation />
-            <EditNote />
+            <EditNote editNote = {this.editNote} />
 
          </div>
       );

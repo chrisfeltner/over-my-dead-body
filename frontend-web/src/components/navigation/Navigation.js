@@ -21,12 +21,6 @@ class Navigation extends Component
       this.props.mount(newMount);
    }
 
-   componentDidMount()
-   {
-      console.log("Navigation Mounted");
-      console.log("------------------");
-   }
-
    render()
    {
       return(
@@ -40,7 +34,7 @@ class Navigation extends Component
 
             <ul className = "nav">
                <li className = "nav-link">
-                  { <Profile /> }
+                  <Profile />
                </li>
 
                <li className = "nav-link">
