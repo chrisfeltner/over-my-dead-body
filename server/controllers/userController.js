@@ -54,8 +54,9 @@ exports.loginUser = function(req, res) {
 			httpOnly:true,
 			secure: false
 		});
+		console.log(user)
 			
-		return res.status(200).json(token);
+		return res.status(200).json({'userId':user._id, 'token':token});
 	});
 };
 

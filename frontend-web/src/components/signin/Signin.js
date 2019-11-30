@@ -3,6 +3,7 @@ import axios from 'axios';
 //import Profile from "../profile/Profile.js";
 import './Signin.css';
 import authTransport from '../../utils/auth';
+import { login } from '../../actions/actions';
 
 // Signin page that contains a login form.
 class Signin extends Component
@@ -27,35 +28,38 @@ class Signin extends Component
    }
 
    handleLogin = (newMount) => {
-      const loginURL = "users/login";
+      console.log(this.props.login(this.state.username, this.state.password))
+      console.log(this.state)
+      console.log(this.props)
+      // const loginURL = "users/login";
 
-      // Ensures that form is working properly
-      const loginObject =
-      {
-         'username': this.state.username,
-         'password': this.state.password
-      }
+      // // Ensures that form is working properly
+      // const loginObject =
+      // {
+      //    'username': this.state.username,
+      //    'password': this.state.password
+      // }
 
-      axios(
-      {
-         method: 'POST',
-         url: loginURL,
-         data: loginObject,
-         config: { headers: { 'Content-Type': 'application/json'}}
-      })
-      .then((response) =>
-      {
-         console.log("Login: Success");
-         console.log(response.data);
-         localStorage.setItem('token', response.data);
+      // axios(
+      // {
+      //    method: 'POST',
+      //    url: loginURL,
+      //    data: loginObject,
+      //    config: { headers: { 'Content-Type': 'application/json'}}
+      // })
+      // .then((response) =>
+      // {
+      //    console.log("Login: Success");
+      //    console.log(response.data);
+      //    localStorage.setItem('token', response.data.token);
 
-         this.toggleMount(newMount);
-      })
-      .catch((response) =>
-      {
-         console.log("Login: Unsuccessful");
-         console.log(response);
-      });
+      //    this.toggleMount(newMount);
+      // })
+      // .catch((response) =>
+      // {
+      //    console.log("Login: Unsuccessful");
+      //    console.log(response);
+      // });
 
       // Uncomment if you want to test request
       //this.toggleMount(newMount);

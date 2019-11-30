@@ -3,6 +3,9 @@ import Navigation from './components/navigation/Navigation.js';
 import Signin from './components/signin/Signin.js';
 import Register from './components/register/Register.js';
 import NoteNav from './components/notenav/NoteNav.js';
+import * as actions from './actions/actions';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux'
 
 // Bootstrap styling
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -10,25 +13,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // Main JS file that will run all components of the client
 class App extends Component
 {
-   constructor()
+   constructor(props)
    {
-      super();
-      this.state =
-      {
-         username: "",
-         password: "",
-         firstName: "",
-         lastName: "",
-         email: "",
-         mount: "login",
-         displayMessages: false
-      }
+      super(props);
    }
 
-   mount = (newMount) =>
-   {
-      this.setState({ mount: newMount });
-   }
+   // mount = (newMount) =>
+   // {
+   //    this.setState({ mount: newMount });
+   // }
 
 
 
@@ -39,19 +32,19 @@ class App extends Component
          <div className = "App">
             {
                // Branches to switch between login and home page
-               (this.state.mount === "home")
+               (this.props.mount === "home")
                ?
                      <div>
-                        <Navigation mount = {this.mount}/>
-                        <NoteNav />
+                        <Navigation {...this.props}/>
+                        <NoteNav {...this.props}/>
                      </div>
                :
                   (
-                     this.state.mount === "login"
+                     this.props.mount === "login"
                      ?
-                        <Signin mount = {this.mount}/>
+                        <Signin {...this.props}/>
                      :
-                        <Register mount = {this.mount}/>
+                        <Register {...this.props}/>
                   )
             }
          </div>
@@ -59,4 +52,20 @@ class App extends Component
    }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+   return {
+      username: state.username,
+      password: state.password,
+      firstName: state.firstName,
+      lastName: state.lastName,
+      email: state.email,
+      token: state.token,
+      mount: state.mount
+   }
+}
+
+const mapDispatchToProps = (dispatch) => {
+   return bindActionCreators(actions, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
