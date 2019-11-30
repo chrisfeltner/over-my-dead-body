@@ -18,15 +18,7 @@ class NoteNav extends Component
       super(props);
       this.state =
       {
-         notes:
-         [
-            {
-               id: 1,
-               subject: null,
-               recipients: [],
-               body: null
-            }
-         ],
+         notes:[],
          showNotes: false
       }
    }
@@ -176,7 +168,7 @@ class NoteNav extends Component
             {/*<ConfirmLife />*/}
             <NewNote addNote = {this.addNote} />
             <DeleteConfirmation />
-            <EditNote editNote = {this.editNote} />
+            <EditNote editNote = {this.editNote} notes = {this.state.notes}/>
 
          </div>
       );

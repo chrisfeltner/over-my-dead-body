@@ -14,11 +14,11 @@ class Profile extends Component
       super();
       this.state =
       {
-         username: "swerleman",
-         firstName: "Stefan",
-         lastName: "Werleman",
-         password: "hello",
-         deadline: "2019-11-30T11:11"
+         username: "",
+         firstName: "",
+         lastName: "",
+         password: "",
+         deadline: ""
       }
    }
 
