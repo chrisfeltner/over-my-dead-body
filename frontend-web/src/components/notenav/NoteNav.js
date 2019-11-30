@@ -18,6 +18,7 @@ class NoteNav extends Component
       super(props);
       this.state =
       {
+         token: props.token,
          notes:[],
          showNotes: false
       }
@@ -41,6 +42,8 @@ class NoteNav extends Component
          "recipients": note.recipients,
          "noteBody": note.body
       }
+
+      axios.defaults.headers.common['Authorization'] = `Bearer ${this.state.token}`;
 
       axios(
       {

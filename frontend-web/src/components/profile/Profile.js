@@ -11,6 +11,7 @@ class Profile extends Component
       super();
       this.state =
       {
+         token: "",
          username: "",
          firstName: "",
          lastName: "",
@@ -26,8 +27,7 @@ class Profile extends Component
 
       console.log(localStorage.getItem('token'))
 
-      //                                                          \/ props.token
-      axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`
+      axios.defaults.headers.common['Authorization'] = `Bearer ${this.state.token}`;
 
       axios(
       {

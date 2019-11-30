@@ -14,6 +14,7 @@ class Navigation extends Component
       super(props);
       this.state =
       {
+         token: props.token,
          searchInput: '',
          myAccount: false
       }
@@ -23,6 +24,7 @@ class Navigation extends Component
    {
       let logoutURL = "users/logout";
 
+      axios.defaults.headers.common['Authorization'] = `Bearer ${this.state.token}`;
 
       axios(
       {
@@ -45,7 +47,7 @@ class Navigation extends Component
       });
 
       // Uncomment if you want to test request
-      this.toggleMount(newMount);
+      //this.toggleMount(newMount);
    }
 
    // For signout
@@ -67,7 +69,7 @@ class Navigation extends Component
 
             <ul className = "nav">
                <li className = "nav-link">
-                  <Profile />
+                  <Profile token = {this.state.token}/>
                </li>
 
                <li className = "nav-link">
