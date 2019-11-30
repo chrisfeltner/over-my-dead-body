@@ -156,9 +156,9 @@ class NoteNav extends Component
                   (this.state.showNotes)
                   ?
                      // Displays all current notes
-                     this.state.notes.map((note, i) =>
+                     this.state.notes.map((note, id) =>
                      (
-                        <NoteObject key = {i} note = {note}/>
+                        <NoteObject key = {id} note = {note}/>
                      ))
                   :
                      null
@@ -168,7 +168,7 @@ class NoteNav extends Component
             {/*<ConfirmLife />*/}
             <NewNote addNote = {this.addNote} />
             <DeleteConfirmation />
-            <EditNote editNote = {this.editNote} notes = {this.state.notes}/>
+            <EditNote editNote = {this.editNote} notes = {this.state.notes} />
 
          </div>
       );

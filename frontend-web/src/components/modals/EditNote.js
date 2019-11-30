@@ -8,13 +8,13 @@ class EditNote extends Component
       super(props);
       this.state =
       {
-         id: props.id
+         notes: []
       }
    }
 
    handleChange = (event) =>
    {
-      console.log(this.state.id);
+      
    }
 
    render()
