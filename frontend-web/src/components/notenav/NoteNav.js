@@ -8,7 +8,6 @@ import EditNote from '../modals/EditNote';
 import axios from 'axios';
 import setAuthToken from '../../utils/auth';
 
-const URL_PREFIX = "";
 axios.defaults.withCredentials = true;
 
 // Navigations for note items
@@ -22,7 +21,7 @@ class NoteNav extends Component
          notes:
          [
             {
-               id: 1111,
+               id: 1,
                subject: null,
                recipients: [],
                body: null
@@ -73,16 +72,12 @@ class NoteNav extends Component
 
    deleteNote = () =>
    {
-      let deleteNoteURL = URL_PREFIX;
 
-      deleteNoteURL += "/deleteNote";
    }
 
    editNote = (modifiedNote) =>
    {
-      let editNoteURL = URL_PREFIX;
 
-      editNoteURL += "/setNote"
    }
 
    hideNotes()

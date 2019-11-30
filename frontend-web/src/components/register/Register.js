@@ -42,8 +42,6 @@ class Register extends Component
          "deadline": this.state.deadline
       }
 
-      console.log(newUser.deadline);
-
       axios(
          {
          method: 'POST',
