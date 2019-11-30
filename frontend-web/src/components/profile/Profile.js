@@ -40,14 +40,17 @@ class Profile extends Component
          console.log("GetUser: Success");
          console.log(response.data);
 
-         // this.setState(
-         // {
-         //    username: userData.username,
-         //    firstName: userData.firstName,
-         //    lastName: userData.lastName,
-         //    password: userData.password,
-         //    deadline: userData.deadline
-         // });
+         if(response.data != null)
+         {
+            this.setState(
+               {
+                  username: userData.username,
+                  firstName: userData.firstName,
+                  lastName: userData.lastName,
+                  password: userData.password,
+                  deadline: userData.deadline
+               });
+         }
       })
       .catch((response) =>
       {
