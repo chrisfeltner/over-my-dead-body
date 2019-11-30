@@ -86,6 +86,8 @@ class NoteNav extends Component
       let getNotesURL = "notes/getNotes";
       let noteData = null;
 
+      axios.defaults.headers.common['Authorization'] = `Bearer ${this.state.token}`;
+
       axios(
       {
          method: 'GET',

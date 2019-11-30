@@ -6,12 +6,12 @@ import axios from 'axios';
 // Dropdown display for the user's credentials and deadlines
 class Profile extends Component
 {
-   constructor()
+   constructor(props)
    {
-      super();
+      super(props);
       this.state =
       {
-         token: "",
+         token: props.token,
          username: "",
          firstName: "",
          lastName: "",
@@ -25,8 +25,6 @@ class Profile extends Component
       let getUserURL = "users/getUser";
       let userData = null;
 
-      console.log(localStorage.getItem('token'))
-
       axios.defaults.headers.common['Authorization'] = `Bearer ${this.state.token}`;
 
       axios(
@@ -39,10 +37,11 @@ class Profile extends Component
       .then((response) =>
       {
          console.log("GetUser: Success");
-         console.log(response.data);
+         console.log("response.data:", response.data);
 
          if(response.data != null)
          {
+            console.log("TRUE");
             this.setState(
             {
                username: userData.username,
@@ -58,6 +57,8 @@ class Profile extends Component
          console.log("GetUser: Unsuccessful");
          console.log(response);
       });
+
+      console.log(this.state);
    }
 
    render()
