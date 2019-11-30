@@ -9,7 +9,7 @@ exports.authenticate = function(req, res, next) {
 	var payload;
 	var token = req.headers['authorization'];
 
-	if(token == undefined)
+	if(token === undefined)
 	{
 		return res.status(400).send({message: "Unauthorized user. No bearer token."});
 	}
