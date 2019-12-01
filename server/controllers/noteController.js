@@ -27,13 +27,12 @@ exports.authenticate = function(req, res, next) {
 
 exports.createNote = function(req, res) {
 	let newNote = new Note();
-
 	newNote.userId = req.userId;
 	newNote.subject = req.body.subject;
 	newNote.noteBody = req.body.noteBody;
 	newNote.recipients = req.body.recipients;
 
-	newNote.save((err, user) => {
+	newNote.save((err, note) => {
 		if (err) {
 			return res.status(400).send({message : "Failed to create note."});
 		}

@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser');
 const scheduler = require('./schedule');
 const userRoute = require('./routes/users');
 const noteRoute = require('./routes/notes');
+const userController = require('./controllers/userController');
 const jwt = require('jsonwebtoken');
 const uuidv4 = require('uuid/v4');
 
@@ -23,9 +24,9 @@ app.use(cookieParser());
 app.use('/users', userRoute);
 app.use('/notes', noteRoute);
 
-app.post('/refreshToken', function (req, res) {
+app.get('/refreshToken', userController.authenticate, function (req, res) {
 	const new_refresh_token = uuidv4();
-	const token = jwt.sign({userId: user._id}, key, {
+	const token = jwt.sign({userId: req.userId}, 'over_my_dead_body_key_secret_key', {
 		algorithm: 'HS256',
 		expiresIn: '300 seconds'
 	});	
@@ -41,7 +42,11 @@ app.post('/refreshToken', function (req, res) {
 
 setInterval(scheduler.checkForDeceasedUsers, 3600000);
 
-app.listen(listeningPort, () => {
+var server = app.listen(listeningPort, () => {
 	console.log(`Listening on port ${listeningPort}`);
 	console.log(`Database is set to port ${databasePort}`);
 });
+
+exports.closeServer = function() {
+	server.close();
+};
