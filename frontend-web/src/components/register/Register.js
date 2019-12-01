@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+import setAuthToken from '../../utils/auth';
 
-// Base route
-const URL_PREFIX = "";
+axios.defaults.withCredentials = true;
 
 // Separate component for register
 class Register extends Component
@@ -29,13 +30,9 @@ class Register extends Component
       })
    }
 
+   handleRegister = (newMount) => {
+      const registerURL = "users/register"
 
-   // When user registers
-   handleRegister = (newMount) =>
-   {
-      let registerURL = URL_PREFIX;
-
-      // Ensures that form is working properly
       let newUser =
       {
          "username": this.state.username,
@@ -45,37 +42,22 @@ class Register extends Component
          "deadline": this.state.deadline
       }
 
-      // Should log all inputs
-      console.log(newUser);
-
-      // POST Request
-      registerURL += "/register";
-
-      fetch(registerURL,
-      {
-         method: "POST",
-         headers:
-         {
-            "username": this.state.username,
-            "password": this.state.password,
-            "firstName": this.state.firstName,
-            "lastName": this.state.lastName,
-            "deadline": this.state.deadline
-         }
+      axios({
+         method: 'POST',
+         url: registerURL,
+         data: newUser,
+         config: { headers: { 'Content-Type': 'application/json'}}
       })
-      .then((response) => response.json())
-      .then((responseData) =>
-      {
-         console.log("POST request response data", responseData);
+      .then((response) => {
+         console.log(response.data)
+         setAuthToken(response.data)
       })
-      .catch((error) =>
-      {
-         // If POST request fails
-         console.error(error);
-      });
+      .catch((response) => {
+         console.log(response)
+      })
 
-      // When user successfully registers, load up home page
-      this.toggleMount(newMount);
+      this.toggleMount(newMount)
+
    }
 
    toggleMount = (newMount) =>

@@ -5,7 +5,7 @@ const key = 'over_my_dead_body_key_secret_key';
 
 exports.authenticate = function(req, res, next) {
 	var payload;
-	var token = req.headers['authorization'];
+	var token = req.headers['Authorization'];
 	
 	if(token === undefined)
 	{
@@ -40,11 +40,11 @@ exports.createNote = function(req, res) {
 
 	newNote.save((err, user) => {
 		if (err) {
-			return res.status(400).send({message : "Failed to create note."});
+			return res.status(400).send({message : "Failed to create note.", note: ''});
 		}
 
 		else {
-			return res.status(201).send({message : "Successfully created note."});
+			return res.status(201).send({message : "Successfully created note.", note: newNote});
 		}
 	});
 };
