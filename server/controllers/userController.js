@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 const uuidv4 = require('uuid/v4');
+const scheduler = require('../schedule');
 
 const key = 'over_my_dead_body_key_secret_key';
 
@@ -10,8 +11,9 @@ exports.authenticate = function(req, res, next) {
 	console.log(req.headers)
 	var token = req.headers['authorization'];
 
-	if(token === undefined) {
-		return res.status(400).send({message: "No bearer token."})
+	if(token === undefined)
+	{
+		return res.status(400).send({message: "Unauthorized user. No bearer token."});
 	}
 	
 	if (token.startsWith('Bearer ')) {
@@ -43,7 +45,7 @@ exports.loginUser = function(req, res) {
 			return res.status(400).send({message : "Password is incorrect."});
 		}
 
-		const token = jwt.sign({username: req.body.username}, key, {
+		const token = jwt.sign({userId: user._id}, key, {
 			algorithm: 'HS256',
 			expiresIn: '1000 seconds'
 		});
@@ -112,10 +114,26 @@ exports.getUser = function(req, res) {
 	});
 };
 
-exports.getPassedDeadlines = function(callback) {
-	currentDate = new Date();
-	currentDate.setHours(0,0,0,0);
-	User.find({'deadline' : {$lt : currentDate}}, '_id username', function(err, doc) {
-		callback(doc);
-	});	
+exports.confirmLife = function(req, res) {
+	User.findByIdAndUpdate(req.userId,
+		{
+			$set:{
+				'deadline':req.body.deadline
+			}
+		}, function (err, result) {
+			if (err) {
+				return res.status(400).send({message : "Could not confirm life."});
+			}
+
+			else {
+				return res.status(201).json({newDeadline : result.deadline});
+			}
+		}
+
+	);
 };
+
+exports.checkDeadlines = function(req, res) {
+	scheduler.checkForDeceasedUsers();
+	return res.end();
+}
