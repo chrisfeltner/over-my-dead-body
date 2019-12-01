@@ -23,6 +23,10 @@ class NoteNav extends Component
       }
    }
 
+   componentDidMount() {
+      this.getNotes()
+   }
+
    // Creates new note
    addNote = (note) =>
    {
@@ -96,12 +100,15 @@ class NoteNav extends Component
       .then((response) =>
       {
          console.log("GetNotes: Success");
-         console.log(response.data);
 
          this.setState(
          {
-            notes: noteData,
-            showNotes: !this.state.showNotes
+            notes: response.data,
+
+         }, () => {
+            this.setState({
+               showNotes: !this.state.showNotes
+            })
          });
       })
       .catch((response) =>
@@ -153,7 +160,7 @@ class NoteNav extends Component
             <div className = "d-flex flex-row justify-content-start flex-wrap">
                {
                   // Checks if it should display all note objects
-                  (this.state.showNotes)
+                  (this.state.showNotes && this.state.notes !== null)
                   ?
                      // Displays all current notes
                      this.state.notes.map((note, id) =>
