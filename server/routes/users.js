@@ -11,6 +11,9 @@ router.post('/register', userController.registerUser);
 // POST request for logout user
 router.post('/logout', userController.authenticate, userController.logoutUser);
 
+// POST request for confirm life
+router.post('/confirmLife', userController.authenticate, userController.confirmLife);
+
 // GET request for get user
 router.get('/getUser', userController.authenticate, userController.getUser);
 
