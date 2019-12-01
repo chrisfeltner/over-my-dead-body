@@ -36,7 +36,8 @@ class Navigation extends Component
       {
          console.log("Logout: Success");
          console.log(response.data);
-         setAuthToken(response.data);
+         
+         // TODO: Here we need to delete the token from App state!
 
          this.toggleMount(newMount);
       })

@@ -23,7 +23,6 @@ class Profile extends Component
    componentDidMount()
    {
       let getUserURL = "users/getUser";
-      let userData = null;
 
       axios.defaults.headers.common['Authorization'] = `Bearer ${this.state.token}`;
 
@@ -31,7 +30,6 @@ class Profile extends Component
       {
          method: 'GET',
          url: getUserURL,
-         data: userData,
          config: { headers: { 'Content-Type': 'application/json'}}
       })
       .then((response) =>
@@ -39,16 +37,15 @@ class Profile extends Component
          console.log("GetUser: Success");
          console.log("response.data:", response.data);
 
-         if(response.data != null)
+         if(response !== undefined && response.data !== undefined)
          {
-            console.log("TRUE");
             this.setState(
             {
-               username: userData.username,
-               firstName: userData.firstName,
-               lastName: userData.lastName,
-               password: userData.password,
-               deadline: userData.deadline
+               username: response.data.username,
+               firstName: response.data.firstName,
+               lastName: response.data.lastName,
+               password: response.data.password,
+               deadline: response.data.deadline
             });
          }
       })
@@ -94,11 +91,6 @@ class Profile extends Component
                <div className = "d-flex">
                   <p className = "ml-4 mr-1">Last Name: </p>
                   <p className = "text-secondary">{this.state.lastName}</p>
-               </div>
-
-               <div className = "d-flex">
-                  <p className = "ml-4 mr-1">Password: </p>
-                  <p className = "text-secondary">{this.state.password}</p>
                </div>
 
                <div className = "d-flex">
