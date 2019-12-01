@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Profile from '../profile/Profile.js';
 import axios from 'axios';
-import setAuthToken from '../../utils/auth';
 
 axios.defaults.withCredentials = true;
 

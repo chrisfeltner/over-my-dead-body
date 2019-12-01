@@ -6,7 +6,6 @@ import Timer from '../timer/Timer.js';
 import DeleteConfirmation from '../modals/DeleteConfirmation.js';
 import EditNote from '../modals/EditNote';
 import axios from 'axios';
-import setAuthToken from '../../utils/auth';
 
 axios.defaults.withCredentials = true;
 
@@ -56,7 +55,6 @@ class NoteNav extends Component
       {
          console.log("CreateNote: Success");
          console.log(response.data);
-         setAuthToken(response.data);
       })
       .catch((response) =>
       {
@@ -99,7 +97,6 @@ class NoteNav extends Component
       {
          console.log("GetNotes: Success");
          console.log(response.data);
-         setAuthToken(response.data);
 
          this.setState(
          {
