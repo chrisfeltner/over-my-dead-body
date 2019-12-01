@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const mongoose = require('mongoose');
 const Note = require('../models/note');
 
 const key = 'over_my_dead_body_key_secret_key';
@@ -58,7 +57,7 @@ exports.getNotes = function(req, res) {
 };
 
 exports.editNote = function(req, res) {
-	Note.findByIdAndUpdate(mongoose.Types.ObjectId(req.body._id),
+	Note.findByIdAndUpdate(req.body._id,
 		{
 			$set:{'userId': req.userId,
 				'subject': req.body.subject,
@@ -79,7 +78,7 @@ exports.editNote = function(req, res) {
 };
 
 exports.deleteNote = function(req, res) {
-	Note.findByIdAndDelete(mongoose.Types.ObjectId(req.body._id), function (err) {
+	Note.findByIdAndDelete(req.body._id, function (err) {
 		if (err) {
 			return res.status(400).send({message : "Failed to delete note."});
 		}

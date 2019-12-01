@@ -1,12 +1,13 @@
-const userController = require('./controllers/userController');
+const User = require('./models/user');
 const Note = require('./models/note');
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey('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');
 
 exports.checkForDeceasedUsers = function() {
-	userController.getPassedDeadlines(function(docs) {
-		sendEmails(docs);
-	});
+	currentDate = new Date();
+	User.find({'deadline' : {$lt : currentDate}}, '_id username', function(err, doc) {
+		sendEmails(doc);
+	});	
 };
 
 sendEmails = async function(usersWithDeadlines) {
