@@ -19,7 +19,8 @@ class App extends Component
          token: "",
          deadline:'',
          mount: "login",
-         displayMessages: false
+         displayMessages: false,
+         searchTerm: ''
       }
    }
 
@@ -29,6 +30,12 @@ class App extends Component
       {
          token: ""
       });
+   }
+
+   setSearch = (term) => {
+      this.setState({
+         searchTerm: term
+      })
    }
 
    setDeadline = (newDeadline) => {
@@ -58,8 +65,10 @@ class App extends Component
                (this.state.mount === "home")
                ?
                      <div>
-                        <Navigation token = {this.state.token} mount = {this.mount} deadline={this.state.deadline} setDeadline={this.setDeadline} clearToken = {this.clearToken}/>
-                        <NoteNav token={this.state.token} deadline={this.state.deadline}/>
+                        <Navigation token = {this.state.token} mount = {this.mount} deadline={this.state.deadline} 
+                        setDeadline={this.setDeadline} clearToken = {this.clearToken} searchTerm={this.state.searchTerm}
+                        setSearch={this.setSearch}/>
+                        <NoteNav token={this.state.token} deadline={this.state.deadline} searchTerm={this.state.searchTerm}/>
                      </div>
                :
                   (
