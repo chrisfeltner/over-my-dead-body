@@ -199,15 +199,19 @@ class NoteNav extends Component
       //this.setState({ showNotes: !this.state.showNotes });
    }
 
-   handleNewNote = () => {
-      this.setState({
+   handleNewNote = () =>
+   {
+      this.setState(
+      {
          selectedNoteId: '',
-         selectedNote: {
+         selectedNote:
+         {
             recipients: [],
             noteBody: '',
             subject: ''
          }
-      })
+      });
+
       this.setIsAddNote(true);
    }
 

@@ -8,7 +8,8 @@ class NoteForm extends Component
       super(props);
    }
 
-   handleSaveNote = () => {
+   handleSaveNote = () =>
+   {
       this.props.isAddNote ? this.props.addNote() : this.props.editNote()
    }
 
