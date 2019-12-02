@@ -2,30 +2,7 @@ const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 const uuidv4 = require('uuid/v4');
 const scheduler = require('../schedule');
-
 const key = 'over_my_dead_body_key_secret_key';
-
-exports.authenticate = function(req, res, next) {
-	var payload;
-	var token = req.headers['authorization'];
-	
-	if (token.startsWith('Bearer ')) {
-		token = token.slice(7, token.length);
-	}
-
-	try {
-		payload = jwt.verify(token, key);
-		req.userId = payload.userId;
-	} catch (e) {
-		if (e instanceof jwt.JsonWebTokenError) {
-			return res.status(401).send({message : "Unauthorized user."});
-		}
-
-		return res.status(400).end();
-	}
-
-	next();
-};
 
 exports.loginUser = function(req, res) {
 	User.findOne({username : req.body.username}, function(err, user) {
@@ -39,7 +16,7 @@ exports.loginUser = function(req, res) {
 
 		const token = jwt.sign({userId: user._id}, key, {
 			algorithm: 'HS256',
-			expiresIn: '1000 seconds'
+			expiresIn: '1800 seconds'
 		});
 
 		const refresh_token = uuidv4();
@@ -80,7 +57,7 @@ exports.registerUser = function(req, res) {
 
 			const token = jwt.sign({userId: user._id}, key, {
 				algorithm: 'HS256',
-				expiresIn: '1000 seconds'
+				expiresIn: '1800 seconds'
 			});
 
 			const refresh_token = uuidv4();
@@ -124,8 +101,3 @@ exports.confirmLife = function(req, res) {
 
 	);
 };
-
-exports.checkDeadlines = function(req, res) {
-	scheduler.checkForDeceasedUsers();
-	return res.end();
-}

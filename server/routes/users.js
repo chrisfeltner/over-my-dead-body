@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController');
+const auth = require('../auth');
 
 // POST request for login user
 router.post('/login', userController.loginUser);
@@ -9,12 +10,12 @@ router.post('/login', userController.loginUser);
 router.post('/register', userController.registerUser);
 
 // POST request for logout user
-router.post('/logout', userController.authenticate, userController.logoutUser);
+router.post('/logout', auth.authenticateWithExpiration, userController.logoutUser);
 
 // POST request for confirm life
-router.post('/confirmLife', userController.authenticate, userController.confirmLife);
+router.post('/confirmLife', auth.authenticateWithExpiration, userController.confirmLife);
 
 // GET request for get user
-router.get('/getUser', userController.authenticate, userController.getUser);
+router.get('/getUser', auth.authenticateWithExpiration, userController.getUser);
 
 module.exports = router;

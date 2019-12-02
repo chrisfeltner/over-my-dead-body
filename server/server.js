@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const scheduler = require('./schedule');
+const auth = require('./auth');
 const userRoute = require('./routes/users');
 const noteRoute = require('./routes/notes');
 const userController = require('./controllers/userController');
@@ -24,11 +25,11 @@ app.use(cookieParser());
 app.use('/users', userRoute);
 app.use('/notes', noteRoute);
 
-app.get('/refreshToken', userController.authenticate, function (req, res) {
+app.get('/refreshToken', auth.authenticateWithoutExpiration, function (req, res) {
 	const new_refresh_token = uuidv4();
 	const token = jwt.sign({userId: req.userId}, 'over_my_dead_body_key_secret_key', {
 		algorithm: 'HS256',
-		expiresIn: '300 seconds'
+		expiresIn: '1800 seconds'
 	});	
 
 	res.cookie('refresh_token', new_refresh_token, {
@@ -37,7 +38,12 @@ app.get('/refreshToken', userController.authenticate, function (req, res) {
 		secure: false
 	});
 
-	return res.status(201).json(token);
+	return res.status(201).json({token: token});
+});
+
+app.get('/checkDeadlines', function (req, res) {
+	scheduler.checkForDeceasedUsers();
+	return res.end();
 });
 
 setInterval(scheduler.checkForDeceasedUsers, 3600000);
