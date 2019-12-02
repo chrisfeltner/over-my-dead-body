@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 // Form to edit an existing new note.
-class EditNote extends Component
+class NoteForm extends Component
 {
    constructor(props)
    {
@@ -12,14 +12,16 @@ class EditNote extends Component
       this.props.isAddNote ? this.props.addNote() : this.props.editNote()
    }
 
+   // add component did mount for empty fields
+
    handleChange = (event) =>
    {
       if(event.target.id === 'recipients')
       {
-         // Remove whitespace from string and make into semicolon separated array
-         this.props.editSelectedNote(event.target.id, event.target.value.replace(/\s/g, '').split(';'))
+         this.props.editSelectedNote(event.target.id, event.target.value.split(';'))
       }
-      else{
+      else
+      {
          this.props.editSelectedNote(event.target.id, event.target.value)
       }
    }
@@ -69,4 +71,4 @@ class EditNote extends Component
    }
 }
 
-export default EditNote;
+export default NoteForm;

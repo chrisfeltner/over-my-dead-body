@@ -3,7 +3,7 @@ import NoteObject from '../noteobject/NoteObject.js';
 //import ConfirmLife from '../modals/ConfirmLife.js'
 import Timer from '../timer/Timer.js';
 import DeleteConfirmation from '../modals/DeleteConfirmation.js';
-import EditNote from '../modals/EditNote';
+import NoteForm from '../modals/NoteForm.js';
 import axios from 'axios';
 
 axios.defaults.withCredentials = true;
@@ -256,7 +256,7 @@ class NoteNav extends Component
                      // Displays all current notes
                      this.state.notes.map((note, id) =>
                      (
-                        <NoteObject key={id} note={note} setSelectedNoteId={this.setSelectedNoteId} 
+                        <NoteObject key={id} note={note} setSelectedNoteId={this.setSelectedNoteId}
                         setIsAddNote={this.setIsAddNote}/>
                      ))
                   :
@@ -266,7 +266,14 @@ class NoteNav extends Component
 
             {/*<ConfirmLife />*/}
             <DeleteConfirmation selectedNoteId={this.state.selectedNoteId} deleteNote={this.deleteNote}/>
-            <EditNote addNote={this.addNote} isAddNote={this.state.isAddNote} editNote={this.editNote} note={this.state.selectedNote} editSelectedNote={this.editSelectedNote}/>
+
+            <NoteForm
+               addNote={this.addNote}
+               isAddNote={this.state.isAddNote}
+               editNote={this.editNote}
+               note={this.state.selectedNote}
+               editSelectedNote={this.editSelectedNote}
+            />
 
          </div>
       );
