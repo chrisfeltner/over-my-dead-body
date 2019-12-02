@@ -32,8 +32,9 @@ class App extends Component
    }
 
    setDeadline = (newDeadline) => {
-      this.setState({
-         deadline: new Date(newDeadline)
+      this.setState(
+      {
+         deadline: new Date(newDeadline).toISOString().substring(0, 16)
       })
    }
 
@@ -58,8 +59,8 @@ class App extends Component
                (this.state.mount === "home")
                ?
                      <div>
-                        <Navigation token = {this.state.token} mount = {this.mount} deadline={this.state.deadline} setDeadline={this.setDeadline} clearToken = {this.clearToken}/>
-                        <NoteNav token={this.state.token} deadline={this.state.deadline}/>
+                        <Navigation token = {this.state.token} mount = {this.mount} deadline = {this.state.deadline} setDeadline = {this.setDeadline} clearToken = {this.clearToken}/>
+                        <NoteNav token = {this.state.token} deadline = {this.state.deadline}/>
                      </div>
                :
                   (

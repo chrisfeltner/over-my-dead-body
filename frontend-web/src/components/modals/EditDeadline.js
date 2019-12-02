@@ -6,10 +6,6 @@ class EditDeadline extends Component
    constructor(props)
    {
       super(props);
-      this.state =
-      {
-         deadline: props.deadline
-      }
    }
 
    //2019-12-11T11:11:00.000Z
@@ -33,7 +29,7 @@ class EditDeadline extends Component
                         id = "deadline"
                         className = "form-control"
                         type = "datetime-local"
-                        value = {this.state.deadline}
+                        value = {this.props.deadline}
                      />
                   </div>
 
