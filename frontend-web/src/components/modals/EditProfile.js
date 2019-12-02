@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import moment from 'moment'
+import moment from 'moment';
 
 // Form to edit profile
 class EditProfile extends Component
@@ -21,11 +21,6 @@ class EditProfile extends Component
    handleSaveClick = () =>
    {
       this.props.setUser();
-   }
-
-   componentDidMount() {
-      this.props.setSelectedDeadline();
-      console.log(this.props.selectedDeadline)
    }
 
    render()

@@ -61,7 +61,8 @@ class Navigation extends Component
 
             <ul className = "nav">
                <li className = "nav-link">
-                  <Profile token={this.props.token} 
+                  <Profile 
+                  token={this.props.token} 
                   deadline={this.props.deadline} 
                   setDeadline={this.props.setDeadline} 
                   editSelectedDeadline={this.props.editSelectedDeadline}

@@ -79,26 +79,31 @@ class Signin extends Component
                <h4 className = "card-title text-center">Login</h4>
 
                <form>
+
                   <h6 className = "text-center">Username</h6>
                   <input
                      id = "username"
                      className = "form-control"
                      type = "text"
                      onChange = {this.handleChange}
+                     required
                   />
+
+
 
                   <h6 className = "text-center">Password</h6>
                   <input
-                  id = "password"
+                     id = "password"
                      className = "form-control"
                      type = "password"
                      onChange = {this.handleChange}
+                     required
                   />
 
                   <br></br>
 
                   <button
-                     type = "button"
+                     type = "submit"
                      className = "mb-1 btn btn-secondary col align-self-center rounded border"
                      onClick = {() => this.handleLogin("home")}
                      data-toggle = "modal"
