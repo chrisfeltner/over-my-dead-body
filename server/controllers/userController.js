@@ -72,14 +72,44 @@ exports.registerUser = function(req, res) {
 	});
 };
 
+exports.editUser = function(req, res) {
+	User.findById(req.userId, function (err, result) {
+		if (err) {
+			return res.status(400).send({message : "Failed to get user."});
+		}
+
+		if (!result.validPassword(req.body.password)) {
+			result.setPassword(req.body.password);
+		}
+
+		if (!user) {
+			return res.status(200).json({message : "This account does not exist."});
+		}
+
+		result.firstName = req.body.firstName;
+		result.lastName = req.body.lastName;
+		result.userName = req.body.username;
+		result.deadline = req.body.deadline;
+		result.save(function(err) {
+			if (err) {
+				return res.status(400).send({message : "Failed to update user."})
+			}
+
+			return res.status(201).send({message : "Update successful."})
+
+		});
+	});
+};
+
 exports.getUser = function(req, res) {
 	User.findById(req.userId, 'firstName lastName username deadline ', function(err, user) {
 		if (err)
 			return res.status(400).send({message : "Failed to get user."});
 
-		else {
-			return res.status(200).json(user);
+		if (!user) {
+			return res.status(200).json({message : "This account does not exist."});
 		}
+		return res.status(200).json(user);
 	});
 };
 
@@ -89,15 +119,17 @@ exports.confirmLife = function(req, res) {
 			$set:{
 				'deadline':req.body.deadline
 			}
-		}, function (err, result) {
+		}, { useFindAndModify: false, new: true}, function (err, result) {
 			if (err) {
 				return res.status(400).send({message : "Could not confirm life."});
 			}
 
-			else {
-				return res.status(201).json({newDeadline : result.deadline});
+			
+			if (!result) {
+				return res.status(200).json({message : "This account does not exist."});
 			}
-		}
 
+			return res.status(201).json({newDeadline : result.deadline});
+		}
 	);
 };
