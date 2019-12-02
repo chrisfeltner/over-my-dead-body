@@ -23,13 +23,13 @@ class Timer extends Component
    render()
    {
       return(
-         <div className = "card" style = {{ width: "19rem" }}>
-            <div className = "card-header bg-secondary border border-secondary">
-               <h6 className = "card-title m-auto">Countdown to Next Check-in</h6>
+         <div className = "card w-100" style = {{ width: "19rem" }}>
+            <div className = "card-header bg-secondary text-white border border-secondary">
+               <h6 className = "card-title m-auto">Deadline: {new Date(this.props.deadline).toDateString()} at {new Date(this.props.deadline).toLocaleTimeString("en-US")}</h6>
             </div>
 
-            <div className = "d-flex justify-content-center">
-               <p>{new Date(this.props.deadline).toDateString()} at {new Date(this.props.deadline).toLocaleTimeString("en-US")}</p>
+            <div className = "d-sm-flex justify-content-center p-2">
+               <p>{}</p>
             </div>
 
             <button

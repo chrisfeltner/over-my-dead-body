@@ -19,9 +19,15 @@ class Profile extends Component
    }
 
    editProfileItem = (id, value) => {
-      this.setState({
+      this.setState(
+      {
          [id]: value
       })
+   }
+
+   editProfile = () =>
+   {
+      console.log(this.state);
    }
 
    componentDidMount()
@@ -50,7 +56,9 @@ class Profile extends Component
                password: response.data.password,
             });
 
-            console.log(response.data);
+            var format = "LLLL";
+            var result = moment(response.data.deadline).format(format);
+            console.log(result);
 
             this.props.setDeadline(response.data.deadline)
          }
@@ -116,9 +124,14 @@ class Profile extends Component
                </button>
             </div>
 
-            <EditProfile deadline={this.props.deadline} username={this.state.username}
-               firstName={this.state.firstName} lastName={this.state.lastName}
-               editProfileItem={this.editProfileItem}/>
+            <EditProfile
+               deadline={this.props.deadline}
+               username={this.state.username}
+               firstName={this.state.firstName}
+               lastName={this.state.lastName}
+               editProfileItem={this.editProfileItem}
+               editProfile ={this.editProfile}
+            />
          </div>
       );
    }

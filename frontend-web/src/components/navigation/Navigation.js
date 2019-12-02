@@ -28,22 +28,24 @@ class Navigation extends Component
       {
          method: 'POST',
          url: logoutURL,
+         data: { 'refresh_token': "" },
          config: { headers: { 'Content-Type': 'application/json'}}
       })
-      .then((response) =>
+      .then(() =>
       {
+         console.log("Logout: Successful");
          // TODO: Here we need to delete the token from App state!
 
          this.props.clearToken();
          this.toggleMount(newMount);
       })
-      .catch((response) =>
+      .catch(() =>
       {
          console.log("Logout: Unsuccessful");
-         console.log(response);
       });
 
-      //this.props.clearToken();
+      console.log("obama");
+
 
       // Uncomment if you want to test request
       //this.toggleMount(newMount);
