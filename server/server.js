@@ -55,8 +55,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "../frontend-web/build")))
 app.use('/users', userRoute);
 app.use('/notes', noteRoute);
-
-
   
 app.get('/ping', function (req, res) {
     return res.status(200).send("pong");
@@ -81,7 +79,7 @@ app.post('/refreshToken', function (req, res) {
 	return res.status(201).json(token);
 });
 
-setInterval(scheduler.checkForDeceasedUsers, 3600000);
+setInterval(scheduler.checkForDeceasedUsers, 3600000, () => {
 	return res.status(201).json(token);
 });
 
