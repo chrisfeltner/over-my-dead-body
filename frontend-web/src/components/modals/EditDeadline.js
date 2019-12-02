@@ -33,7 +33,7 @@ class EditDeadline extends Component
                         id = "deadline"
                         className = "form-control"
                         type = "datetime-local"
-                        value = {moment(this.props.deadline).local().format("YYYY-MM-DD[T]HH:mm")}
+                        value = {moment(this.props.deadline).format("YYYY-MM-DD[T]HH:mm")}
                         onChange = {this.handleChange}
                      />
                   </div>

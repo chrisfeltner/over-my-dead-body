@@ -35,7 +35,7 @@ exports.logoutUser = function(req, res) {
 	res.cookie('refresh_token', "", {
     httpOnly: true,
     expires: new Date(0)
-  });
+  }).status(200).send("Logged out");
 }
 
 exports.registerUser = function(req, res) {

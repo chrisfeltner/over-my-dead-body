@@ -25,6 +25,35 @@ class Profile extends Component
       })
    }
 
+   setUser = () => {
+      let setUserURL = 'users/setUser';
+
+      let body = {
+         username: this.state.username,
+         firstName: this.state.firstName,
+         lastName: this.state.lastName,
+         password: this.state.password,
+         deadline: this.props.deadline
+      }
+
+      axios(
+         {
+            method: 'POST',
+            url: setUserURL,
+            data: body,
+            config: { headers: { 'Content-Type': 'application/json'}}
+         })
+         .then((response) =>
+         {
+            console.log("Set User: Success");
+         })
+         .catch((response) =>
+         {
+            console.log("Set User: Unsuccessful");
+            console.log(response);
+         });
+   }
+
    componentDidMount()
    {
       let getUserURL = "users/getUser";
@@ -114,7 +143,7 @@ class Profile extends Component
 
             <EditProfile deadline={this.props.deadline} username={this.state.username}
                firstName={this.state.firstName} lastName={this.state.lastName}
-               editProfileItem={this.editProfileItem}/>
+               editProfileItem={this.editProfileItem} setUser={this.setUser}/>
          </div>
       );
    }
