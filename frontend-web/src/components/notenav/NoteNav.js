@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import NoteObject from '../noteobject/NoteObject.js';
-import NewNote from '../modals/NewNote.js';
 //import ConfirmLife from '../modals/ConfirmLife.js'
 import Timer from '../timer/Timer.js';
 import DeleteConfirmation from '../modals/DeleteConfirmation.js';
@@ -269,7 +268,6 @@ class NoteNav extends Component
             </div>
 
             {/*<ConfirmLife />*/}
-            {/* <NewNote addNote = {this.addNote} /> */}
             <DeleteConfirmation selectedNoteId={this.state.selectedNoteId} deleteNote={this.deleteNote}/>
             <EditNote addNote={this.addNote} isAddNote={this.state.isAddNote} editNote={this.editNote} note={this.state.selectedNote} editSelectedNote={this.editSelectedNote}/>
 
