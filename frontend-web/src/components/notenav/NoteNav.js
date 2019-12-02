@@ -19,12 +19,18 @@ class NoteNav extends Component
       {
          token: props.token,
          notes:[],
-         showNotes: false
+         showNotes: false,
+         selectedNoteId: ''
       }
    }
 
    componentDidMount() {
       this.getNotes()
+   }
+
+   setSelectedNoteId = (id) => {
+      console.log("Selected Note ID: "+id)
+      this.setState({selectedNoteId: id})
    }
 
    // Creates new note
@@ -67,9 +73,37 @@ class NoteNav extends Component
       });
    }
 
-   deleteNote = () =>
+   deleteNote = (id) =>
    {
+      let deleteNoteURL = "notes/deleteNote";
 
+      let body = {
+         '_id':id
+      }
+
+
+
+      axios.defaults.headers.common['Authorization'] = `Bearer ${this.state.token}`;
+
+      axios(
+         {
+            method: 'DELETE',
+            url: deleteNoteURL,
+            data: body,
+            config: { headers: { 'Content-Type': 'application/json'}}
+         })
+         .then((response) =>
+         {
+            console.log("Delete Note: Success");
+         }).then(() => {
+            this.getNotes();
+            //TODO: Perhaps make this not a new request
+         })
+         .catch((response) =>
+         {
+            console.log("Delete Notes: Unsuccessful");
+            console.log(response);
+         });
    }
 
    editNote = (modifiedNote) =>
@@ -107,7 +141,7 @@ class NoteNav extends Component
 
          }, () => {
             this.setState({
-               showNotes: !this.state.showNotes
+               showNotes: true
             })
          });
       })
@@ -165,7 +199,7 @@ class NoteNav extends Component
                      // Displays all current notes
                      this.state.notes.map((note, id) =>
                      (
-                        <NoteObject key = {id} note = {note}/>
+                        <NoteObject key={id} note={note} setSelectedNoteId={this.setSelectedNoteId}/>
                      ))
                   :
                      null
@@ -174,7 +208,7 @@ class NoteNav extends Component
 
             {/*<ConfirmLife />*/}
             <NewNote addNote = {this.addNote} />
-            <DeleteConfirmation />
+            <DeleteConfirmation selectedNoteId={this.state.selectedNoteId} deleteNote={this.deleteNote}/>
             <EditNote editNote = {this.editNote} notes = {this.state.notes} />
 
          </div>

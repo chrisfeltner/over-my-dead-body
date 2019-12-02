@@ -13,7 +13,12 @@ class NoteObject extends Component
       {
          subject: props.note.subject,
          recipients: props.note.recipients,
+         id: props.note._id
       }
+   }
+
+   setNoteId = () => {
+      this.props.setSelectedNoteId(this.state.id)
    }
 
    // Basic parts to note components
@@ -34,6 +39,7 @@ class NoteObject extends Component
                   className = "btn btn-outline-danger btn-sm"
                   data-toggle = "modal"
                   data-target = "#deleteModal"
+                  onClick={this.setNoteId}
                >
                Delete
                </button>
