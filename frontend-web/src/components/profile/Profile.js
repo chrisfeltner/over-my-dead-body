@@ -56,10 +56,6 @@ class Profile extends Component
                password: response.data.password,
             });
 
-            var format = "LLLL";
-            var result = moment(response.data.deadline).format(format);
-            console.log(result);
-
             this.props.setDeadline(response.data.deadline)
          }
       })
