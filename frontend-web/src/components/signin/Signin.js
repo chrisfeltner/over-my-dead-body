@@ -2,11 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 //import Profile from "../profile/Profile.js";
 import './Signin.css';
-import setAuthToken from '../../utils/auth';
-
-const URL_PREFIX = "";
-
-axios.defaults.withCredentials = true;
 
 // Signin page that contains a login form.
 class Signin extends Component
@@ -30,8 +25,9 @@ class Signin extends Component
       });
    }
 
-   handleLogin = (newMount) => {
-      const loginURL = "/users/login"
+   handleLogin = (newMount) =>
+   {
+      const loginURL = "users/login";
 
       // Ensures that form is working properly
       const loginObject =
@@ -40,21 +36,29 @@ class Signin extends Component
          'password': this.state.password
       }
 
-      axios({
+      axios(
+      {
          method: 'POST',
          url: loginURL,
          data: loginObject,
          config: { headers: { 'Content-Type': 'application/json'}}
       })
-      .then((response) => {
-         console.log(response.data)
-         setAuthToken(response.data)
-      })
-      .catch((response) => {
-         console.log(response)
-      })
+      .then((response) =>
+      {
+         console.log("Login: Success");
+         console.log(response.data);
 
-      this.toggleMount(newMount)
+         this.props.receiver(response.data.token);
+         this.toggleMount(newMount);
+      })
+      .catch((response) =>
+      {
+         console.log("Login: Unsuccessful");
+         console.log(response);
+      });
+
+      // Uncomment if you want to test request
+      //this.toggleMount(newMount);
    }
 
    // Toggles between Home, Login, and Register components
@@ -94,6 +98,7 @@ class Signin extends Component
                   <br></br>
 
                   <button
+                     type = "button"
                      className = "mb-1 btn btn-secondary col align-self-center rounded border"
                      onClick = {() => this.handleLogin("home")}
                      data-toggle = "modal"
@@ -103,6 +108,7 @@ class Signin extends Component
                   </button>
                   <br></br>
                   <button
+                     type = "button"
                      className = "btn col align-self-center rounded border"
                      onClick = {() => this.toggleMount("register")}
                   >

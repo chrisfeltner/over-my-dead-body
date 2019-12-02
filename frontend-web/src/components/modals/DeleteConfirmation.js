@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 // Confirmation modal to delete an existing note.
 class DeleteConfirmation extends Component
 {
+   handleDeleteNote = () => {
+      this.props.deleteNote(this.props.selectedNoteId)
+   }
    // Basic parts to components
    render()
    {
@@ -24,7 +27,8 @@ class DeleteConfirmation extends Component
 
                   <div className = "modal-footer">
                      <button type = "button" className = "btn btn-secondary" data-dismiss = "modal">Cancel</button>
-                     <button type = "button" className = "btn btn-danger" data-dismiss = "modal">Yes, Delete</button>
+                     <button type = "button" className = "btn btn-danger" data-dismiss = "modal"
+                        onClick={this.handleDeleteNote}>Yes, Delete</button>
                   </div>
                </div>
             </div>

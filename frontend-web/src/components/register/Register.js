@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import setAuthToken from '../../utils/auth';
 
 axios.defaults.withCredentials = true;
 
@@ -30,8 +29,9 @@ class Register extends Component
       })
    }
 
-   handleRegister = (newMount) => {
-      const registerURL = "users/register"
+   handleRegister = (newMount) =>
+   {
+      const registerURL = "users/register";
 
       let newUser =
       {
@@ -42,22 +42,29 @@ class Register extends Component
          "deadline": this.state.deadline
       }
 
-      axios({
+      axios(
+      {
          method: 'POST',
          url: registerURL,
          data: newUser,
          config: { headers: { 'Content-Type': 'application/json'}}
       })
-      .then((response) => {
-         console.log(response.data)
-         setAuthToken(response.data)
-      })
-      .catch((response) => {
-         console.log(response)
-      })
+      .then((response) =>
+      {
+         console.log("Registration: Successful");
+         console.log(response.data);
 
-      this.toggleMount(newMount)
+         this.props.receiver(response.data);
+         this.toggleMount(newMount);
+      })
+      .catch((response) =>
+      {
+         console.log("Registration: Unsuccessful");
+         console.log(response);
+      });
 
+      // Uncomment if you want to test request
+      // this.toggleMount(newMount);
    }
 
    toggleMount = (newMount) =>
@@ -118,6 +125,7 @@ class Register extends Component
                   <br></br>
 
                   <button
+                     type = "button"
                      className = "mb-1 btn btn-secondary col align-self-center rounded border"
                      onClick = {() => this.handleRegister("home")}
                      data-toggle = "modal"
@@ -128,7 +136,8 @@ class Register extends Component
 
                   <br></br>
 
-                  <button 
+                  <button
+                     type = "button"
                      className = "btn col align-self-center rounded border"
                      onClick = {() => this.toggleMount("login")}
                   >

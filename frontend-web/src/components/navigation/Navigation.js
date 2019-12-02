@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import Profile from '../profile/Profile.js';
+import axios from 'axios';
+
+axios.defaults.withCredentials = true;
 
 // Navigation Bar that contains Search, access to his/her account, and signout.
 // This will present in the home page
@@ -10,21 +13,44 @@ class Navigation extends Component
       super(props);
       this.state =
       {
+         token: props.token,
          searchInput: '',
          myAccount: false
       }
+   }
+
+   handleLogout(newMount)
+   {
+      let logoutURL = "users/logout";
+
+      axios.defaults.headers.common['Authorization'] = `Bearer ${this.state.token}`;
+
+      axios(
+      {
+         method: 'POST',
+         url: logoutURL,
+         config: { headers: { 'Content-Type': 'application/json'}}
+      })
+      .then((response) =>
+      {  
+         // TODO: Here we need to delete the token from App state!
+
+         this.toggleMount(newMount);
+      })
+      .catch((response) =>
+      {
+         console.log("Logout: Unsuccessful");
+         console.log(response);
+      });
+
+      // Uncomment if you want to test request
+      //this.toggleMount(newMount);
    }
 
    // For signout
    toggleMount = (newMount) =>
    {
       this.props.mount(newMount);
-   }
-
-   componentDidMount()
-   {
-      console.log("Navigation Mounted");
-      console.log("------------------");
    }
 
    render()
@@ -40,12 +66,12 @@ class Navigation extends Component
 
             <ul className = "nav">
                <li className = "nav-link">
-                  { <Profile /> }
+                  <Profile token = {this.state.token}/>
                </li>
 
                <li className = "nav-link">
                   <button
-                     onClick = {() => this.toggleMount("login")}
+                     onClick = {() => this.handleLogout("login")}
                      id = "button"
                      href = "#"
                      title = "Contact"

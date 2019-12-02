@@ -34,7 +34,8 @@ exports.getNotes = function(req, res) {
 exports.editNote = function(req, res) {
 	Note.findByIdAndUpdate(req.body._id,
 		{
-			$set:{'userId': req.userId,
+			$set:{
+				'userId': req.userId,
 				'subject': req.body.subject,
 				'noteBody':req.body.noteBody,
 				'recipients':req.body.recipients
