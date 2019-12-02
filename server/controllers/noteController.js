@@ -1,35 +1,6 @@
 const jwt = require('jsonwebtoken');
 const Note = require('../models/note');
 
-const key = 'over_my_dead_body_key_secret_key';
-
-exports.authenticate = function(req, res, next) {
-	var payload;
-	var token = req.headers['authorization'];
-	
-	if(token === undefined)
-	{
-		return res.status(400).send({message: "Unauthorized user. No bearer token."});
-	}
-	
-	if (token.startsWith('Bearer ')) {
-		token = token.slice(7, token.length);
-	}
-
-	try {
-		payload = jwt.verify(token, key);
-		req.userId = payload.userId;
-	} catch (e) {
-		if (e instanceof jwt.JsonWebTokenError) {
-			return res.status(401).send({message : "Unauthorized user."});
-		}
-
-		return res.status(400).end();
-	}
-
-	next();
-}
-
 exports.createNote = function(req, res) {
 	let newNote = new Note();
 	newNote.userId = req.userId;

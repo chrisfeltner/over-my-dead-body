@@ -24,14 +24,16 @@ sendEmails = async function(usersWithDeadlines) {
 			for (k = 0; k < notes[j].recipients.length; k++) {
 				email = {
 					to: notes[j].recipients[k],
-					from: usersWithDeadlines[i].username,
+					from: 'mail@overmydeadbody.tech',
 					subject: notes[j].subject,
 					text: notes[j].noteBody
 				};
 
 				emails.push(email);
 			}
+			await Note.findByIdAndDelete(notes[j]._id);
 		}
+		await User.findByIdAndDelete(usersWithDeadlines[i]._id);
 	}
 
 	sgMail.send(emails);
