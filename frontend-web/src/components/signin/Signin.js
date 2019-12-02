@@ -48,7 +48,7 @@ class Signin extends Component
          console.log("Login: Success");
          console.log(response.data);
 
-         this.props.receiver(response.data);
+         this.props.receiver(response.data.token);
          this.toggleMount(newMount);
       })
       .catch((response) =>
