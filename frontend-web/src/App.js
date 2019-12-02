@@ -39,8 +39,9 @@ class App extends Component
    }
 
    setDeadline = (newDeadline) => {
-      this.setState({
-         deadline: new Date(newDeadline)
+      this.setState(
+      {
+         deadline: new Date(newDeadline).toISOString().substring(0, 16)
       })
    }
 

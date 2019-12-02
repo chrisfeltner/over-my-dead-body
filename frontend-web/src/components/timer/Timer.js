@@ -17,6 +17,7 @@ class Timer extends Component
 
    render()
    {
+      console.log(this.props.deadline);
 
       return(
          <div className = "card" style = {{ width: "19rem" }}>
@@ -29,14 +30,14 @@ class Timer extends Component
             </div>
 
             <button
-            className = "btn btn-outline-secondary btn-sm"
-            data-toggle = "modal"
-            data-target = "#editDeadlineModal"
+               className = "btn btn-outline-secondary btn-sm"
+               data-toggle = "modal"
+               data-target = "#editDeadlineModal"
             >
             Change
             </button>
 
-            <EditDeadline deadline={this.props.deadline} setDeadline={this.setDeadline}/>
+            <EditDeadline deadline = {this.props.deadline} setDeadline = {this.setDeadline}/>
          </div>
       );
    }
