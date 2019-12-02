@@ -117,7 +117,7 @@ class NoteNav extends Component
          '_id':id
       }
 
-      axios.defaults.headers.common['authorization'] = `Bearer ${this.state.token}`;
+      axios.defaults.headers.common['Authorization'] = `Bearer ${this.state.token}`;
 
       axios(
       {
@@ -130,13 +130,9 @@ class NoteNav extends Component
       {
          console.log("Delete Note: Success");
 
-
-         // this.setState({ note: this.state.note.filter((note) => note._id !== ) })
-
-
-
       }).then(() =>
       {
+         // Updates display
          this.setState(
          {
             notes: this.state.notes.filter((note) =>
@@ -145,7 +141,7 @@ class NoteNav extends Component
             }),
             selectedNoteId: '',
             selectedNote: ''
-         })
+         });
       })
       .catch((response) =>
       {

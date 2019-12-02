@@ -32,9 +32,10 @@ class Navigation extends Component
          config: { headers: { 'Content-Type': 'application/json'}}
       })
       .then((response) =>
-      {  
+      {
          // TODO: Here we need to delete the token from App state!
 
+         this.props.clearToken();
          this.toggleMount(newMount);
       })
       .catch((response) =>
@@ -43,8 +44,10 @@ class Navigation extends Component
          console.log(response);
       });
 
+      this.props.clearToken();
+
       // Uncomment if you want to test request
-      //this.toggleMount(newMount);
+      this.toggleMount(newMount);
    }
 
    // For signout

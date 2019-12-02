@@ -23,6 +23,14 @@ class App extends Component
       }
    }
 
+   clearToken = () =>
+   {
+      this.setState(
+      {
+         token: ""
+      });
+   }
+
    setDeadline = (newDeadline) => {
       this.setState({
          deadline: newDeadline
@@ -50,7 +58,7 @@ class App extends Component
                (this.state.mount === "home")
                ?
                      <div>
-                        <Navigation token = {this.state.token} mount = {this.mount} deadline={this.state.deadline} setDeadline={this.setDeadline}/>
+                        <Navigation token = {this.state.token} mount = {this.mount} deadline={this.state.deadline} setDeadline={this.setDeadline} clearToken = {this.clearToken}/>
                         <NoteNav token={this.state.token} deadline={this.state.deadline}/>
                      </div>
                :
