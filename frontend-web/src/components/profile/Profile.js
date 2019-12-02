@@ -18,6 +18,12 @@ class Profile extends Component
       }
    }
 
+   editProfileItem = (id, value) => {
+      this.setState({
+         [id]: value
+      })
+   }
+
    componentDidMount()
    {
       let getUserURL = "users/getUser";
@@ -58,7 +64,7 @@ class Profile extends Component
 
    render()
    {
-      let deadlineObject = new Date(this.state.deadline);
+      let deadlineObject = new Date(this.props.deadline);
 
       let currentDeadlineDate = deadlineObject.toDateString();
 
@@ -108,7 +114,9 @@ class Profile extends Component
                </button>
             </div>
 
-            <EditProfile user = {this.state}/>
+            <EditProfile deadline={this.props.deadline} username={this.state.username}
+               firstName={this.state.firstName} lastName={this.state.lastName} 
+               editProfileItem={this.editProfileItem}/>
          </div>
       );
    }
