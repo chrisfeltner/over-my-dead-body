@@ -10,11 +10,11 @@ exports.createNote = function(req, res) {
 
 	newNote.save((err, note) => {
 		if (err) {
-			return res.status(400).send({message : "Failed to create note."});
+			return res.status(400).send({message : "Failed to create note.", note: ''});
 		}
 
 		else {
-			return res.status(201).send({message : "Successfully created note."});
+			return res.status(201).send({message : "Successfully created note.", note: newNote});
 		}
 	});
 };

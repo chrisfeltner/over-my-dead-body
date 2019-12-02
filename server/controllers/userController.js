@@ -5,6 +5,7 @@ const scheduler = require('../schedule');
 const key = 'over_my_dead_body_key_secret_key';
 
 exports.loginUser = function(req, res) {
+	console.log("login user")
 	User.findOne({username : req.body.username}, function(err, user) {
 		if (user === null) {
 			return res.status(400).send({message : "User not found."});
@@ -26,7 +27,7 @@ exports.loginUser = function(req, res) {
 			secure: false
 		});
 			
-		return res.status(200).json(token);
+		return res.status(201).json({token: token, deadline: user.deadline});
 	});
 };
 
