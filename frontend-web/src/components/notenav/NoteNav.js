@@ -36,7 +36,6 @@ class NoteNav extends Component
    }
 
    setSelectedNoteId = (id) => {
-      console.log("Selected Note ID: "+id)
       this.setState({selectedNoteId: id})
       let note = this.state.notes.filter((note) => {
          return note._id === id
@@ -47,6 +46,7 @@ class NoteNav extends Component
    editSelectedNote = (id, value) => {
       this.setState({
          selectedNote: {
+            ...this.state.selectedNote,
             [id]: value
          }
       })
@@ -184,8 +184,7 @@ class NoteNav extends Component
 
          this.setState(
          {
-            notes: response.data,
-
+            notes: response.data
          }, () => {
             this.setState({
                showNotes: true

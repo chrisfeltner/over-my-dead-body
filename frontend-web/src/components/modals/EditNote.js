@@ -14,7 +14,13 @@ class EditNote extends Component
 
    handleChange = (event) =>
    {
-      this.props.editSelectedNote(event.target.id, event.target.value)
+      if(event.target.id === 'recipients')
+      {
+         this.props.editSelectedNote(event.target.id, event.target.value.split(';'))
+      }
+      else{
+         this.props.editSelectedNote(event.target.id, event.target.value)
+      }
    }
 
    render()
@@ -35,7 +41,7 @@ class EditNote extends Component
                      <div className = "form-group">
                         <label>To</label>
                         <input id='recipients' type = "email" className = "form-control" onChange = {this.handleChange}
-                           value={this.props.note.recipients === undefined ? '' : this.props.note.recipients[0]}/>
+                           value={this.props.note.recipients === undefined ? '' : this.props.note.recipients.join(';')}/>
                      </div>
 
                      <div className = "form-group">

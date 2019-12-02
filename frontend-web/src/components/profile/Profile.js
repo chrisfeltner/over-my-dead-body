@@ -35,7 +35,6 @@ class Profile extends Component
       .then((response) =>
       {
          console.log("GetUser: Success");
-         console.log("response.data:", response.data);
 
          if(response !== undefined && response.data !== undefined)
          {

@@ -32,10 +32,7 @@ class Navigation extends Component
          config: { headers: { 'Content-Type': 'application/json'}}
       })
       .then((response) =>
-      {
-         console.log("Logout: Success");
-         console.log(response.data);
-         
+      {  
          // TODO: Here we need to delete the token from App state!
 
          this.toggleMount(newMount);
