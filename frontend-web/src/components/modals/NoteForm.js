@@ -43,26 +43,50 @@ class NoteForm extends Component
                   <div className = "modal-body">
                      <div className = "form-group">
                         <label>To</label>
-                        <input id='recipients' type = "email" className = "form-control" onChange = {this.handleChange}
-                           value={this.props.note.recipients === undefined ? '' : this.props.note.recipients.join(';')}/>
+
+                        <input
+                           id='recipients'
+                           type = "email"
+                           className = "form-control"
+                           onChange = {this.handleChange}
+                           value = {this.props.note.recipients === undefined ? '' : this.props.note.recipients.join(';')}
+                        />
                      </div>
 
                      <div className = "form-group">
                         <label>Subject</label>
-                        <input id='subject' type = "text" className = "form-control" onChange = {this.handleChange}
-                           value={this.props.note.subject}/>
+
+                        <input
+                           id='subject'
+                           type = "text"
+                           className = "form-control"
+                           onChange = {this.handleChange}
+                           value={this.props.note.subject}
+                        />
                      </div>
 
                      <div className = "form-group">
-                        <textarea id='noteBody' className = "form-control" rows = "8" onChange = {this.handleChange}
-                           value={this.props.note.noteBody}/>
+                        <textarea
+                           id='noteBody'
+                           className = "form-control"
+                           rows = "8"
+                           onChange = {this.handleChange}
+                           value={this.props.note.noteBody}
+                        />
                      </div>
                   </div>
 
                   <div className = "modal-footer">
                      <button type = "button" className = "btn btn-outline-danger" data-dismiss = "modal">Cancel</button>
-                     <button type = "button" className = "btn btn-success" data-dismiss = "modal"
-                        onClick={this.handleSaveNote}>Save Note</button>
+
+                     <button
+                        type = "button"
+                        className = "btn btn-success"
+                        data-dismiss = "modal"
+                        onClick={this.handleSaveNote}
+                     >
+                     Save Note
+                     </button>
                   </div>
                </div>
             </div>

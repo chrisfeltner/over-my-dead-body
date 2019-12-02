@@ -244,7 +244,7 @@ class NoteNav extends Component
                }
 
                <div className = "ml-auto mr-5 mt-3">
-                  <Timer deadline={this.state.deadline}/>
+                  <Timer deadline = {this.state.deadline}/>
                </div>
             </div>
 
@@ -256,8 +256,12 @@ class NoteNav extends Component
                      // Displays all current notes
                      this.state.notes.map((note, id) =>
                      (
-                        <NoteObject key={id} note={note} setSelectedNoteId={this.setSelectedNoteId}
-                        setIsAddNote={this.setIsAddNote}/>
+                        <NoteObject
+                           key={id}
+                           note={note}
+                           setSelectedNoteId={this.setSelectedNoteId}
+                           setIsAddNote={this.setIsAddNote}
+                        />
                      ))
                   :
                      null
@@ -268,11 +272,11 @@ class NoteNav extends Component
             <DeleteConfirmation selectedNoteId={this.state.selectedNoteId} deleteNote={this.deleteNote}/>
 
             <NoteForm
-               addNote={this.addNote}
-               isAddNote={this.state.isAddNote}
-               editNote={this.editNote}
-               note={this.state.selectedNote}
-               editSelectedNote={this.editSelectedNote}
+               addNote = {this.addNote}
+               isAddNote = {this.state.isAddNote}
+               editNote = {this.editNote}
+               editSelectedNote = {this.editSelectedNote}
+               note = {this.state.selectedNote}
             />
 
          </div>
