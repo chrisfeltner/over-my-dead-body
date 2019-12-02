@@ -8,7 +8,10 @@ class EditDeadline extends Component
       super(props);
    }
 
-   //2019-12-11T11:11:00.000Z
+   handleChange = (event) =>
+   {
+      this.props.editSelectedDeadline(event.target.value);
+   }
 
    render()
    {
@@ -30,12 +33,20 @@ class EditDeadline extends Component
                         className = "form-control"
                         type = "datetime-local"
                         value = {this.props.deadline}
+                        onChange = {this.handleChange}
                      />
                   </div>
 
                   <div className = "modal-footer">
                      <button type = "button" className = "btn btn-outline-danger" data-dismiss = "modal">Cancel</button>
-                     <button type = "button" className = "btn btn-success" data-dismiss = "modal">Change</button>
+                     <button
+                        type = "button" 
+                        className = "btn btn-success"
+                        data-dismiss = "modal"
+                        onClick = {this.props.editDeadline}
+                     >
+                     Change
+                     </button>
                   </div>
                </div>
             </div>

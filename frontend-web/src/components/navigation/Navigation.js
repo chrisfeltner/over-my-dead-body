@@ -22,7 +22,7 @@ class Navigation extends Component
    {
       let logoutURL = "users/logout";
 
-      axios.defaults.headers.common['Authorization'] = `Bearer ${this.state.token}`;
+      axios.defaults.headers.common['Authorization'] = `Bearer ${this.props.token}`;
 
       axios(
       {
@@ -43,10 +43,10 @@ class Navigation extends Component
          console.log(response);
       });
 
-      this.props.clearToken();
+      //this.props.clearToken();
 
       // Uncomment if you want to test request
-      this.toggleMount(newMount);
+      //this.toggleMount(newMount);
    }
 
    // For signout
@@ -55,7 +55,8 @@ class Navigation extends Component
       this.props.mount(newMount);
    }
 
-   handleChange = (event) => {
+   handleChange = (event) =>
+   {
       this.props.setSearch(event.target.value);
    }
 

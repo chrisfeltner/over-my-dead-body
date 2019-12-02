@@ -202,8 +202,10 @@ class NoteNav extends Component
          this.setState(
          {
             notes: response.data
-         }, () => {
-            this.setState({
+         }, () =>
+         {
+            this.setState(
+            {
                showNotes: true
             })
          });
@@ -267,7 +269,13 @@ class NoteNav extends Component
                }
 
                <div className = "ml-auto mr-5 mt-3">
-                  <Timer deadline = {this.props.deadline} setDeadline={this.setDeadline}/>
+                  <Timer
+                     deadline = {this.props.deadline}
+                     selectedDeadline = {this.props.selectedDeadline}
+                     editSelectedDeadline = {this.props.editSelectedDeadline}
+                     setSelectedDeadline = {this.props.setSelectedDeadline}
+                     editDeadline = {this.props.editDeadline}
+                  />
                </div>
             </div>
 
@@ -277,10 +285,14 @@ class NoteNav extends Component
                   (this.state.showNotes && this.state.notes !== null)
                   ?
                      // Displays all current notes
-                     this.state.notes.filter((note) => {
+                     this.state.notes.filter((note) =>
+                     {
                         return note.noteBody.includes(this.props.searchTerm) ||
                         note.recipients.join(';').includes(this.props.searchTerm)
-                        
+
+                        // return note.noteBody.toLowerCase().includes(this.props.searchTerm.toLowerCase())
+                        // note.recipients.join(';').toLowerCase().includes(this.props.searchTerm.toLowerCase())
+                        // note.subject.toLowerCase().includes(this.props.searchTerm.toLowerCase())
                      }).map((note, id) =>
                      (
                         <NoteObject
@@ -290,6 +302,7 @@ class NoteNav extends Component
                            setIsAddNote={this.setIsAddNote}
                         />
                      ))
+
                   :
                      null
                }
