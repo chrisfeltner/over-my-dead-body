@@ -87,7 +87,7 @@ class Profile extends Component
 
             console.log(response.data.deadline);
 
-            this.props.setDeadline(moment.utc(response.data.deadline))
+            this.props.setDeadline(moment(response.data.deadline))
          }
       })
       .catch((response) =>
@@ -141,7 +141,7 @@ class Profile extends Component
 
 
                <div className = "dropdown-divider"/>
-
+{/* 
                <button
                   className = "btn btn-secondary btn-sm ml-3 p-1"
                   data-toggle = "modal"
@@ -149,7 +149,7 @@ class Profile extends Component
                   onClick = {this.handleChangeClick}
                >
                Edit Profile
-               </button>
+               </button> */}
             </div>
 
 
