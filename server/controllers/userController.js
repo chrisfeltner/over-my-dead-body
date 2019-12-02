@@ -78,11 +78,15 @@ exports.editUser = function(req, res) {
 		if (err) {
 			return res.status(400).send({message : "Failed to get user."});
 		}
+    
+    if (!result) {
+			return res.status(200).json({message : "This account does not exist."});
+		}
 
 		if (!result.validPassword(req.body.password)) {
 			result.setPassword(req.body.password);
 		}
-
+    
 		result.firstName = req.body.firstName;
 		result.lastName = req.body.lastName;
 		result.userName = req.body.username;
@@ -103,9 +107,10 @@ exports.getUser = function(req, res) {
 		if (err)
 			return res.status(400).send({message : "Failed to get user."});
 
-		else {
-			return res.status(200).json(user);
+		if (!user) {
+			return res.status(200).json({message : "This account does not exist."});
 		}
+		return res.status(200).json(user);
 	});
 };
 
@@ -115,15 +120,16 @@ exports.confirmLife = function(req, res) {
 			$set:{
 				'deadline':req.body.deadline
 			}
-		}, function (err, result) {
+		}, { useFindAndModify: false, new: true}, function (err, result) {
 			if (err) {
 				return res.status(400).send({message : "Could not confirm life."});
 			}
 
-			else {
-				return res.status(201).json({newDeadline : result.deadline});
+			if (!result) {
+				return res.status(200).json({message : "This account does not exist."});
 			}
-		}
 
+			return res.status(201).json({newDeadline : result.deadline});
+		}
 	);
 };

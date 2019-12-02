@@ -18,8 +18,9 @@ class EditProfile extends Component
       this.props.editSelectedDeadline(event.target.value)
    }
 
-   handleSaveClick = () =>
+   handleSaveClick = (event) =>
    {
+      event.preventDefault();
       this.props.setUser();
    }
 
@@ -37,7 +38,7 @@ class EditProfile extends Component
                      </button>
                   </div>
 
-                  <div className = "modal-body">
+                  <div className = "modal-body" onSubmit = {this.handleSaveClick}>
                      <div className = "form-group">
                         <h6 className = "text-center">Username</h6>
                         <input
@@ -46,6 +47,7 @@ class EditProfile extends Component
                            type = "text"
                            onChange = {this.handleChange}
                            value = {this.props.username}
+                           required
                         />
                      </div>
 
@@ -57,6 +59,7 @@ class EditProfile extends Component
                            type = "text"
                            onChange = {this.handleChange}
                            value = {this.props.firstName}
+                           required
                         />
                      </div>
 
@@ -68,6 +71,7 @@ class EditProfile extends Component
                            type = "text"
                            onChange = {this.handleChange}
                            value = {this.props.lastName}
+                           required
                         />
                      </div>
 
@@ -79,6 +83,7 @@ class EditProfile extends Component
                            type = "password"
                            onChange = {this.handleChange}
                            value = {this.props.password}
+                           required
                         />
                      </div>
 
@@ -90,6 +95,7 @@ class EditProfile extends Component
                            type = "datetime-local"
                            onChange = {this.handleDeadlineChange}
                            value = {moment(this.props.selectedDeadline).format("YYYY-MM-DD[T]HH:mm")}
+                           required
                         />
                      </div>
                   </div>
@@ -97,10 +103,9 @@ class EditProfile extends Component
                   <div className = "modal-footer">
                      <button type = "button" className = "btn btn-outline-danger" data-dismiss = "modal">Cancel</button>
                      <button
-                        type = "button"
+                        type = "submit"
                         className = "btn btn-success"
                         data-dismiss = "modal"
-                        onClick={this.handleSaveClick}
                      >
                      Save
                      </button>

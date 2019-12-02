@@ -25,8 +25,10 @@ class Signin extends Component
       });
    }
 
-   handleLogin = (newMount) =>
+   handleLogin = (event) =>
    {
+      event.preventDefault();
+
       const loginURL = "users/login";
 
       // Ensures that form is working properly
@@ -49,7 +51,7 @@ class Signin extends Component
          console.log(response.data);
 
          this.props.receiver(response.data.token);
-         this.toggleMount(newMount);
+         this.toggleMount("home");
       })
       .catch((response) =>
       {
@@ -78,7 +80,7 @@ class Signin extends Component
             <div className = "card-body col align-self-center">
                <h4 className = "card-title text-center">Login</h4>
 
-               <form>
+               <form onSubmit = {this.handleLogin}>
 
                   <h6 className = "text-center">Username</h6>
                   <input
@@ -105,13 +107,14 @@ class Signin extends Component
                   <button
                      type = "submit"
                      className = "mb-1 btn btn-secondary col align-self-center rounded border"
-                     onClick = {() => this.handleLogin("home")}
                      data-toggle = "modal"
                      data-target = "#confirmLifeModal"
                   >
                   Login
                   </button>
+
                   <br></br>
+
                   <button
                      type = "button"
                      className = "btn col align-self-center rounded border"
