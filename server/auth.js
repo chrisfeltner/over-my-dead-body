@@ -4,7 +4,6 @@ const key = 'over_my_dead_body_key_secret_key';
 exports.authenticateWithExpiration = function(req, res, next) {
 	var payload;
 	var token = req.headers['authorization'];
-	
 	if (token.startsWith('Bearer ')) {
 		token = token.slice(7, token.length);
 	}

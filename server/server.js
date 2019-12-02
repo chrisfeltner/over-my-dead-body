@@ -83,7 +83,7 @@ app.get('/refreshToken', auth.authenticateWithoutExpiration, function (req, res)
 
 app.get('/checkDeadlines', function (req, res) {
 	scheduler.checkForDeceasedUsers();
-	return res.end();
+	return res.status(200).end();
 });
 
 setInterval(scheduler.checkForDeceasedUsers, 3600000, () => {
