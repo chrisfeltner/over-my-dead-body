@@ -49,7 +49,7 @@ class App extends Component
    {
       this.setState(
       {
-         selectedDeadline: this.state.deadline._i.substring(0, 16)
+         selectedDeadline: this.state.deadline
       });
    }
 

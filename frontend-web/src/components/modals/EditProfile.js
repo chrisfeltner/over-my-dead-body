@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 
 // Form to edit profile
 class EditProfile extends Component
@@ -11,6 +12,11 @@ class EditProfile extends Component
    handleChange = (event) =>
    {
       this.props.editProfileItem(event.target.id, event.target.value)
+   }
+
+   handleChangeDeadline = (event) =>
+   {
+      this.props.editSelectedDeadline(event.target.value);
    }
 
    handleSaveClick = () =>
@@ -83,8 +89,8 @@ class EditProfile extends Component
                            id = "deadline"
                            className = "form-control"
                            type = "datetime-local"
-                           onChange = {this.handleChange}
-                           value = {this.props.deadline}
+                           onChange = {this.handleChangeDeadline}
+                           value = {moment(this.props.deadline).format("YYYY-MM-DD[T]HH:mm")}
                         />
                      </div>
                   </div>

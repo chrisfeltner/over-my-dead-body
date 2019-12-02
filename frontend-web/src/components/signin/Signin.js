@@ -78,18 +78,30 @@ class Signin extends Component
             <div className = "card-body col align-self-center">
                <h4 className = "card-title text-center">Login</h4>
 
-               <form>
-                  <h6 className = "text-center">Username</h6>
-                  <input
-                     id = "username"
-                     className = "form-control"
-                     type = "text"
-                     onChange = {this.handleChange}
-                  />
+               <form className = "needs-validation" noValidate>
+
+                  <div>
+                     <h6 className = "text-center" for = "username">Username</h6>
+                     <input
+                        id = "username"
+                        className = "form-control"
+                        type = "text"
+                        onChange = {this.handleChange}
+                        required
+                     />
+                     <div className = "valid-feedback">
+                        Looks good!
+                     </div>
+
+                     <div className = "invalid-feedback">
+                        Need Username.
+                     </div>
+                  </div>
+
 
                   <h6 className = "text-center">Password</h6>
                   <input
-                  id = "password"
+                     id = "password"
                      className = "form-control"
                      type = "password"
                      onChange = {this.handleChange}

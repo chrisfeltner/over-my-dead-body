@@ -19,7 +19,8 @@ class Profile extends Component
       }
    }
 
-   editProfileItem = (id, value) => {
+   editProfileItem = (id, value) =>
+   {
       this.setState(
       {
          [id]: value
@@ -38,22 +39,24 @@ class Profile extends Component
          deadline: this.props.deadline
       }
 
+      axios.defaults.headers.common['Authorization'] = `Bearer ${this.props.token}`;
+
       axios(
-         {
-            method: 'POST',
-            url: setUserURL,
-            data: body,
-            config: { headers: { 'Content-Type': 'application/json'}}
-         })
-         .then((response) =>
-         {
-            console.log("Set User: Success");
-         })
-         .catch((response) =>
-         {
-            console.log("Set User: Unsuccessful");
-            console.log(response);
-         });
+      {
+         method: 'POST',
+         url: setUserURL,
+         data: body,
+         config: { headers: { 'Content-Type': 'application/json'}}
+      })
+      .then((response) =>
+      {
+         console.log("Set User: Success");
+      })
+      .catch((response) =>
+      {
+         console.log("Set User: Unsuccessful");
+         console.log(response);
+      });
    }
 
    componentDidMount()
@@ -82,7 +85,7 @@ class Profile extends Component
                password: response.data.password,
             });
 
-            console.log(response.data);
+            console.log(response.data.deadline);
 
             this.props.setDeadline(moment.utc(response.data.deadline))
          }
@@ -94,6 +97,11 @@ class Profile extends Component
       });
 
       console.log(this.state);
+   }
+
+   handleChangeClick = () =>
+   {
+      this.props.setSelectedDeadline();
    }
 
    render()
@@ -138,6 +146,7 @@ class Profile extends Component
                   className = "btn btn-secondary btn-sm ml-3 p-1"
                   data-toggle = "modal"
                   data-target = "#editProfileModal"
+                  onClick = {this.handleChangeClick}
                >
                Edit Profile
                </button>
@@ -145,7 +154,10 @@ class Profile extends Component
 
 
             <EditProfile
-               deadline={this.props.deadline}
+               editSelectedDeadline = {this.props.editSelectedDeadline}
+               editDeadline = {this.props.editDeadline}
+               setDeadline = {this.props.setDeadline}
+               deadline={this.props.selectedDeadline}
                username={this.state.username}
                firstName={this.state.firstName}
                lastName={this.state.lastName}
