@@ -278,9 +278,10 @@ class NoteNav extends Component
                   ?
                      // Displays all current notes
                      this.state.notes.filter((note) => {
-                        return note.noteBody.includes(this.props.searchTerm) ||
-                        note.recipients.join(';').includes(this.props.searchTerm)
-                        
+                        return note.noteBody.toLowerCase().includes(this.props.searchTerm.toLowerCase()) ||
+                        note.recipients.join(';').toLowerCase().includes(this.props.searchTerm.toLowerCase()) ||
+                        note.subject.toLowerCase().includes(this.props.searchTerm.toLowerCase())
+
                      }).map((note, id) =>
                      (
                         <NoteObject
