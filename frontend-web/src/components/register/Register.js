@@ -88,6 +88,7 @@ class Register extends Component
                      className = "form-control"
                      type = "text"
                      onChange = {this.handleChange}
+                     required
                   />
 
                   <h6 className = "text-center">First Name</h6>
@@ -96,6 +97,7 @@ class Register extends Component
                      className = "form-control"
                      type = "text"
                      onChange = {this.handleChange}
+                     required
                   />
 
                   <h6 className = "text-center">Last Name</h6>
@@ -104,6 +106,7 @@ class Register extends Component
                      className = "form-control"
                      type = "text"
                      onChange = {this.handleChange}
+                     required
                   />
 
                   <h6 className = "text-center">Password</h6>
@@ -112,6 +115,7 @@ class Register extends Component
                      className = "form-control"
                      type = "password"
                      onChange = {this.handleChange}
+                     required
                   />
 
                   <h6 className = "text-center">Deadline</h6>
@@ -120,12 +124,13 @@ class Register extends Component
                      className = "form-control"
                      type = "datetime-local"
                      onChange = {this.handleChange}
+                     required
                   />
 
                   <br></br>
 
                   <button
-                     type = "button"
+                     type = "submit"
                      className = "mb-1 btn btn-secondary col align-self-center rounded border"
                      onClick = {() => this.handleRegister("home")}
                      data-toggle = "modal"

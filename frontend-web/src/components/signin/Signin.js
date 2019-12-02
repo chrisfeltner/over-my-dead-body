@@ -78,25 +78,17 @@ class Signin extends Component
             <div className = "card-body col align-self-center">
                <h4 className = "card-title text-center">Login</h4>
 
-               <form className = "needs-validation" noValidate>
+               <form>
 
-                  <div>
-                     <h6 className = "text-center" for = "username">Username</h6>
-                     <input
-                        id = "username"
-                        className = "form-control"
-                        type = "text"
-                        onChange = {this.handleChange}
-                        required
-                     />
-                     <div className = "valid-feedback">
-                        Looks good!
-                     </div>
+                  <h6 className = "text-center">Username</h6>
+                  <input
+                     id = "username"
+                     className = "form-control"
+                     type = "text"
+                     onChange = {this.handleChange}
+                     required
+                  />
 
-                     <div className = "invalid-feedback">
-                        Need Username.
-                     </div>
-                  </div>
 
 
                   <h6 className = "text-center">Password</h6>
@@ -105,12 +97,13 @@ class Signin extends Component
                      className = "form-control"
                      type = "password"
                      onChange = {this.handleChange}
+                     required
                   />
 
                   <br></br>
 
                   <button
-                     type = "button"
+                     type = "submit"
                      className = "mb-1 btn btn-secondary col align-self-center rounded border"
                      onClick = {() => this.handleLogin("home")}
                      data-toggle = "modal"
