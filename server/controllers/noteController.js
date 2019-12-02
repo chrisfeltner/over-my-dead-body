@@ -7,6 +7,11 @@ exports.authenticate = function(req, res, next) {
 	var payload;
 	var token = req.headers['authorization'];
 	
+	if(token === undefined)
+	{
+		return res.status(400).send({message: "Unauthorized user. No bearer token."});
+	}
+	
 	if (token.startsWith('Bearer ')) {
 		token = token.slice(7, token.length);
 	}
@@ -27,19 +32,18 @@ exports.authenticate = function(req, res, next) {
 
 exports.createNote = function(req, res) {
 	let newNote = new Note();
-
 	newNote.userId = req.userId;
 	newNote.subject = req.body.subject;
 	newNote.noteBody = req.body.noteBody;
 	newNote.recipients = req.body.recipients;
 
-	newNote.save((err, user) => {
+	newNote.save((err, note) => {
 		if (err) {
-			return res.status(400).send({message : "Failed to create note."});
+			return res.status(400).send({message : "Failed to create note.", note: ''});
 		}
 
 		else {
-			return res.status(201).send({message : "Successfully created note."});
+			return res.status(201).send({message : "Successfully created note.", note: newNote});
 		}
 	});
 };

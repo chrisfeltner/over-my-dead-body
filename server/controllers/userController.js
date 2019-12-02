@@ -57,7 +57,7 @@ exports.loginUser = function(req, res) {
 			secure: false
 		});
 			
-		return res.status(200).json(token);
+		return res.status(201).json({token: token, deadline: user.deadline});
 	});
 };
 
@@ -98,13 +98,13 @@ exports.registerUser = function(req, res) {
 				secure: false
 			});
 
-			return res.status(201).json(token);
+			return res.status(201).json({token: token, deadline: user.deadline});
 		});
 	});
 };
 
 exports.getUser = function(req, res) {
-	User.findById(req.userId, function(err, user) {
+	User.findById(req.userId, 'firstName lastName username deadline ', function(err, user) {
 		if (err)
 			return res.status(400).send({message : "Failed to get user."});
 
