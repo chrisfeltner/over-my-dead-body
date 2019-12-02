@@ -50,6 +50,8 @@ class Profile extends Component
                password: response.data.password,
             });
 
+            console.log(response.data);
+
             this.props.setDeadline(response.data.deadline)
          }
       })
@@ -115,7 +117,7 @@ class Profile extends Component
             </div>
 
             <EditProfile deadline={this.props.deadline} username={this.state.username}
-               firstName={this.state.firstName} lastName={this.state.lastName} 
+               firstName={this.state.firstName} lastName={this.state.lastName}
                editProfileItem={this.editProfileItem}/>
          </div>
       );

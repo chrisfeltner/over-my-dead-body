@@ -15,10 +15,13 @@ class Timer extends Component
       }
    }
 
+   handleChangeClick = () =>
+   {
+      this.props.setSelectedDeadline();
+   }
+
    render()
    {
-      console.log(this.props.deadline);
-
       return(
          <div className = "card" style = {{ width: "19rem" }}>
             <div className = "card-header bg-secondary border border-secondary">
@@ -33,11 +36,16 @@ class Timer extends Component
                className = "btn btn-outline-secondary btn-sm"
                data-toggle = "modal"
                data-target = "#editDeadlineModal"
+               onClick = {this.handleChangeClick}
             >
             Change
             </button>
 
-            <EditDeadline deadline = {this.props.deadline} setDeadline = {this.setDeadline}/>
+            <EditDeadline
+               deadline = {this.props.selectedDeadline}
+               editSelectedDeadline = {this.props.editSelectedDeadline}
+               editDeadline = {this.props.editDeadline}
+            />
          </div>
       );
    }
