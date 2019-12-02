@@ -9,21 +9,15 @@ class NoteObject extends Component
    constructor(props)
    {
       super(props);
-      this.state =
-      {
-         subject: props.note.subject,
-         recipients: props.note.recipients,
-         id: props.note._id
-      }
    }
 
    handleEditClick = () => {
-      this.props.setSelectedNoteId(this.state.id);
+      this.props.setSelectedNoteId(this.props.note._id);
       this.props.setIsAddNote(false);
    }
 
    handleDeleteClick = () => {
-      this.props.setSelectedNoteId(this.state.id)
+      this.props.setSelectedNoteId(this.props.note._id)
    }
 
    // Basic parts to note components
@@ -32,10 +26,10 @@ class NoteObject extends Component
       return(
          <Tilt id = "note" className = "d-flex card mt-3 ml-4 border border-secondary" options = {{ max: 25, scale: 1 }} style = {{width: "18rem"}}>
             <div className = "card-body">
-               <h5 className = "card-title">{this.state.subject}</h5>
-               <h6 className = "card-subtitle mb-2 text-muted">To: {(this.state.recipients === undefined ? 
-                  "Nobody" : (this.state.recipients.length > 1 ? `${this.state.recipients[0]} and ${this.state.recipients.length} others` : 
-                  this.state.recipients[0]))}</h6>
+               <h5 className = "card-title">{this.props.note.subject}</h5>
+               <h6 className = "card-subtitle mb-2 text-muted">To: {(this.props.note.recipients === undefined ? 
+                  "Nobody" : (this.props.note.recipients.length > 1 ? `${this.props.note.recipients[0]} and ${this.props.note.recipients.length} others` : 
+                  this.props.note.recipients[0]))}</h6>
             </div>
 
             <div className = "d-flex flex-row-reverse p-1">

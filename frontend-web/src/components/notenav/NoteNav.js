@@ -30,9 +30,9 @@ class NoteNav extends Component
       this.getNotes()
    }
 
-   setIsAddNote = (isAddNote) => {
+   setIsAddNote = (val) => {
       this.setState({
-         isAddNote: isAddNote
+         isAddNote: val
       })
    }
 
