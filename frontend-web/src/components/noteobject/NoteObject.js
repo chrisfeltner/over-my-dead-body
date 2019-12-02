@@ -16,12 +16,6 @@ class NoteObject extends Component
       }
    }
 
-   componentDidMount()
-   {
-      console.log("NoteObject.js - componentDidMount");
-      console.log("=================================");
-   }
-
    // Basic parts to note components
    render()
    {
