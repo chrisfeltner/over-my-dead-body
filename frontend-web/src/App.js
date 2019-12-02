@@ -23,7 +23,8 @@ class App extends Component
          deadline: "",
          selectedDeadline: "",
          mount: "login",
-         displayMessages: false
+         displayMessages: false,
+         searchTerm: ''
       }
    }
 
@@ -48,6 +49,13 @@ class App extends Component
       this.setState(
       {
          selectedDeadline: this.state.deadline
+      });
+   }
+
+   setSearch = (term) => {
+      this.setState(
+      {
+         searchTerm: term
       });
    }
 
@@ -112,7 +120,8 @@ class App extends Component
                (this.state.mount === "home")
                ?
                      <div>
-                        <Navigation token = {this.state.token} mount = {this.mount} deadline = {this.state.deadline} setDeadline = {this.setDeadline} clearToken = {this.clearToken}/>
+                        <Navigation token = {this.state.token} mount = {this.mount} deadline = {this.state.deadline} setDeadline = {this.setDeadline} clearToken = {this.clearToken} searchTerm={this.state.searchTerm}
+                        setSearch={this.setSearch}/>
                         <NoteNav
                            token = {this.state.token}
                            editSelectedDeadline = {this.editSelectedDeadline}
@@ -120,6 +129,7 @@ class App extends Component
                            deadline = {this.state.deadline}
                            setSelectedDeadline = {this.setSelectedDeadline}
                            editDeadline = {this.editDeadline}
+                           searchTerm={this.state.searchTerm}
                         />
                      </div>
                :

@@ -55,6 +55,11 @@ class Navigation extends Component
       this.props.mount(newMount);
    }
 
+   handleChange = (event) =>
+   {
+      this.props.setSearch(event.target.value);
+   }
+
    render()
    {
       return(
@@ -62,8 +67,9 @@ class Navigation extends Component
             <h4 className = "text-white">Over My Dead Body</h4>
 
             <form className = "form-inline my-2 my-lg-0">
-               <button id = "button" href = "#" className = "text-white btn rounded border text-white mr-2">Search</button>
-               <input type = "text" className = "form-control"></input>
+               {/* <button id = "button" href = "#" className = "text-white btn rounded border text-white mr-2">Search</button> */}
+               <input type = "text" className = "form-control" value={this.props.searchTerm}
+               onChange={this.handleChange} placeholder="Search"></input>
             </form>
 
             <ul className = "nav">

@@ -202,8 +202,10 @@ class NoteNav extends Component
          this.setState(
          {
             notes: response.data
-         }, () => {
-            this.setState({
+         }, () =>
+         {
+            this.setState(
+            {
                showNotes: true
             })
          });
@@ -283,7 +285,15 @@ class NoteNav extends Component
                   (this.state.showNotes && this.state.notes !== null)
                   ?
                      // Displays all current notes
-                     this.state.notes.map((note, id) =>
+                     this.state.notes.filter((note) =>
+                     {
+                        return note.noteBody.includes(this.props.searchTerm) ||
+                        note.recipients.join(';').includes(this.props.searchTerm)
+
+                        // return note.noteBody.toLowerCase().includes(this.props.searchTerm.toLowerCase())
+                        // note.recipients.join(';').toLowerCase().includes(this.props.searchTerm.toLowerCase())
+                        // note.subject.toLowerCase().includes(this.props.searchTerm.toLowerCase())
+                     }).map((note, id) =>
                      (
                         <NoteObject
                            key={id}
@@ -292,6 +302,7 @@ class NoteNav extends Component
                            setIsAddNote={this.setIsAddNote}
                         />
                      ))
+
                   :
                      null
                }
