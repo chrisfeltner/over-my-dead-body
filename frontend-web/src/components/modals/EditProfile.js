@@ -79,7 +79,7 @@ class EditProfile extends Component
                            className = "form-control"
                            type = "datetime-local"
                            onChange = {this.handleChange}
-                           value = {this.props.deadline}
+                           value = {new Date(this.props.deadline).toString()}
                         />
                      </div>
                   </div>

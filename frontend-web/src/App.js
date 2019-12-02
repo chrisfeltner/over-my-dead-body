@@ -51,7 +51,7 @@ class App extends Component
                ?
                      <div>
                         <Navigation token = {this.state.token} mount = {this.mount} deadline={this.state.deadline} setDeadline={this.setDeadline}/>
-                        <NoteNav token={this.state.token} deadline={this.state.deadline}/>
+                        <NoteNav token={this.state.token} deadline={this.state.deadline} setDeadline={this.setDeadline}/>
                      </div>
                :
                   (

@@ -36,7 +36,7 @@ class Timer extends Component
             Change
             </button>
 
-            <EditDeadline deadline = {this.props.deadline}/>
+            <EditDeadline deadline={this.props.deadline} setDeadline={this.setDeadline}/>
          </div>
       );
    }

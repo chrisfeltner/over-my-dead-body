@@ -270,7 +270,7 @@ class NoteNav extends Component
                }
 
                <div className = "ml-auto mr-5 mt-3">
-                  <Timer deadline = {this.props.deadline}/>
+                  <Timer deadline = {this.props.deadline} setDeadline={this.setDeadline}/>
                </div>
             </div>
 
