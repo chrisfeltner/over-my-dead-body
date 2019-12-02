@@ -17,9 +17,16 @@ class App extends Component
       {
          userID:"",
          token: "",
+         deadline:'',
          mount: "login",
          displayMessages: false
       }
+   }
+
+   setDeadline = (newDeadline) => {
+      this.setState({
+         deadline: newDeadline
+      })
    }
 
    // Callback function to hold global values
@@ -43,8 +50,8 @@ class App extends Component
                (this.state.mount === "home")
                ?
                      <div>
-                        <Navigation token = {this.state.token} mount = {this.mount} />
-                        <NoteNav token = {this.state.token} />
+                        <Navigation token = {this.state.token} mount = {this.mount} deadline={this.state.deadline} setDeadline={this.setDeadline}/>
+                        <NoteNav token={this.state.token} deadline={this.state.deadline}/>
                      </div>
                :
                   (

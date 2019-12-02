@@ -21,7 +21,7 @@ class NoteNav extends Component
          showNotes: false,
          selectedNoteId: '',
          selectedNote: '',
-         isAddNote: false
+         isAddNote: false,
       }
    }
 
@@ -244,7 +244,7 @@ class NoteNav extends Component
                }
 
                <div className = "ml-auto mr-5 mt-3">
-                  <Timer />
+                  <Timer deadline={this.state.deadline}/>
                </div>
             </div>
 
