@@ -132,9 +132,7 @@ class NoteNav extends Component
    {
       let setNoteURL = "notes/setNote";
 
-      let body = {
-         note: this.state.selectedNote
-      }
+      let body = this.state.selectedNote
 
       axios.defaults.headers.common['Authorization'] = `Bearer ${this.state.token}`;
 

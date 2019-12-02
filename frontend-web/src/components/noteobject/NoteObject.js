@@ -28,7 +28,8 @@ class NoteObject extends Component
             <div className = "card-body">
                <h5 className = "card-title">{this.props.note.subject}</h5>
                <h6 className = "card-subtitle mb-2 text-muted">To: {(this.props.note.recipients === undefined ? 
-                  "Nobody" : (this.props.note.recipients.length > 1 ? `${this.props.note.recipients[0]} and ${this.props.note.recipients.length} others` : 
+                  "Nobody" : (this.props.note.recipients.length > 1 ? `${this.props.note.recipients[0]} and 
+                     ${this.props.note.recipients.length - 1} other${this.props.note.recipients.length - 1 === 1 ? '' : 's'}` : 
                   this.props.note.recipients[0]))}</h6>
             </div>
 

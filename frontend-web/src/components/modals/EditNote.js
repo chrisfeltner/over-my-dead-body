@@ -16,7 +16,8 @@ class EditNote extends Component
    {
       if(event.target.id === 'recipients')
       {
-         this.props.editSelectedNote(event.target.id, event.target.value.split(';'))
+         // Remove whitespace from string and make into semicolon separated array
+         this.props.editSelectedNote(event.target.id, event.target.value.replace(/\s/g, '').split(';'))
       }
       else{
          this.props.editSelectedNote(event.target.id, event.target.value)
