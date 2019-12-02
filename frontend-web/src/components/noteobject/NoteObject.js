@@ -17,7 +17,12 @@ class NoteObject extends Component
       }
    }
 
-   setNoteId = () => {
+   handleEditClick = () => {
+      this.props.setSelectedNoteId(this.state.id);
+      this.props.setIsAddNote(false);
+   }
+
+   handleDeleteClick = () => {
       this.props.setSelectedNoteId(this.state.id)
    }
 
@@ -39,12 +44,13 @@ class NoteObject extends Component
                   className = "btn btn-outline-danger btn-sm"
                   data-toggle = "modal"
                   data-target = "#deleteModal"
-                  onClick={this.setNoteId}
+                  onClick={this.handleDeleteClick}
                >
                Delete
                </button>
 
                <button
+                  onClick={this.handleEditClick}
                   className = "btn btn-outline-secondary btn-sm"
                   data-toggle = "modal"
                   data-target = "#editNoteModal"

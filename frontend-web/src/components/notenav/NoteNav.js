@@ -20,7 +20,9 @@ class NoteNav extends Component
          token: props.token,
          notes:[],
          showNotes: false,
-         selectedNoteId: ''
+         selectedNoteId: '',
+         selectedNote: '',
+         isAddNote: false
       }
    }
 
@@ -28,9 +30,27 @@ class NoteNav extends Component
       this.getNotes()
    }
 
+   setIsAddNote = (isAddNote) => {
+      this.setState({
+         isAddNote: isAddNote
+      })
+   }
+
    setSelectedNoteId = (id) => {
       console.log("Selected Note ID: "+id)
       this.setState({selectedNoteId: id})
+      let note = this.state.notes.filter((note) => {
+         return note._id === id
+      })[0];
+      this.setState({selectedNote: note})
+   }
+
+   editSelectedNote = (id, value) => {
+      this.setState({
+         selectedNote: {
+            [id]: value
+         }
+      })
    }
 
    // Creates new note
@@ -52,7 +72,7 @@ class NoteNav extends Component
          "noteBody": note.body
       }
 
-      axios.defaults.headers.common['Authorization'] = `Bearer ${this.state.token}`;
+      axios.defaults.headers.common['authorization'] = `Bearer ${this.state.token}`;
 
       axios(
       {
@@ -81,9 +101,7 @@ class NoteNav extends Component
          '_id':id
       }
 
-
-
-      axios.defaults.headers.common['Authorization'] = `Bearer ${this.state.token}`;
+      axios.defaults.headers.common['authorization'] = `Bearer ${this.state.token}`;
 
       axios(
          {
@@ -96,8 +114,13 @@ class NoteNav extends Component
          {
             console.log("Delete Note: Success");
          }).then(() => {
-            this.getNotes();
-            //TODO: Perhaps make this not a new request
+            this.setState({
+               notes: this.state.notes.filter((note) => {
+                  return note._id !== this.state.selectedNoteId
+               }),
+               selectedNoteId: '',
+               selectedNote: ''
+            })
          })
          .catch((response) =>
          {
@@ -106,9 +129,34 @@ class NoteNav extends Component
          });
    }
 
-   editNote = (modifiedNote) =>
+   editNote = () =>
    {
+      let setNoteURL = "notes/setNote";
 
+      let body = {
+         note: this.state.selectedNote
+      }
+
+      axios.defaults.headers.common['Authorization'] = `Bearer ${this.state.token}`;
+
+      axios(
+         {
+            method: 'POST',
+            url: setNoteURL,
+            data: body,
+            config: { headers: { 'Content-Type': 'application/json'}}
+         })
+         .then((response) =>
+         {
+            console.log("Set Note: Success");
+         }).then(() => {
+            this.getNotes()
+         })
+         .catch((response) =>
+         {
+            console.log("Set Notes: Unsuccessful");
+            console.log(response);
+         });
    }
 
    hideNotes()
@@ -155,6 +203,18 @@ class NoteNav extends Component
       //this.setState({ showNotes: !this.state.showNotes });
    }
 
+   handleNewNote = () => {
+      this.setState({
+         selectedNoteId: '',
+         selectedNote: {
+            recipients: [],
+            noteBody: '',
+            subject: ''
+         }
+      })
+      this.setIsAddNote(true);
+   }
+
    render()
    {
       return(
@@ -163,7 +223,8 @@ class NoteNav extends Component
                <button
                   className = "btn btn-secondary rounded border align-self-start mt-5 ml-5"
                   data-toggle = "modal"
-                  data-target = "#newNoteModal"
+                  data-target = "#editNoteModal"
+                  onClick={this.handleNewNote}
                >
                New Note
                </button>
@@ -199,7 +260,8 @@ class NoteNav extends Component
                      // Displays all current notes
                      this.state.notes.map((note, id) =>
                      (
-                        <NoteObject key={id} note={note} setSelectedNoteId={this.setSelectedNoteId}/>
+                        <NoteObject key={id} note={note} setSelectedNoteId={this.setSelectedNoteId} 
+                        setIsAddNote={this.setIsAddNote}/>
                      ))
                   :
                      null
@@ -207,9 +269,9 @@ class NoteNav extends Component
             </div>
 
             {/*<ConfirmLife />*/}
-            <NewNote addNote = {this.addNote} />
+            {/* <NewNote addNote = {this.addNote} /> */}
             <DeleteConfirmation selectedNoteId={this.state.selectedNoteId} deleteNote={this.deleteNote}/>
-            <EditNote editNote = {this.editNote} notes = {this.state.notes} />
+            <EditNote addNote={this.addNote} isAddNote={this.state.isAddNote} editNote={this.editNote} note={this.state.selectedNote} editSelectedNote={this.editSelectedNote}/>
 
          </div>
       );

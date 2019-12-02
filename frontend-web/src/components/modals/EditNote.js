@@ -6,15 +6,15 @@ class EditNote extends Component
    constructor(props)
    {
       super(props);
-      this.state =
-      {
-         notes: []
-      }
+   }
+
+   handleSaveNote = () => {
+      this.props.isAddNote ? this.props.addNote() : this.props.editNote()
    }
 
    handleChange = (event) =>
    {
-      
+      this.props.editSelectedNote(event.target.id, event.target.value)
    }
 
    render()
@@ -24,7 +24,7 @@ class EditNote extends Component
             <div className = "modal-dialog" role = "document">
                <div className = "modal-content">
                   <div className = "modal-header">
-                     <h5 className = "modal-title">Edit Note</h5>
+                     <h5 className = "modal-title">{this.props.isAddNote ? 'Add Note' : 'Edit Note'}</h5>
 
                      <button type = "button" className = "close" data-dismiss = "modal" aria-label = "Close">
                         <span aria-hidden = "true">&times;</span>
@@ -34,22 +34,26 @@ class EditNote extends Component
                   <div className = "modal-body">
                      <div className = "form-group">
                         <label>To</label>
-                        <input type = "email" className = "form-control" onChange = {this.handleChange}/>
+                        <input id='recipients' type = "email" className = "form-control" onChange = {this.handleChange}
+                           value={this.props.note.recipients === undefined ? '' : this.props.note.recipients[0]}/>
                      </div>
 
                      <div className = "form-group">
                         <label>Subject</label>
-                        <input type = "text" className = "form-control" onChange = {this.handleChange}/>
+                        <input id='subject' type = "text" className = "form-control" onChange = {this.handleChange}
+                           value={this.props.note.subject}/>
                      </div>
 
                      <div className = "form-group">
-                        <textarea className = "form-control" rows = "8" onChange = {this.handleChange}/>
+                        <textarea id='noteBody' className = "form-control" rows = "8" onChange = {this.handleChange}
+                           value={this.props.note.noteBody}/>
                      </div>
                   </div>
 
                   <div className = "modal-footer">
                      <button type = "button" className = "btn btn-outline-danger" data-dismiss = "modal">Cancel</button>
-                     <button type = "button" className = "btn btn-success" data-dismiss = "modal">Save Note</button>
+                     <button type = "button" className = "btn btn-success" data-dismiss = "modal"
+                        onClick={this.handleSaveNote}>Save Note</button>
                   </div>
                </div>
             </div>
