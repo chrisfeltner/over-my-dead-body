@@ -35,7 +35,7 @@ exports.logoutUser = function(req, res) {
 	res.cookie('refresh_token', "", {
     httpOnly: true,
     expires: new Date(0)
-  });
+  }).status(200).send("Logged out");
 }
 
 exports.registerUser = function(req, res) {
@@ -69,6 +69,31 @@ exports.registerUser = function(req, res) {
 			});
 
 			return res.status(201).json({token: token, deadline: user.deadline});
+		});
+	});
+};
+
+exports.editUser = function(req, res) {
+	User.findById(req.userId, function (err, result) {
+		if (err) {
+			return res.status(400).send({message : "Failed to get user."});
+		}
+
+		if (!result.validPassword(req.body.password)) {
+			result.setPassword(req.body.password);
+		}
+
+		result.firstName = req.body.firstName;
+		result.lastName = req.body.lastName;
+		result.userName = req.body.username;
+		result.deadline = req.body.deadline;
+		result.save(function(err) {
+			if (err) {
+				return res.status(400).send({message : "Failed to update user."})
+			}
+
+			return res.status(201).send({message : "Update successful."})
+
 		});
 	});
 };

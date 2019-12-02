@@ -12,6 +12,9 @@ router.post('/register', userController.registerUser);
 // POST request for logout user
 router.post('/logout', auth.authenticateWithExpiration, userController.logoutUser);
 
+// POST request for edit user
+router.post('/setUser', auth.authenticateWithExpiration, userController.editUser);
+
 // POST request for confirm life
 router.post('/confirmLife', auth.authenticateWithExpiration, userController.confirmLife);
 

@@ -143,6 +143,7 @@ class Profile extends Component
                </button>
             </div>
 
+<<<<<<< HEAD
             <EditProfile
                deadline={this.props.deadline}
                username={this.state.username}
@@ -152,6 +153,11 @@ class Profile extends Component
                editProfile ={this.editProfile}
                setUser = {this.setUser}
             />
+=======
+            <EditProfile deadline={this.props.deadline} username={this.state.username}
+               firstName={this.state.firstName} lastName={this.state.lastName}
+               editProfileItem={this.editProfileItem} setUser={this.setUser}/>
+>>>>>>> e341bf2ff0a32b62734c6e42942e3fa7fac4f699
          </div>
       );
    }
