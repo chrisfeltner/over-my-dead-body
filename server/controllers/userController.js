@@ -73,6 +73,31 @@ exports.registerUser = function(req, res) {
 	});
 };
 
+exports.editUser = function(req, res) {
+	User.findById(req.userId, function (err, result) {
+		if (err) {
+			return res.status(400).send({message : "Failed to get user."});
+		}
+
+		if (!result.validPassword(req.body.password)) {
+			result.setPassword(req.body.password);
+		}
+
+		result.firstName = req.body.firstName;
+		result.lastName = req.body.lastName;
+		result.userName = req.body.username;
+		result.deadline = req.body.deadline;
+		result.save(function(err) {
+			if (err) {
+				return res.status(400).send({message : "Failed to update user."})
+			}
+
+			return res.status(201).send({message : "Update successful."})
+
+		});
+	});
+};
+
 exports.getUser = function(req, res) {
 	User.findById(req.userId, 'firstName lastName username deadline ', function(err, user) {
 		if (err)
