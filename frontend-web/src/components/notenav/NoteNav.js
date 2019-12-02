@@ -25,11 +25,6 @@ class NoteNav extends Component
       }
    }
 
-   // componentDidMount()
-   // {
-   //    this.getNotes();
-   // }
-
    setIsAddNote = (val) => {
       this.setState({
          isAddNote: val
