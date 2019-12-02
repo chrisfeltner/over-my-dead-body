@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import EditDeadline from '../modals/EditDeadline.js';
+import moment from 'moment'
 //import ConfirmLife from '../modals/ConfirmLife.js';
 
 // Timer component, once the timer is up the
@@ -29,7 +30,7 @@ class Timer extends Component
             </div>
 
             <div className = "d-flex justify-content-center">
-               <p>{new Date(this.props.deadline).toDateString()} at {new Date(this.props.deadline).toLocaleTimeString("en-US")}</p>
+               <p>{moment(this.props.deadline).format("LLLL")}</p>
             </div>
 
             <button

@@ -4,6 +4,7 @@ import Signin from './components/signin/Signin.js';
 import Register from './components/register/Register.js';
 import NoteNav from './components/notenav/NoteNav.js';
 import axios from 'axios';
+import moment from 'moment';
 
 // Bootstrap styling
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -63,7 +64,7 @@ class App extends Component
    {
       this.setState(
       {
-         deadline: new Date(newDeadline).toISOString().substring(0, 16)
+         deadline: newDeadline
       })
    }
 
@@ -71,7 +72,7 @@ class App extends Component
    {
       let confirmLifeURL = "users/confirmLife";
 
-      let newDeadline = this.state.selectedDeadline;
+      let newDeadline = moment(this.state.selectedDeadline).valueOf();
 
       axios.defaults.headers.common['Authorization'] = `Bearer ${this.state.token}`;
 
@@ -86,11 +87,7 @@ class App extends Component
       {
          console.log("editDeadline: Success");
 
-         this.setState(
-         {
-            deadline: newDeadline,
-            selectedDeadline: newDeadline
-         });
+         this.setDeadline(newDeadline)
       })
       .catch((response) =>
       {

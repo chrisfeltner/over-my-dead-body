@@ -13,7 +13,6 @@ class Navigation extends Component
       super(props);
       this.state =
       {
-         searchInput: '',
          myAccount: false
       }
    }
@@ -30,28 +29,15 @@ class Navigation extends Component
          url: logoutURL,
          config: { headers: { 'Content-Type': 'application/json'}}
       })
-      .then((response) =>
-      {
-         // TODO: Here we need to delete the token from App state!
 
-         this.props.clearToken();
-         this.toggleMount(newMount);
-      })
-      .catch((response) =>
-      {
-         console.log("Logout: Unsuccessful");
-         console.log(response);
-      });
-
-      //this.props.clearToken();
-
-      // Uncomment if you want to test request
-      //this.toggleMount(newMount);
+      this.props.clearToken();
+      this.toggleMount(newMount);
    }
 
    // For signout
    toggleMount = (newMount) =>
    {
+      console.log("togglemount nav " + newMount)
       this.props.mount(newMount);
    }
 
@@ -79,7 +65,7 @@ class Navigation extends Component
 
                <li className = "nav-link">
                   <button
-                     onClick = {() => this.handleLogout("login")}
+                     onClick = {() => {this.handleLogout("login")}}
                      id = "button"
                      href = "#"
                      title = "Contact"

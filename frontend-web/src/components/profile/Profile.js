@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import EditProfile from '../modals/EditProfile.js';
 import './Profile.css';
 import axios from 'axios';
+import moment from 'moment';
 
 // Dropdown display for the user's credentials and deadlines
 class Profile extends Component
@@ -52,7 +53,7 @@ class Profile extends Component
 
             console.log(response.data);
 
-            this.props.setDeadline(response.data.deadline)
+            this.props.setDeadline(moment.utc(response.data.deadline))
          }
       })
       .catch((response) =>
@@ -66,11 +67,6 @@ class Profile extends Component
 
    render()
    {
-      let deadlineObject = new Date(this.props.deadline);
-
-      let currentDeadlineDate = deadlineObject.toDateString();
-
-      let currentDeadlineTime = deadlineObject.toLocaleTimeString("en-US");
 
       return(
          <div className = "dropdown">
@@ -101,7 +97,7 @@ class Profile extends Component
 
                <div className = "d-flex">
                   <p className = "ml-4 mr-1">Deadline: </p>
-                  <p className = "text-secondary">{currentDeadlineDate} at {currentDeadlineTime}</p>
+                  <p className = "text-secondary">{moment(this.props.deadline).format("LLLL")}</p>
                </div>
 
 
