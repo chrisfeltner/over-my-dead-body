@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
-// Base route
-const URL_PREFIX = "";
+axios.defaults.withCredentials = true;
 
 // Separate component for register
 class Register extends Component
@@ -29,13 +29,10 @@ class Register extends Component
       })
    }
 
-
-   // When user registers
    handleRegister = (newMount) =>
    {
-      let registerURL = URL_PREFIX;
+      const registerURL = "users/register";
 
-      // Ensures that form is working properly
       let newUser =
       {
          "username": this.state.username,
@@ -45,37 +42,29 @@ class Register extends Component
          "deadline": this.state.deadline
       }
 
-      // Should log all inputs
-      console.log(newUser);
-
-      // POST Request
-      registerURL += "/register";
-
-      fetch(registerURL,
+      axios(
       {
-         method: "POST",
-         headers:
-         {
-            "username": this.state.username,
-            "password": this.state.password,
-            "firstName": this.state.firstName,
-            "lastName": this.state.lastName,
-            "deadline": this.state.deadline
-         }
+         method: 'POST',
+         url: registerURL,
+         data: newUser,
+         config: { headers: { 'Content-Type': 'application/json'}}
       })
-      .then((response) => response.json())
-      .then((responseData) =>
+      .then((response) =>
       {
-         console.log("POST request response data", responseData);
+         console.log("Registration: Successful");
+         console.log(response.data);
+
+         this.props.receiver(response.data.token);
+         this.toggleMount(newMount);
       })
-      .catch((error) =>
+      .catch((response) =>
       {
-         // If POST request fails
-         console.error(error);
+         console.log("Registration: Unsuccessful");
+         console.log(response);
       });
 
-      // When user successfully registers, load up home page
-      this.toggleMount(newMount);
+      // Uncomment if you want to test request
+      // this.toggleMount(newMount);
    }
 
    toggleMount = (newMount) =>
@@ -136,6 +125,7 @@ class Register extends Component
                   <br></br>
 
                   <button
+                     type = "button"
                      className = "mb-1 btn btn-secondary col align-self-center rounded border"
                      onClick = {() => this.handleRegister("home")}
                      data-toggle = "modal"
@@ -146,7 +136,8 @@ class Register extends Component
 
                   <br></br>
 
-                  <button 
+                  <button
+                     type = "button"
                      className = "btn col align-self-center rounded border"
                      onClick = {() => this.toggleMount("login")}
                   >

@@ -9,16 +9,15 @@ class NoteObject extends Component
    constructor(props)
    {
       super(props);
-      this.state =
-      {
-         note: props.note
-      }
    }
 
-   componentDidMount()
-   {
-      console.log("NoteObject.js - componentDidMount");
-      console.log("=================================");
+   handleEditClick = () => {
+      this.props.setSelectedNoteId(this.props.note._id);
+      this.props.setIsAddNote(false);
+   }
+
+   handleDeleteClick = () => {
+      this.props.setSelectedNoteId(this.props.note._id)
    }
 
    // Basic parts to note components
@@ -27,8 +26,11 @@ class NoteObject extends Component
       return(
          <Tilt id = "note" className = "d-flex card mt-3 ml-4 border border-secondary" options = {{ max: 25, scale: 1 }} style = {{width: "18rem"}}>
             <div className = "card-body">
-               <h5 className = "card-title">{this.state.note.subject}</h5>
-               <h6 className = "card-subtitle mb-2 text-muted">To: {this.state.note.recipient}</h6>
+               <h5 className = "card-title">{this.props.note.subject}</h5>
+               <h6 className = "card-subtitle mb-2 text-muted">To: {(this.props.note.recipients === undefined ? 
+                  "Nobody" : (this.props.note.recipients.length > 1 ? `${this.props.note.recipients[0]} and 
+                     ${this.props.note.recipients.length - 1} other${this.props.note.recipients.length - 1 === 1 ? '' : 's'}` : 
+                  this.props.note.recipients[0]))}</h6>
             </div>
 
             <div className = "d-flex flex-row-reverse p-1">
@@ -37,11 +39,13 @@ class NoteObject extends Component
                   className = "btn btn-outline-danger btn-sm"
                   data-toggle = "modal"
                   data-target = "#deleteModal"
+                  onClick={this.handleDeleteClick}
                >
                Delete
                </button>
 
                <button
+                  onClick={this.handleEditClick}
                   className = "btn btn-outline-secondary btn-sm"
                   data-toggle = "modal"
                   data-target = "#editNoteModal"
