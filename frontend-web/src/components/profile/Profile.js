@@ -150,8 +150,11 @@ class Profile extends Component
                firstName={this.state.firstName}
                lastName={this.state.lastName}
                editProfileItem={this.editProfileItem}
+               editSelectedDeadline={this.props.editSelectedDeadline}
                editProfile ={this.editProfile}
                setUser = {this.setUser}
+               setSelectedDeadline={this.props.setSelectedDeadline}
+               selectedDeadline={this.props.selectedDeadline}
             />
          </div>
       );

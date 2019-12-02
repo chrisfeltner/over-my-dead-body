@@ -14,6 +14,10 @@ class EditDeadline extends Component
       this.props.editSelectedDeadline(event.target.value);
    }
 
+   // componentDidMount() {
+   //    this.props.setSelectedDeadline()
+   // }
+
    render()
    {
       return(
