@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser');
 const scheduler = require('./schedule');
 const userRoute = require('./routes/users');
 const noteRoute = require('./routes/notes');
+const userController = require('./controllers/userController');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const uuidv4 = require('uuid/v4');
@@ -56,8 +57,6 @@ app.use('/users', userRoute);
 app.use('/notes', noteRoute);
 
 
-app.post('/refreshToken', function (req, res) {
-	const new_refresh_token = uuidv4();
   
 app.get('/ping', function (req, res) {
     return res.status(200).send("pong");
@@ -86,7 +85,11 @@ setInterval(scheduler.checkForDeceasedUsers, 3600000);
 	return res.status(201).json(token);
 });
 
-app.listen(listeningPort, () => {
+var server = app.listen(listeningPort, () => {
 	console.log(`Listening on port ${listeningPort}`);
 	console.log(`Database is set to port ${databasePort}`);
 });
+
+exports.closeServer = function() {
+	server.close();
+};
