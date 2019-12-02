@@ -64,8 +64,11 @@ class App extends Component
    {
       this.setState(
       {
-         deadline: newDeadline
+         deadline: newDeadline,
+         selectedDeadline: newDeadline
       })
+
+      console.log(this.state.deadline);
    }
 
    editDeadline = () =>
@@ -117,8 +120,19 @@ class App extends Component
                (this.state.mount === "home")
                ?
                      <div>
-                        <Navigation token = {this.state.token} mount = {this.mount} deadline = {this.state.deadline} setDeadline = {this.setDeadline} clearToken = {this.clearToken} searchTerm={this.state.searchTerm}
-                        setSearch={this.setSearch}/>
+                        <Navigation
+                           token = {this.state.token}
+                           mount = {this.mount}
+                           editSelectedDeadline = {this.editSelectedDeadline}
+                           selectedDeadline = {this.state.selectedDeadline}
+                           deadline = {this.state.deadline}
+                           setSelectedDeadline = {this.setSelectedDeadline}
+                           editDeadline = {this.editDeadline}
+                           setDeadline = {this.setDeadline}
+                           clearToken = {this.clearToken}
+                           searchTerm = {this.state.searchTerm}
+                           setSearch = {this.setSearch}
+                        />
                         <NoteNav
                            token = {this.state.token}
                            editSelectedDeadline = {this.editSelectedDeadline}

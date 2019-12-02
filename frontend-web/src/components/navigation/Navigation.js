@@ -27,8 +27,9 @@ class Navigation extends Component
       {
          method: 'POST',
          url: logoutURL,
+         data: { 'refresh_token': "" },
          config: { headers: { 'Content-Type': 'application/json'}}
-      })
+      });
 
       this.props.clearToken();
       this.toggleMount(newMount);
@@ -60,7 +61,13 @@ class Navigation extends Component
 
             <ul className = "nav">
                <li className = "nav-link">
-                  <Profile token={this.props.token} deadline={this.props.deadline} setDeadline={this.props.setDeadline}/>
+                  <Profile 
+                  token={this.props.token} 
+                  deadline={this.props.deadline} 
+                  setDeadline={this.props.setDeadline} 
+                  editSelectedDeadline={this.props.editSelectedDeadline}
+                  setSelectedDeadline={this.props.setSelectedDeadline}
+                  selectedDeadline={this.props.selectedDeadline}/>
                </li>
 
                <li className = "nav-link">

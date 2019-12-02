@@ -29,8 +29,10 @@ class Register extends Component
       })
    }
 
-   handleRegister = (newMount) =>
+   handleRegister = (event) =>
    {
+      event.preventDefault();
+
       const registerURL = "users/register";
 
       let newUser =
@@ -55,7 +57,7 @@ class Register extends Component
          console.log(response.data);
 
          this.props.receiver(response.data.token);
-         this.toggleMount(newMount);
+         this.toggleMount("home");
       })
       .catch((response) =>
       {
@@ -81,13 +83,14 @@ class Register extends Component
             <div className = "card-body">
                <h4 className = "card-title text-center">Register</h4>
 
-               <form>
+               <form onSubmit = {this.handleRegister}>
                   <h6 className = "text-center">Username</h6>
                   <input
                      id = "username"
                      className = "form-control"
                      type = "text"
                      onChange = {this.handleChange}
+                     required
                   />
 
                   <h6 className = "text-center">First Name</h6>
@@ -96,6 +99,7 @@ class Register extends Component
                      className = "form-control"
                      type = "text"
                      onChange = {this.handleChange}
+                     required
                   />
 
                   <h6 className = "text-center">Last Name</h6>
@@ -104,6 +108,7 @@ class Register extends Component
                      className = "form-control"
                      type = "text"
                      onChange = {this.handleChange}
+                     required
                   />
 
                   <h6 className = "text-center">Password</h6>
@@ -112,6 +117,7 @@ class Register extends Component
                      className = "form-control"
                      type = "password"
                      onChange = {this.handleChange}
+                     required
                   />
 
                   <h6 className = "text-center">Deadline</h6>
@@ -120,14 +126,14 @@ class Register extends Component
                      className = "form-control"
                      type = "datetime-local"
                      onChange = {this.handleChange}
+                     required
                   />
 
                   <br></br>
 
                   <button
-                     type = "button"
+                     type = "submit"
                      className = "mb-1 btn btn-secondary col align-self-center rounded border"
-                     onClick = {() => this.handleRegister("home")}
                      data-toggle = "modal"
                      data-target = "#confirmLifeModal"
                   >

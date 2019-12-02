@@ -14,6 +14,10 @@ class EditDeadline extends Component
       this.props.editSelectedDeadline(event.target.value);
    }
 
+   // componentDidMount() {
+   //    this.props.setSelectedDeadline()
+   // }
+
    render()
    {
       return(
@@ -41,7 +45,7 @@ class EditDeadline extends Component
                   <div className = "modal-footer">
                      <button type = "button" className = "btn btn-outline-danger" data-dismiss = "modal">Cancel</button>
                      <button
-                        type = "button" 
+                        type = "button"
                         className = "btn btn-success"
                         data-dismiss = "modal"
                         onClick = {this.props.editDeadline}

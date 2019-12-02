@@ -19,13 +19,16 @@ class Profile extends Component
       }
    }
 
-   editProfileItem = (id, value) => {
-      this.setState({
+   editProfileItem = (id, value) =>
+   {
+      this.setState(
+      {
          [id]: value
       })
    }
 
-   setUser = () => {
+   setUser = () =>
+   {
       let setUserURL = 'users/setUser';
 
       let body = {
@@ -36,22 +39,24 @@ class Profile extends Component
          deadline: this.props.deadline
       }
 
+      axios.defaults.headers.common['Authorization'] = `Bearer ${this.props.token}`;
+
       axios(
-         {
-            method: 'POST',
-            url: setUserURL,
-            data: body,
-            config: { headers: { 'Content-Type': 'application/json'}}
-         })
-         .then((response) =>
-         {
-            console.log("Set User: Success");
-         })
-         .catch((response) =>
-         {
-            console.log("Set User: Unsuccessful");
-            console.log(response);
-         });
+      {
+         method: 'POST',
+         url: setUserURL,
+         data: body,
+         config: { headers: { 'Content-Type': 'application/json'}}
+      })
+      .then((response) =>
+      {
+         console.log("Set User: Success");
+      })
+      .catch((response) =>
+      {
+         console.log("Set User: Unsuccessful");
+         console.log(response);
+      });
    }
 
    componentDidMount()
@@ -80,9 +85,9 @@ class Profile extends Component
                password: response.data.password,
             });
 
-            console.log(response.data);
+            console.log(response.data.deadline);
 
-            this.props.setDeadline(moment.utc(response.data.deadline))
+            this.props.setDeadline(moment(response.data.deadline))
          }
       })
       .catch((response) =>
@@ -92,6 +97,11 @@ class Profile extends Component
       });
 
       console.log(this.state);
+   }
+
+   handleChangeClick = () =>
+   {
+      this.props.setSelectedDeadline();
    }
 
    render()
@@ -131,19 +141,33 @@ class Profile extends Component
 
 
                <div className = "dropdown-divider"/>
-
+{/* 
                <button
                   className = "btn btn-secondary btn-sm ml-3 p-1"
                   data-toggle = "modal"
                   data-target = "#editProfileModal"
+                  onClick = {this.handleChangeClick}
                >
                Edit Profile
-               </button>
+               </button> */}
             </div>
 
-            <EditProfile deadline={this.props.deadline} username={this.state.username}
-               firstName={this.state.firstName} lastName={this.state.lastName}
-               editProfileItem={this.editProfileItem} setUser={this.setUser}/>
+
+            <EditProfile
+               editSelectedDeadline = {this.props.editSelectedDeadline}
+               editDeadline = {this.props.editDeadline}
+               setDeadline = {this.props.setDeadline}
+               deadline={this.props.selectedDeadline}
+               username={this.state.username}
+               firstName={this.state.firstName}
+               lastName={this.state.lastName}
+               editProfileItem={this.editProfileItem}
+               editSelectedDeadline={this.props.editSelectedDeadline}
+               editProfile ={this.editProfile}
+               setUser = {this.setUser}
+               setSelectedDeadline={this.props.setSelectedDeadline}
+               selectedDeadline={this.props.selectedDeadline}
+            />
          </div>
       );
    }
