@@ -11,7 +11,8 @@ class NoteObject extends Component
       super(props);
       this.state =
       {
-         note: props.note
+         subject: props.note.subject,
+         recipients: props.note.recipients,
       }
    }
 
@@ -27,8 +28,10 @@ class NoteObject extends Component
       return(
          <Tilt id = "note" className = "d-flex card mt-3 ml-4 border border-secondary" options = {{ max: 25, scale: 1 }} style = {{width: "18rem"}}>
             <div className = "card-body">
-               <h5 className = "card-title">{this.state.note.subject}</h5>
-               <h6 className = "card-subtitle mb-2 text-muted">To: {this.state.note.recipient}</h6>
+               <h5 className = "card-title">{this.state.subject}</h5>
+               <h6 className = "card-subtitle mb-2 text-muted">To: {(this.state.recipients === undefined ? 
+                  "Nobody" : (this.state.recipients.length > 1 ? `${this.state.recipients[0]} and ${this.state.recipients.length} others` : 
+                  this.state.recipients[0]))}</h6>
             </div>
 
             <div className = "d-flex flex-row-reverse p-1">
