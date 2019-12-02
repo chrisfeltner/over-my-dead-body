@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import EditProfile from '../modals/EditProfile.js';
 import './Profile.css';
 import axios from 'axios';
+import moment from 'moment';
 
 // Dropdown display for the user's credentials and deadlines
 class Profile extends Component
