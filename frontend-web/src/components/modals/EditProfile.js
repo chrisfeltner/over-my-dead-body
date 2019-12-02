@@ -13,6 +13,11 @@ class EditProfile extends Component
       this.props.editProfileItem(event.target.id, event.target.value)
    }
 
+   handleSaveClick = () =>
+   {
+      this.props.setUser();
+   }
+
    render()
    {
       return(
@@ -90,7 +95,7 @@ class EditProfile extends Component
                         type = "button"
                         className = "btn btn-success"
                         data-dismiss = "modal"
-                        onClick = {this.props.editProfile}
+                        onClick={this.handleSaveClick}
                      >
                      Save
                      </button>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 
 // Form to edit profile
 class EditDeadline extends Component
@@ -32,7 +33,7 @@ class EditDeadline extends Component
                         id = "deadline"
                         className = "form-control"
                         type = "datetime-local"
-                        value = {this.props.deadline}
+                        value = {moment(this.props.deadline).format("YYYY-MM-DD[T]HH:mm")}
                         onChange = {this.handleChange}
                      />
                   </div>
@@ -40,7 +41,7 @@ class EditDeadline extends Component
                   <div className = "modal-footer">
                      <button type = "button" className = "btn btn-outline-danger" data-dismiss = "modal">Cancel</button>
                      <button
-                        type = "button" 
+                        type = "button"
                         className = "btn btn-success"
                         data-dismiss = "modal"
                         onClick = {this.props.editDeadline}

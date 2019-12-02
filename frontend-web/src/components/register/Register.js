@@ -54,7 +54,7 @@ class Register extends Component
          console.log("Registration: Successful");
          console.log(response.data);
 
-         this.props.receiver(response.data);
+         this.props.receiver(response.data.token);
          this.toggleMount(newMount);
       })
       .catch((response) =>

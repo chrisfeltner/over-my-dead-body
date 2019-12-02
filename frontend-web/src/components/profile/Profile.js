@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import EditProfile from '../modals/EditProfile.js';
 import './Profile.css';
 import axios from 'axios';
+import moment from 'moment';
 
 // Dropdown display for the user's credentials and deadlines
 class Profile extends Component
@@ -25,9 +26,34 @@ class Profile extends Component
       })
    }
 
-   editProfile = () =>
+   setUser = () =>
    {
-      console.log(this.state);
+      let setUserURL = 'users/setUser';
+
+      let body = {
+         username: this.state.username,
+         firstName: this.state.firstName,
+         lastName: this.state.lastName,
+         password: this.state.password,
+         deadline: this.props.deadline
+      }
+
+      axios(
+         {
+            method: 'POST',
+            url: setUserURL,
+            data: body,
+            config: { headers: { 'Content-Type': 'application/json'}}
+         })
+         .then((response) =>
+         {
+            console.log("Set User: Success");
+         })
+         .catch((response) =>
+         {
+            console.log("Set User: Unsuccessful");
+            console.log(response);
+         });
    }
 
    componentDidMount()
@@ -56,7 +82,9 @@ class Profile extends Component
                password: response.data.password,
             });
 
-            this.props.setDeadline(response.data.deadline)
+            console.log(response.data);
+
+            this.props.setDeadline(moment.utc(response.data.deadline))
          }
       })
       .catch((response) =>
@@ -70,11 +98,6 @@ class Profile extends Component
 
    render()
    {
-      let deadlineObject = new Date(this.props.deadline);
-
-      let currentDeadlineDate = deadlineObject.toDateString();
-
-      let currentDeadlineTime = deadlineObject.toLocaleTimeString("en-US");
 
       return(
          <div className = "dropdown">
@@ -105,7 +128,7 @@ class Profile extends Component
 
                <div className = "d-flex">
                   <p className = "ml-4 mr-1">Deadline: </p>
-                  <p className = "text-secondary">{currentDeadlineDate} at {currentDeadlineTime}</p>
+                  <p className = "text-secondary">{moment(this.props.deadline).format("LLLL")}</p>
                </div>
 
 
@@ -127,6 +150,7 @@ class Profile extends Component
                lastName={this.state.lastName}
                editProfileItem={this.editProfileItem}
                editProfile ={this.editProfile}
+               setUser = {this.setUser}
             />
          </div>
       );
