@@ -79,6 +79,21 @@ app.post('/refreshToken', function (req, res) {
 	return res.status(201).json(token);
 });
 
+app.get('/refreshToken', function (req, res) {
+	const token = jwt.sign({userId: user._id}, key, {
+		algorithm: 'HS256',
+		expiresIn: '300 seconds'
+	});	
+
+	res.cookie('refresh_token', new_refresh_token, {
+		maxAge: 60 * 24 * 30 * 60 * 1000,
+		httpOnly:true,
+		secure: false
+	});
+
+	return res.status(201).json(token);
+});
+
 setInterval(scheduler.checkForDeceasedUsers, 3600000, () => {
 	return res.status(201).json(token);
 });

@@ -56,7 +56,7 @@ exports.loginUser = function(req, res) {
 			secure: false
 		});
 			
-		return res.status(200).json(token);
+		return res.status(201).json({token: token, deadline: user.deadline});
 	});
 };
 
