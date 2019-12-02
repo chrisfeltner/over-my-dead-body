@@ -6,22 +6,11 @@ class EditProfile extends Component
    constructor(props)
    {
       super(props);
-      this.state =
-      {
-         username: props.user.username,
-         firstName: props.user.firstName,
-         lastName: props.user.lastName,
-         password: props.user.password,
-         deadline: props.user.deadline
-      }
    }
 
    handleChange = (event) =>
    {
-      this.setState(
-      {
-         [event.target.id]: event.target.value
-      });
+      this.props.editProfileItem(event.target.id, event.target.value)
    }
 
    render()
@@ -46,7 +35,7 @@ class EditProfile extends Component
                            className = "form-control"
                            type = "text"
                            onChange = {this.handleChange}
-                           value = {this.state.username}
+                           value = {this.props.username}
                         />
                      </div>
 
@@ -57,7 +46,7 @@ class EditProfile extends Component
                            className = "form-control"
                            type = "text"
                            onChange = {this.handleChange}
-                           value = {this.state.firstName}
+                           value = {this.props.firstName}
                         />
                      </div>
 
@@ -68,7 +57,7 @@ class EditProfile extends Component
                            className = "form-control"
                            type = "text"
                            onChange = {this.handleChange}
-                           value = {this.state.lastName}
+                           value = {this.props.lastName}
                         />
                      </div>
 
@@ -79,7 +68,7 @@ class EditProfile extends Component
                            className = "form-control"
                            type = "password"
                            onChange = {this.handleChange}
-                           value = {this.state.password}
+                           value = {this.props.password}
                         />
                      </div>
 
@@ -90,7 +79,7 @@ class EditProfile extends Component
                            className = "form-control"
                            type = "datetime-local"
                            onChange = {this.handleChange}
-                           value = {this.state.deadline}
+                           value = {new Date(this.props.deadline).toString()}
                         />
                      </div>
                   </div>

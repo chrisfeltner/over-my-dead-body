@@ -33,7 +33,7 @@ class App extends Component
 
    setDeadline = (newDeadline) => {
       this.setState({
-         deadline: newDeadline
+         deadline: new Date(newDeadline)
       })
    }
 

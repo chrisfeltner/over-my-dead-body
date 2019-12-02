@@ -17,11 +17,6 @@ class Timer extends Component
 
    render()
    {
-      let deadline = localStorage.getItem('deadline');
-
-      deadline = deadline.substring(0, 16);
-
-      let deadlineObject = new Date(deadline);
 
       return(
          <div className = "card" style = {{ width: "19rem" }}>
@@ -30,7 +25,7 @@ class Timer extends Component
             </div>
 
             <div className = "d-flex justify-content-center">
-               <p>{deadlineObject.toDateString()} at {deadlineObject.toLocaleTimeString("en-US")}</p>
+               <p>{new Date(this.props.deadline).toDateString()} at {new Date(this.props.deadline).toLocaleTimeString("en-US")}</p>
             </div>
 
             <button
@@ -41,7 +36,7 @@ class Timer extends Component
             Change
             </button>
 
-            <EditDeadline deadline = {deadline}/>
+            <EditDeadline deadline={this.props.deadline} setDeadline={this.setDeadline}/>
          </div>
       );
    }

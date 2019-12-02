@@ -13,7 +13,6 @@ class Navigation extends Component
       super(props);
       this.state =
       {
-         token: props.token,
          searchInput: '',
          myAccount: false
       }
@@ -69,7 +68,7 @@ class Navigation extends Component
 
             <ul className = "nav">
                <li className = "nav-link">
-                  <Profile token = {this.state.token} deadline={this.props.deadline} setDeadline={this.props.setDeadline}/>
+                  <Profile token={this.props.token} deadline={this.props.deadline} setDeadline={this.props.setDeadline}/>
                </li>
 
                <li className = "nav-link">
