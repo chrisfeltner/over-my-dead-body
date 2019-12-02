@@ -35,17 +35,36 @@ class NoteNav extends Component
       })
    }
 
-   setSelectedNoteId = (id) => {
-      this.setState({selectedNoteId: id})
-      let note = this.state.notes.filter((note) => {
+   setSelectedNoteId = (id) =>
+   {
+      this.setState({selectedNoteId: id});
+
+      let note = this.state.notes.filter((note) =>
+      {
          return note._id === id
       })[0];
-      this.setState({selectedNote: note})
+
+      this.setState({selectedNote: note});
    }
 
-   editSelectedNote = (id, value) => {
-      this.setState({
-         selectedNote: {
+   newSelectedNote = (id, value) =>
+   {
+      this.setState(
+      {
+         selectedNote:
+         {
+            ...this.state.selectedNote,
+            [id]: value
+         }
+      })
+   }
+
+   editSelectedNote = (id, value) =>
+   {
+      this.setState(
+      {
+         selectedNote:
+         {
             ...this.state.selectedNote,
             [id]: value
          }
@@ -53,23 +72,18 @@ class NoteNav extends Component
    }
 
    // Creates new note
-   addNote = (note) =>
+   addNote = () =>
    {
-      let newnotes = [...this.state.notes, note];
+      let newnotes = [...this.state.notes, this.state.selectedNote];
 
       let addNoteURL = "notes/createNote";
+
+      let body = this.state.selectedNote;
 
       this.setState(
       {
          notes: newnotes
       });
-
-      let newNote =
-      {
-         "subject": note.subject,
-         "recipients": note.recipients,
-         "noteBody": note.body
-      }
 
       axios.defaults.headers.common['authorization'] = `Bearer ${this.state.token}`;
 
@@ -77,7 +91,7 @@ class NoteNav extends Component
       {
          method: 'POST',
          url: addNoteURL,
-         data: newNote,
+         data: body,
          config: { headers: { 'Content-Type': 'application/json'}}
       })
       .then((response) =>
@@ -103,57 +117,65 @@ class NoteNav extends Component
       axios.defaults.headers.common['authorization'] = `Bearer ${this.state.token}`;
 
       axios(
-         {
-            method: 'DELETE',
-            url: deleteNoteURL,
-            data: body,
-            config: { headers: { 'Content-Type': 'application/json'}}
+      {
+         method: 'DELETE',
+         url: deleteNoteURL,
+         data: body,
+         config: { headers: { 'Content-Type': 'application/json'}}
+      })
+      .then((response) =>
+      {
+         console.log("Delete Note: Success");
+
+
+         //this.setState({ note: this.state.note.filter((note) => note._id !== ) })
+
+
+
+      }).then(() => {
+         this.setState({
+            notes: this.state.notes.filter((note) => {
+               return note._id !== this.state.selectedNoteId
+            }),
+            selectedNoteId: '',
+            selectedNote: ''
          })
-         .then((response) =>
-         {
-            console.log("Delete Note: Success");
-         }).then(() => {
-            this.setState({
-               notes: this.state.notes.filter((note) => {
-                  return note._id !== this.state.selectedNoteId
-               }),
-               selectedNoteId: '',
-               selectedNote: ''
-            })
-         })
-         .catch((response) =>
-         {
-            console.log("Delete Notes: Unsuccessful");
-            console.log(response);
-         });
+      })
+      .catch((response) =>
+      {
+         console.log("Delete Notes: Unsuccessful");
+         console.log(response);
+      });
    }
 
    editNote = () =>
    {
       let setNoteURL = "notes/setNote";
 
-      let body = this.state.selectedNote
+      let body = this.state.selectedNote;
 
       axios.defaults.headers.common['Authorization'] = `Bearer ${this.state.token}`;
 
       axios(
-         {
-            method: 'POST',
-            url: setNoteURL,
-            data: body,
-            config: { headers: { 'Content-Type': 'application/json'}}
-         })
-         .then((response) =>
-         {
-            console.log("Set Note: Success");
-         }).then(() => {
-            this.getNotes()
-         })
-         .catch((response) =>
-         {
-            console.log("Set Notes: Unsuccessful");
-            console.log(response);
-         });
+      {
+         method: 'POST',
+         url: setNoteURL,
+         data: body,
+         config: { headers: { 'Content-Type': 'application/json'}}
+      })
+      .then((response) =>
+      {
+         console.log("Set Note: Success");
+      })
+      .then(() =>
+      {
+         this.getNotes();
+      })
+      .catch((response) =>
+      {
+         console.log("Set Notes: Unsuccessful");
+         console.log(response);
+      });
    }
 
    hideNotes()
@@ -280,6 +302,7 @@ class NoteNav extends Component
                isAddNote = {this.state.isAddNote}
                editNote = {this.editNote}
                editSelectedNote = {this.editSelectedNote}
+               newSelectedNote = {this.newSelectedNote}
                note = {this.state.selectedNote}
             />
 

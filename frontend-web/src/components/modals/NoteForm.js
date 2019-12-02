@@ -6,6 +6,10 @@ class NoteForm extends Component
    constructor(props)
    {
       super(props);
+      this.state =
+      {
+
+      }
    }
 
    handleSaveNote = () =>
@@ -17,13 +21,27 @@ class NoteForm extends Component
 
    handleChange = (event) =>
    {
-      if(event.target.id === 'recipients')
+      if (this.props.isAddNote)
       {
-         this.props.editSelectedNote(event.target.id, event.target.value.split(';'))
+         if(event.target.id === 'recipients')
+         {
+            this.props.newSelectedNote(event.target.id, event.target.value.split(';'));
+         }
+         else
+         {
+            this.props.newSelectedNote(event.target.id, event.target.value);
+         }
       }
       else
       {
-         this.props.editSelectedNote(event.target.id, event.target.value)
+         if(event.target.id === 'recipients')
+         {
+            this.props.editSelectedNote(event.target.id, event.target.value.split(';'));
+         }
+         else
+         {
+            this.props.editSelectedNote(event.target.id, event.target.value);
+         }
       }
    }
 
