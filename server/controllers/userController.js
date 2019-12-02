@@ -5,9 +5,15 @@ const scheduler = require('../schedule');
 
 const key = 'over_my_dead_body_key_secret_key';
 
+
 exports.authenticate = function(req, res, next) {
 	var payload;
 	var token = req.headers['authorization'];
+
+	if(token === undefined)
+	{
+		return res.status(400).send({message: "Unauthorized user. No bearer token."});
+	}
 	
 	if (token.startsWith('Bearer ')) {
 		token = token.slice(7, token.length);
@@ -28,6 +34,7 @@ exports.authenticate = function(req, res, next) {
 };
 
 exports.loginUser = function(req, res) {
+	console.log("login user")
 	User.findOne({username : req.body.username}, function(err, user) {
 		if (user === null) {
 			return res.status(400).send({message : "User not found."});
