@@ -91,7 +91,6 @@ class EditProfile extends Component
 
                   <div className = "modal-footer">
                      <button type = "button" className = "btn btn-outline-danger" data-dismiss = "modal">Cancel</button>
-<<<<<<< HEAD
                      <button
                         type = "button"
                         className = "btn btn-success"
@@ -100,10 +99,6 @@ class EditProfile extends Component
                      >
                      Save
                      </button>
-=======
-                     <button type = "button" className = "btn btn-success" data-dismiss = "modal"
-                        onClick={this.handleSaveClick}>Save</button>
->>>>>>> e341bf2ff0a32b62734c6e42942e3fa7fac4f699
                   </div>
                </div>
             </div>
