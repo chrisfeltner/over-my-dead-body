@@ -3,7 +3,7 @@ import NoteObject from '../noteobject/NoteObject.js';
 //import ConfirmLife from '../modals/ConfirmLife.js'
 import Timer from '../timer/Timer.js';
 import DeleteConfirmation from '../modals/DeleteConfirmation.js';
-import EditNote from '../modals/EditNote';
+import NoteForm from '../modals/NoteForm.js';
 import axios from 'axios';
 
 axios.defaults.withCredentials = true;
@@ -21,12 +21,8 @@ class NoteNav extends Component
          showNotes: false,
          selectedNoteId: '',
          selectedNote: '',
-         isAddNote: false
+         isAddNote: false,
       }
-   }
-
-   componentDidMount() {
-      this.getNotes()
    }
 
    setIsAddNote = (val) => {
@@ -35,17 +31,36 @@ class NoteNav extends Component
       })
    }
 
-   setSelectedNoteId = (id) => {
-      this.setState({selectedNoteId: id})
-      let note = this.state.notes.filter((note) => {
+   setSelectedNoteId = (id) =>
+   {
+      this.setState({selectedNoteId: id});
+
+      let note = this.state.notes.filter((note) =>
+      {
          return note._id === id
       })[0];
-      this.setState({selectedNote: note})
+
+      this.setState({selectedNote: note});
    }
 
-   editSelectedNote = (id, value) => {
-      this.setState({
-         selectedNote: {
+   newSelectedNote = (id, value) =>
+   {
+      this.setState(
+      {
+         selectedNote:
+         {
+            ...this.state.selectedNote,
+            [id]: value
+         }
+      })
+   }
+
+   editSelectedNote = (id, value) =>
+   {
+      this.setState(
+      {
+         selectedNote:
+         {
             ...this.state.selectedNote,
             [id]: value
          }
@@ -53,31 +68,28 @@ class NoteNav extends Component
    }
 
    // Creates new note
-   addNote = (note) =>
+   addNote = () =>
    {
-      let newnotes = [...this.state.notes, note];
+      let newnotes = [...this.state.notes, this.state.selectedNote];
 
       let addNoteURL = "notes/createNote";
+
+      let body = this.state.selectedNote;
+
+      console.log("body", body);
 
       this.setState(
       {
          notes: newnotes
       });
 
-      let newNote =
-      {
-         "subject": note.subject,
-         "recipients": note.recipients,
-         "noteBody": note.body
-      }
-
-      axios.defaults.headers.common['authorization'] = `Bearer ${this.state.token}`;
+      axios.defaults.headers.common['Authorization'] = `Bearer ${this.state.token}`;
 
       axios(
       {
          method: 'POST',
          url: addNoteURL,
-         data: newNote,
+         data: body,
          config: { headers: { 'Content-Type': 'application/json'}}
       })
       .then((response) =>
@@ -100,60 +112,67 @@ class NoteNav extends Component
          '_id':id
       }
 
-      axios.defaults.headers.common['authorization'] = `Bearer ${this.state.token}`;
+      axios.defaults.headers.common['Authorization'] = `Bearer ${this.state.token}`;
 
       axios(
+      {
+         method: 'DELETE',
+         url: deleteNoteURL,
+         data: body,
+         config: { headers: { 'Content-Type': 'application/json'}}
+      })
+      .then((response) =>
+      {
+         console.log("Delete Note: Success");
+
+      }).then(() =>
+      {
+         // Updates display
+         this.setState(
          {
-            method: 'DELETE',
-            url: deleteNoteURL,
-            data: body,
-            config: { headers: { 'Content-Type': 'application/json'}}
-         })
-         .then((response) =>
-         {
-            console.log("Delete Note: Success");
-         }).then(() => {
-            this.setState({
-               notes: this.state.notes.filter((note) => {
-                  return note._id !== this.state.selectedNoteId
-               }),
-               selectedNoteId: '',
-               selectedNote: ''
-            })
-         })
-         .catch((response) =>
-         {
-            console.log("Delete Notes: Unsuccessful");
-            console.log(response);
+            notes: this.state.notes.filter((note) =>
+            {
+               return note._id !== this.state.selectedNoteId
+            }),
+            selectedNoteId: '',
+            selectedNote: ''
          });
+      })
+      .catch((response) =>
+      {
+         console.log("Delete Notes: Unsuccessful");
+         console.log(response);
+      });
    }
 
    editNote = () =>
    {
       let setNoteURL = "notes/setNote";
 
-      let body = this.state.selectedNote
+      let body = this.state.selectedNote;
 
       axios.defaults.headers.common['Authorization'] = `Bearer ${this.state.token}`;
 
       axios(
-         {
-            method: 'POST',
-            url: setNoteURL,
-            data: body,
-            config: { headers: { 'Content-Type': 'application/json'}}
-         })
-         .then((response) =>
-         {
-            console.log("Set Note: Success");
-         }).then(() => {
-            this.getNotes()
-         })
-         .catch((response) =>
-         {
-            console.log("Set Notes: Unsuccessful");
-            console.log(response);
-         });
+      {
+         method: 'POST',
+         url: setNoteURL,
+         data: body,
+         config: { headers: { 'Content-Type': 'application/json'}}
+      })
+      .then((response) =>
+      {
+         console.log("Set Note: Success");
+      })
+      .then(() =>
+      {
+         this.getNotes();
+      })
+      .catch((response) =>
+      {
+         console.log("Set Notes: Unsuccessful");
+         console.log(response);
+      });
    }
 
    hideNotes()
@@ -199,15 +218,19 @@ class NoteNav extends Component
       //this.setState({ showNotes: !this.state.showNotes });
    }
 
-   handleNewNote = () => {
-      this.setState({
+   handleNewNote = () =>
+   {
+      this.setState(
+      {
          selectedNoteId: '',
-         selectedNote: {
+         selectedNote:
+         {
             recipients: [],
             noteBody: '',
             subject: ''
          }
-      })
+      });
+
       this.setIsAddNote(true);
    }
 
@@ -244,7 +267,7 @@ class NoteNav extends Component
                }
 
                <div className = "ml-auto mr-5 mt-3">
-                  <Timer />
+                  <Timer deadline = {this.props.deadline} setDeadline={this.setDeadline}/>
                </div>
             </div>
 
@@ -254,10 +277,18 @@ class NoteNav extends Component
                   (this.state.showNotes && this.state.notes !== null)
                   ?
                      // Displays all current notes
-                     this.state.notes.map((note, id) =>
+                     this.state.notes.filter((note) => {
+                        return note.noteBody.includes(this.props.searchTerm) ||
+                        note.recipients.join(';').includes(this.props.searchTerm)
+                        
+                     }).map((note, id) =>
                      (
-                        <NoteObject key={id} note={note} setSelectedNoteId={this.setSelectedNoteId} 
-                        setIsAddNote={this.setIsAddNote}/>
+                        <NoteObject
+                           key={id}
+                           note={note}
+                           setSelectedNoteId={this.setSelectedNoteId}
+                           setIsAddNote={this.setIsAddNote}
+                        />
                      ))
                   :
                      null
@@ -266,7 +297,15 @@ class NoteNav extends Component
 
             {/*<ConfirmLife />*/}
             <DeleteConfirmation selectedNoteId={this.state.selectedNoteId} deleteNote={this.deleteNote}/>
-            <EditNote addNote={this.addNote} isAddNote={this.state.isAddNote} editNote={this.editNote} note={this.state.selectedNote} editSelectedNote={this.editSelectedNote}/>
+
+            <NoteForm
+               addNote = {this.addNote}
+               isAddNote = {this.state.isAddNote}
+               editNote = {this.editNote}
+               editSelectedNote = {this.editSelectedNote}
+               newSelectedNote = {this.newSelectedNote}
+               note = {this.state.selectedNote}
+            />
 
          </div>
       );

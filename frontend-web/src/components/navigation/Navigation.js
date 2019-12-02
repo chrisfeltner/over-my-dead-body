@@ -13,7 +13,6 @@ class Navigation extends Component
       super(props);
       this.state =
       {
-         token: props.token,
          searchInput: '',
          myAccount: false
       }
@@ -32,9 +31,10 @@ class Navigation extends Component
          config: { headers: { 'Content-Type': 'application/json'}}
       })
       .then((response) =>
-      {  
+      {
          // TODO: Here we need to delete the token from App state!
 
+         this.props.clearToken();
          this.toggleMount(newMount);
       })
       .catch((response) =>
@@ -43,14 +43,20 @@ class Navigation extends Component
          console.log(response);
       });
 
+      this.props.clearToken();
+
       // Uncomment if you want to test request
-      //this.toggleMount(newMount);
+      this.toggleMount(newMount);
    }
 
    // For signout
    toggleMount = (newMount) =>
    {
       this.props.mount(newMount);
+   }
+
+   handleChange = (event) => {
+      this.props.setSearch(event.target.value);
    }
 
    render()
@@ -60,13 +66,14 @@ class Navigation extends Component
             <h4 className = "text-white">Over My Dead Body</h4>
 
             <form className = "form-inline my-2 my-lg-0">
-               <button id = "button" href = "#" className = "text-white btn rounded border text-white mr-2">Search</button>
-               <input type = "text" className = "form-control"></input>
+               {/* <button id = "button" href = "#" className = "text-white btn rounded border text-white mr-2">Search</button> */}
+               <input type = "text" className = "form-control" value={this.props.searchTerm}
+               onChange={this.handleChange} placeholder="Search"></input>
             </form>
 
             <ul className = "nav">
                <li className = "nav-link">
-                  <Profile token = {this.state.token}/>
+                  <Profile token={this.props.token} deadline={this.props.deadline} setDeadline={this.props.setDeadline}/>
                </li>
 
                <li className = "nav-link">

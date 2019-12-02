@@ -1,25 +1,23 @@
 import React, { Component } from 'react';
+import EditDeadline from '../modals/EditDeadline.js';
 //import ConfirmLife from '../modals/ConfirmLife.js';
 
 // Timer component, once the timer is up the
 // ConfirmLife object modal will popup
 class Timer extends Component
 {
-   constructor()
+   constructor(props)
    {
-      super();
+      super(props);
       this.state =
       {
-         deadline: ""
+         token: props.token
       }
    }
+
    render()
    {
-      let deadlineObject = new Date(this.state.deadline);
-
-      let currentDeadlineDate = deadlineObject.toDateString();
-
-      let currentDeadlineTime = deadlineObject.toLocaleTimeString("en-US");
+      console.log(this.props.deadline);
 
       return(
          <div className = "card" style = {{ width: "19rem" }}>
@@ -27,9 +25,19 @@ class Timer extends Component
                <h6 className = "card-title m-auto">Countdown to Next Check-in</h6>
             </div>
 
-            <div className = "m-auto">
-               <p>{currentDeadlineDate} {currentDeadlineTime}</p>
+            <div className = "d-flex justify-content-center">
+               <p>{new Date(this.props.deadline).toDateString()} at {new Date(this.props.deadline).toLocaleTimeString("en-US")}</p>
             </div>
+
+            <button
+               className = "btn btn-outline-secondary btn-sm"
+               data-toggle = "modal"
+               data-target = "#editDeadlineModal"
+            >
+            Change
+            </button>
+
+            <EditDeadline deadline = {this.props.deadline} setDeadline = {this.setDeadline}/>
          </div>
       );
    }

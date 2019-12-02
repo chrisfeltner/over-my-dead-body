@@ -11,20 +11,24 @@ class Profile extends Component
       super(props);
       this.state =
       {
-         token: props.token,
          username: "",
          firstName: "",
          lastName: "",
          password: "",
-         deadline: ""
       }
+   }
+
+   editProfileItem = (id, value) => {
+      this.setState({
+         [id]: value
+      })
    }
 
    componentDidMount()
    {
       let getUserURL = "users/getUser";
 
-      axios.defaults.headers.common['Authorization'] = `Bearer ${this.state.token}`;
+      axios.defaults.headers.common['Authorization'] = `Bearer ${this.props.token}`;
 
       axios(
       {
@@ -44,8 +48,9 @@ class Profile extends Component
                firstName: response.data.firstName,
                lastName: response.data.lastName,
                password: response.data.password,
-               deadline: response.data.deadline
             });
+
+            this.props.setDeadline(response.data.deadline)
          }
       })
       .catch((response) =>
@@ -59,7 +64,7 @@ class Profile extends Component
 
    render()
    {
-      let deadlineObject = new Date(this.state.deadline);
+      let deadlineObject = new Date(this.props.deadline);
 
       let currentDeadlineDate = deadlineObject.toDateString();
 
@@ -109,7 +114,9 @@ class Profile extends Component
                </button>
             </div>
 
-            <EditProfile user = {this.state}/>
+            <EditProfile deadline={this.props.deadline} username={this.state.username}
+               firstName={this.state.firstName} lastName={this.state.lastName} 
+               editProfileItem={this.editProfileItem}/>
          </div>
       );
    }

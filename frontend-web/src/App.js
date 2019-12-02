@@ -17,9 +17,32 @@ class App extends Component
       {
          userID:"",
          token: "",
+         deadline:'',
          mount: "login",
-         displayMessages: false
+         displayMessages: false,
+         searchTerm: ''
       }
+   }
+
+   clearToken = () =>
+   {
+      this.setState(
+      {
+         token: ""
+      });
+   }
+
+   setSearch = (term) => {
+      this.setState({
+         searchTerm: term
+      })
+   }
+
+   setDeadline = (newDeadline) => {
+      this.setState(
+      {
+         deadline: new Date(newDeadline).toISOString().substring(0, 16)
+      })
    }
 
    // Callback function to hold global values
@@ -43,8 +66,10 @@ class App extends Component
                (this.state.mount === "home")
                ?
                      <div>
-                        <Navigation token = {this.state.token} mount = {this.mount} />
-                        <NoteNav token = {this.state.token} />
+                        <Navigation token = {this.state.token} mount = {this.mount} deadline={this.state.deadline} 
+                        setDeadline={this.setDeadline} clearToken = {this.clearToken} searchTerm={this.state.searchTerm}
+                        setSearch={this.setSearch}/>
+                        <NoteNav token={this.state.token} deadline={this.state.deadline} searchTerm={this.state.searchTerm}/>
                      </div>
                :
                   (
