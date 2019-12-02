@@ -25,9 +25,10 @@ class NoteNav extends Component
       }
    }
 
-   componentDidMount() {
-      this.getNotes()
-   }
+   // componentDidMount()
+   // {
+   //    this.getNotes();
+   // }
 
    setIsAddNote = (val) => {
       this.setState({
@@ -80,12 +81,14 @@ class NoteNav extends Component
 
       let body = this.state.selectedNote;
 
+      console.log("body", body);
+
       this.setState(
       {
          notes: newnotes
       });
 
-      axios.defaults.headers.common['authorization'] = `Bearer ${this.state.token}`;
+      axios.defaults.headers.common['Authorization'] = `Bearer ${this.state.token}`;
 
       axios(
       {
@@ -128,13 +131,16 @@ class NoteNav extends Component
          console.log("Delete Note: Success");
 
 
-         //this.setState({ note: this.state.note.filter((note) => note._id !== ) })
+         // this.setState({ note: this.state.note.filter((note) => note._id !== ) })
 
 
 
-      }).then(() => {
-         this.setState({
-            notes: this.state.notes.filter((note) => {
+      }).then(() =>
+      {
+         this.setState(
+         {
+            notes: this.state.notes.filter((note) =>
+            {
                return note._id !== this.state.selectedNoteId
             }),
             selectedNoteId: '',
