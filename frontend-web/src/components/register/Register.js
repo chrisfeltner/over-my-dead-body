@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import moment from 'moment';
 
 axios.defaults.withCredentials = true;
 
@@ -41,7 +42,7 @@ class Register extends Component
          "password": this.state.password,
          "firstName": this.state.firstName,
          "lastName": this.state.lastName,
-         "deadline": this.state.deadline
+         "deadline": moment(this.state.deadline)
       }
 
       axios(
